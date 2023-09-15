@@ -10,4 +10,10 @@ Content-Type: application/json
 }   
 
 ###
+GET https://jobed-connect-api.jobtechdev.se/v1/enriched_occupations
+Content-Type: application/json
 
+{
+    "occupation_id": "GDHs_eoz_uKx",
+    "include_metadata": true
+}   
