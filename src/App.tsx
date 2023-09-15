@@ -1,15 +1,17 @@
-import { DigiButton } from "@digi/arbetsformedlingen-react";
-import { ButtonVariation } from "@digi/arbetsformedlingen";
+import { DigiTypography } from "@digi/arbetsformedlingen-react";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Main from "./components/Main";
 
 export function App() {
-  function myFunction(e: unknown) {
-    console.log(e);
-  }
-
   return (
-    <DigiButton onAfOnClick={myFunction} afVariation={ButtonVariation.PRIMARY}>
-      Skicka
-    </DigiButton>
+    <>
+      <DigiTypography>
+        <Header />
+        <Main />
+        <Footer />
+      </DigiTypography>
+    </>
   );
 }
 export default App;
