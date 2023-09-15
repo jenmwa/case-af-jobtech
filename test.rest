@@ -1,0 +1,13 @@
+### 
+POST https://jobed-connect-api.jobtechdev.se/v1/occupations/match-by-text
+Content-Type: application/json
+
+{
+    "input_text": "html javascript css",
+    "limit": 10,
+    "offset": 0,
+    "include_metadata": false
+}   
+
+###
+
