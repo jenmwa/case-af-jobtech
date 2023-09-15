@@ -17,6 +17,7 @@ export default function SearchForm() {
       <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
         <DigiFormTextarea
           afLabel="Vad innehåller utbildningen du är intresserad av?"
+          afLabelDescription="Ange minst tre saker du kommer lära dig på utbildningen"
           afVariation={FormTextareaVariation.MEDIUM}
           afValidation={FormTextareaValidation.NEUTRAL}	
           afRequired={true}
