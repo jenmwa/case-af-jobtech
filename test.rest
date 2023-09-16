@@ -21,11 +21,9 @@ Content-Type: application/json
 GET https://jobed-connect-api.jobtechdev.se/v1/educations?distance=false&filter_education_plan_exists=false
 Content-Type: application/json
 
-{
-
-}
 
 
+// EXTRA
 //HÄMTA DATA GÄLLANDE YRKEN
 ###
 //JOBTECHyrkesprognoser- current
