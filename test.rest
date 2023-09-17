@@ -16,14 +16,25 @@ Content-Type: application/json
 
 
 
+
+
+
+
+// EXTRA
 ###
 //SÖKA FRAM ALLA UTBILDNINGAR
 GET https://jobed-connect-api.jobtechdev.se/v1/educations?distance=false&filter_education_plan_exists=false
 Content-Type: application/json
 
+###
+//skicka med query/sökord
+GET https://jobed-connect-api.jobtechdev.se/v1/educations?distance=false&filter_education_plan_exists=false
+Content-Type: application/json
 
+{
+  "query": "frontend", "limit": 100
+}
 
-// EXTRA
 //HÄMTA DATA GÄLLANDE YRKEN
 ###
 //JOBTECHyrkesprognoser- current
