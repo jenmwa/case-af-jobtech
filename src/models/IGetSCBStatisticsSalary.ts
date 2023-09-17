@@ -61,3 +61,23 @@ interface ISCBMetadata {
   label: string,
   source: string,
 }
+
+// export interface IGetSCBStatisticsSalary {
+//   query: [
+//     {
+//       selection: {
+//         values: [
+//           string
+//         ]
+//       }
+//     },
+//     {
+//     selection: {
+//       values: string[]
+//     },
+//   }
+//   ],
+//   response: {
+//     format: string
+//   }
+// }
