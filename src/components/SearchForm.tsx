@@ -1,6 +1,6 @@
 import { ButtonVariation, FormInputType, FormInputValidation, FormInputVariation, FormTextareaValidation, FormTextareaVariation, FormValidationMessageVariation } from "@digi/arbetsformedlingen";
 import { DigiButton, DigiFormInput, DigiFormTextarea, DigiFormValidationMessage } from "@digi/arbetsformedlingen-react";
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { ISearchByText } from "../models/ISearchByText"; 
 
 interface ISearchFormProps {
@@ -14,16 +14,16 @@ export default function SearchForm(props: ISearchFormProps) {
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
-
     setInputLength(wordCount(freeSearch));
-
+    console.log(inputLength)
+    
     if (inputLength < 3) {
       setIsValid(false);
       return;
     } else {
       setIsValid(true);
   
-      let search: ISearchByText
+      let search: ISearchByText;
   
        if (headerSearch === '') {
         search = {
@@ -35,10 +35,8 @@ export default function SearchForm(props: ISearchFormProps) {
         input_headline: headerSearch,
         }
       }
-  
       props.getWorkData(search);
     }
-
   }
 
 function wordCount(s: string) {
@@ -48,9 +46,6 @@ function wordCount(s: string) {
     console.log('counting')
     return s.split(' ').filter(function(str){return str!="";}).length;
 }
-
-  useEffect(() => {
-  }, [freeSearch, headerSearch])
 
   return(
     <section>
