@@ -58,3 +58,14 @@ export const getSCBStatisticsSalary = async () => {
   }
 }
 
+export const getSCBStatistics = async () => {
+  try {
+    // const response = await axios.get<IGetSCBStatisticsSalaryResponse>(URL);
+    const response = await axios.get(URL); //Cross-Origin Error
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error', error)
+  }
+}
+
