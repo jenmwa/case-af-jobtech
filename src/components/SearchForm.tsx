@@ -1,7 +1,6 @@
 import { ButtonVariation, FormInputType, FormInputValidation, FormInputVariation, FormTextareaValidation, FormTextareaVariation } from "@digi/arbetsformedlingen";
 import { DigiButton, DigiFormInput, DigiFormTextarea } from "@digi/arbetsformedlingen-react";
 import { FormEvent, useState } from "react";
-import { matchByText } from "../services/matchByTextServices";
 import { ISearchByText } from "../models/ISearchByText";
 //import { WithContext as ReactTags } from 'react-tag-input';
 
@@ -10,7 +9,10 @@ import { ISearchByText } from "../models/ISearchByText";
 //   text: string
 // }
 
-export default function SearchForm() {
+interface ISearchFormProps {
+  getWorkData: (search: ISearchByText) => void;
+}
+export default function SearchForm(props: ISearchFormProps) {
   const [freeSearch, setFreeSearch] = useState<string>('');
   const [headerSearch, setHeaderSearch] = useState<string>('');
   // const [tags, setTags] = useState<ITags[]>([]);
@@ -26,6 +28,7 @@ export default function SearchForm() {
 
   const getWorkTitles = async (e: FormEvent) => {
     e.preventDefault();
+
     let search: ISearchByText
 
      if (headerSearch === '') {
@@ -39,8 +42,7 @@ export default function SearchForm() {
       }
     }
 
-    const data = await matchByText(search);
-    console.log(freeSearch, headerSearch, data)
+    props.getWorkData(search);
   }
 
   return(
