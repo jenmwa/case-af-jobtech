@@ -1,6 +1,11 @@
 import { IOccupation } from "../models/IOccupation";
-import { ListType } from "@digi/arbetsformedlingen";
-import { DigiList } from "@digi/arbetsformedlingen-react";
+import {
+  InfoCardHeadingLevel,
+  InfoCardType,
+  InfoCardVariation,
+  ListType,
+} from "@digi/arbetsformedlingen";
+import { DigiInfoCard, DigiList } from "@digi/arbetsformedlingen-react";
 import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
 import { useEffect, useState } from "react";
@@ -48,17 +53,27 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
 
   return (
     <>
-      <p>
-        Tillhör arbetsgruppen:
-        {occupation.occupation_group.occupation_group_label}
-      </p>
-      <p>SSYK: {occupation.occupation_group.ssyk}</p>
-      <p>Top 5 Kompetenser:</p>
-      <DigiList afListType={ListType.BULLET}>
-        {filteredTerms.map((term, index) => (
-          <li key={index}>{term}</li>
-        ))}
-      </DigiList>
+      <DigiInfoCard
+        afHeading=""
+        afHeadingLevel={InfoCardHeadingLevel.H2}
+        afType={InfoCardType.TIP}
+        afLinkHref="Frivillig länk"
+        afLinkText="Läs mer"
+        afVariation={InfoCardVariation.PRIMARY}
+        // afSize={infoCardSize.STANDARD}
+      >
+        <p>
+          Tillhör arbetsgruppen:
+          {occupation.occupation_group.occupation_group_label}
+        </p>
+        <p>SSYK: {occupation.occupation_group.ssyk}</p>
+        <p>Top 5 Kompetenser:</p>
+        <DigiList afListType={ListType.BULLET}>
+          {filteredTerms.map((term, index) => (
+            <li key={index}>{term}</li>
+          ))}
+        </DigiList>
+      </DigiInfoCard>
     </>
   );
 };
