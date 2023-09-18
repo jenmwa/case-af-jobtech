@@ -1,15 +1,13 @@
 import { DigiTypography } from "@digi/arbetsformedlingen-react";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Main from "./components/Main";
+import { router } from "./components/router";
+
+import { RouterProvider } from "react-router-dom";
 
 export function App() {
   return (
     <>
       <DigiTypography>
-        <Header />
-        <Main />
-        <Footer />
+        <RouterProvider router={router}></RouterProvider>
       </DigiTypography>
     </>
   );
