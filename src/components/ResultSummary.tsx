@@ -1,10 +1,64 @@
 import { IOccupation } from "../models/IOccupation";
+import { ListType } from "@digi/arbetsformedlingen";
+import { DigiList } from "@digi/arbetsformedlingen-react";
+import { enrichedOccupation } from "../services/enrichedOccupationsServices";
+import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
+import { useEffect, useState } from "react";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
 }
 
+interface ICompetency {
+  term: string;
+  percent_for_occupation: number;
+}
+
 export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
-  console.log("occupation", occupation);
-  return <>test</>;
+  const [filteredTerms, setFilteredTerms] = useState<string[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const enrichedData: IEnrichedOccupation = {
+        occupation_id: occupation.id,
+        include_metadata: true,
+      };
+
+      const results = await enrichedOccupation(enrichedData);
+
+      const competencies =
+        results.metadata.enriched_candidates_term_frequency.competencies;
+
+      const sortedCompetencies = competencies
+        .filter((comp: ICompetency) => comp.percent_for_occupation > 1)
+        .sort(
+          (a: ICompetency, b: ICompetency) =>
+            b.percent_for_occupation - a.percent_for_occupation
+        );
+
+      const top5Terms = sortedCompetencies
+        .slice(0, 6)
+        .map((comp: ICompetency) => comp.term);
+
+      setFilteredTerms(top5Terms);
+    };
+
+    getData();
+  }, [occupation]);
+
+  return (
+    <>
+      <p>
+        Tillhör arbetsgruppen:
+        {occupation.occupation_group.occupation_group_label}
+      </p>
+      <p>SSYK: {occupation.occupation_group.ssyk}</p>
+      <p>Top 5 Kompetenser:</p>
+      <DigiList afListType={ListType.BULLET}>
+        {filteredTerms.map((term, index) => (
+          <li key={index}>{term}</li>
+        ))}
+      </DigiList>
+    </>
+  );
 };
