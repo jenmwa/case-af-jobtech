@@ -53,7 +53,8 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
     <>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <StyledExpandInfo>
-          *Placeholder för sammanfattning av yrket* <br /> Tillhör yrkesgrupp:{" "}
+          *Placeholder för sammanfattning av yrket* <br />
+          Tillhör yrkesgrupp:{" "}
           {occupation.occupation_group.occupation_group_label}.
           <br />
           SSYK: {occupation.occupation_group.ssyk}
@@ -63,19 +64,11 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         <DigiList afListType={ListType.BULLET}>
           <div></div>
           {topFive.map((term, index) => (
-            <StyledCompetenciesList>
-              <li key={index} className="competence">
-                {term}
-              </li>
+            <StyledCompetenciesList key={index} className="competence">
+              {term}
             </StyledCompetenciesList>
           ))}
         </DigiList>
-        {/* <DigiList afListType={ListType.BULLET} attrs>
-          <div></div>
-          {topFive.map((term, index) => (
-            <li key={index}>{term}</li>
-          ))}
-        </DigiList> */}
         <DigiLink
           afHref="/occupation/:id"
           af-target="_blank"
