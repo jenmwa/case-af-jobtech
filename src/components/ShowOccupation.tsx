@@ -17,6 +17,11 @@ export const ShowOccupation = ({ occupationFound }: IShowOccupationProps) => {
     console.log("click");
     const test = await getSCBStatisticsSalary();
     console.log(test);
+    const keysArray = test?.map((item) => item.key[1]).flat();
+    const valuesArray = test?.map((item) => item.values).flat();
+
+    console.log("Keys Array:", keysArray);
+    console.log("Values Array:", valuesArray);
   };
 
   const navigate = useNavigate();
@@ -40,7 +45,7 @@ export const ShowOccupation = ({ occupationFound }: IShowOccupationProps) => {
         onAfOnClick={handleClick}
       >
         <DigiIconCopy slot="icon" />
-        Hämta SCT-data
+        Hämta SCB-data
       </DigiButton>
       <br></br>
       <DigiButton
