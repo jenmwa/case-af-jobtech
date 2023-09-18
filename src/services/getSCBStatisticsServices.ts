@@ -31,7 +31,6 @@ export const getSCBStatisticsSalary = async (ssyk: string) => {
         "selection": {
           "filter": "item",
           "values": [
-            "2016",
             "2017",
             "2018",
             "2019",
