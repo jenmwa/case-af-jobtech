@@ -9,11 +9,14 @@ import { IOccupation } from "../models/IOccupation";
 
 export default function Main() {
   const [relatedOccupations, setRelatedOccupations] = useState<IOccupation[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getWorkData = async (search: ISearchByText) => {
+    setIsLoading(true);
     const data = await matchByText(search);
     console.log(data)
     setRelatedOccupations(data.related_occupations);
+    setIsLoading(false);
   }
 
   return (
@@ -21,7 +24,7 @@ export default function Main() {
       <DigiLayoutContainer>
         <MainFlex>
           <SearchForm getWorkData={getWorkData} />
-          <SearchResults relatedOccupations={relatedOccupations} />
+          <SearchResults relatedOccupations={relatedOccupations} isLoading={isLoading}/>
         </MainFlex>
       </DigiLayoutContainer>
     </main>

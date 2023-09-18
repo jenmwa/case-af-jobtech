@@ -10,7 +10,7 @@ export default function SearchForm(props: ISearchFormProps) {
   const [freeSearch, setFreeSearch] = useState<string>('');
   const [headerSearch, setHeaderSearch] = useState<string>('');
 
-  const getWorkTitles = async (e: FormEvent) => {
+  const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
 
     let search: ISearchByText

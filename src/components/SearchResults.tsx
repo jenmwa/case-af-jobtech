@@ -1,8 +1,10 @@
-import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
+import { DigiExpandableAccordion, DigiLoaderSpinner } from "@digi/arbetsformedlingen-react";
 import { IOccupation } from "../models/IOccupation";
+import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
 
 interface ISearchresultsProps {
   relatedOccupations: IOccupation[];
+  isLoading: boolean;
 }
 
 
@@ -17,9 +19,17 @@ export default function SearchResults(props: ISearchresultsProps) {
     </div>
   )
 
-  return (
+if(props.isLoading){
+    return <DigiLoaderSpinner 
+    afSize={LoaderSpinnerSize.MEDIUM}>
+    </DigiLoaderSpinner>
+  } else {
+    return (
     <section>
       {occupationHtml}
     </section>
-  );
+    )
+  }
 }
+
+
