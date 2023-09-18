@@ -1,4 +1,5 @@
 import { IOccupation } from "../models/IOccupation";
+
 import {
   LinkVariation,
   ListType,
@@ -12,6 +13,8 @@ import {
 import { useState, useEffect } from "react";
 import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
 import { enrichedOccupation } from "../services/enrichedOccupationsServices";
+import { StyledExpandInfo } from "./styled/Competencies";
+import { StyledCompetenciesList } from "./styled/CompetenciesList";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -38,7 +41,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         results.metadata.enriched_candidates_term_frequency.competencies;
 
       const topFive = competencies
-        .slice(0, 6)
+        .slice(0, 5)
         .map((comp: ICompetency) => comp.term);
       setTopFive(topFive);
     };
@@ -49,19 +52,36 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
   return (
     <>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
-        <p>
+        <StyledExpandInfo>
           Tillhör yrkesgrupp:{" "}
-          {occupation.occupation_group.occupation_group_label}
-        </p>
-        <p>SSYK: {occupation.occupation_group.ssyk}</p>
+          {occupation.occupation_group.occupation_group_label}.
+          <br />
+          SSYK: {occupation.occupation_group.ssyk}
+        </StyledExpandInfo>
+
         <h6>Topp 5 kompetenser:</h6>
         <DigiList afListType={ListType.BULLET}>
           <div></div>
           {topFive.map((term, index) => (
-            <li key={index}>{term}</li>
+            <StyledCompetenciesList>
+              <li key={index} className="competence">
+                {term}
+              </li>
+            </StyledCompetenciesList>
           ))}
         </DigiList>
-        <DigiLink afHref="/Occupation" afVariation={LinkVariation.SMALL}>
+        {/* <DigiList afListType={ListType.BULLET} attrs>
+          <div></div>
+          {topFive.map((term, index) => (
+            <li key={index}>{term}</li>
+          ))}
+        </DigiList> */}
+        <DigiLink
+          afHref="/occupation/:id"
+          af-target="_blank"
+          afVariation={LinkVariation.SMALL}
+          af-describedby="Läs mer här"
+        >
           Läs mer
         </DigiLink>
       </DigiTypography>
