@@ -8,11 +8,13 @@ interface ISearchresultsProps {
 
 export default function SearchResults(props: ISearchresultsProps) {
   const occupationHtml = props.relatedOccupations.map((occupation) => 
-    <DigiExpandableAccordion
-      afHeading={occupation.occupation_label}
-    >
-      <p>Här kommer komponenten som visar mer info om yrket</p>
-    </DigiExpandableAccordion>
+    <div key={occupation.id}>
+      <DigiExpandableAccordion
+        afHeading={occupation.occupation_label}
+      >
+        <p>Här kommer komponenten som visar mer info om yrket</p>
+      </DigiExpandableAccordion>
+    </div>
   )
 
   return (
