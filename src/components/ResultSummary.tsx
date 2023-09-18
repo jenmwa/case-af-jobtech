@@ -1,14 +1,9 @@
 import { IOccupation } from "../models/IOccupation";
-import {
-  InfoCardHeadingLevel,
-  InfoCardType,
-  InfoCardVariation,
-  ListType,
-} from "@digi/arbetsformedlingen";
-import { DigiInfoCard, DigiList } from "@digi/arbetsformedlingen-react";
-import { enrichedOccupation } from "../services/enrichedOccupationsServices";
+import { LinkVariation, TypographyVariation } from "@digi/arbetsformedlingen";
+import { DigiLink, DigiTypography } from "@digi/arbetsformedlingen-react";
+import { useState, useEffect } from "react";
 import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
-import { useEffect, useState } from "react";
+import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -20,7 +15,7 @@ interface ICompetency {
 }
 
 export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
-  const [filteredTerms, setFilteredTerms] = useState<string[]>([]);
+  const [topFive, setTopFive] = useState<string[]>([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -34,18 +29,10 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
       const competencies =
         results.metadata.enriched_candidates_term_frequency.competencies;
 
-      const sortedCompetencies = competencies
-        .filter((comp: ICompetency) => comp.percent_for_occupation > 1)
-        .sort(
-          (a: ICompetency, b: ICompetency) =>
-            b.percent_for_occupation - a.percent_for_occupation
-        );
-
-      const top5Terms = sortedCompetencies
+      const topFive = competencies
         .slice(0, 6)
         .map((comp: ICompetency) => comp.term);
-
-      setFilteredTerms(top5Terms);
+      setTopFive(topFive);
     };
 
     getData();
@@ -53,27 +40,24 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
 
   return (
     <>
-      <DigiInfoCard
-        afHeading=""
-        afHeadingLevel={InfoCardHeadingLevel.H2}
-        afType={InfoCardType.TIP}
-        afLinkHref="Frivillig länk"
-        afLinkText="Läs mer"
-        afVariation={InfoCardVariation.PRIMARY}
-        // afSize={infoCardSize.STANDARD}
-      >
+      <DigiTypography afVariation={TypographyVariation.SMALL}>
         <p>
-          Tillhör arbetsgruppen:
+          Tillhör yrkesgrupp:{" "}
           {occupation.occupation_group.occupation_group_label}
         </p>
         <p>SSYK: {occupation.occupation_group.ssyk}</p>
-        <p>Top 5 Kompetenser:</p>
-        <DigiList afListType={ListType.BULLET}>
-          {filteredTerms.map((term, index) => (
+        <h6>Topp 5 kompetenser:</h6>
+        <ul>
+          {topFive.map((term, index) => (
             <li key={index}>{term}</li>
           ))}
-        </DigiList>
-      </DigiInfoCard>
+        </ul>
+        <DigiLink afHref="/Occupation" afVariation={LinkVariation.SMALL}>
+          Läs mer
+        </DigiLink>
+      </DigiTypography>
     </>
   );
 };
+
+// javascript html css
