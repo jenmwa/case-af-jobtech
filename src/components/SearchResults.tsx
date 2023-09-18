@@ -8,19 +8,9 @@ interface ISearchresultsProps {
 }
 
 export default function SearchResults(props: ISearchresultsProps) {
-  // const [selectedOccupation, setSelectedOccupation] = useState<string | null>(
-  //   null
-  // );
-  // const handleClick = (occupationId: string) => {
-  //   setSelectedOccupation(occupationId);
-  // };
-
   const occupationHtml = props.relatedOccupations.map((occupation) => (
     <div key={occupation.id}>
-      <DigiExpandableAccordion
-        afHeading={occupation.occupation_label}
-        // onAfOnClick={() => handleClick(occupation.id)}
-      >
+      <DigiExpandableAccordion afHeading={occupation.occupation_label}>
         <ResultSummary occupation={occupation} />
       </DigiExpandableAccordion>
     </div>

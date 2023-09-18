@@ -53,7 +53,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
     <>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <StyledExpandInfo>
-          Tillhör yrkesgrupp:{" "}
+          *Placeholder för sammanfattning av yrket* <br /> Tillhör yrkesgrupp:{" "}
           {occupation.occupation_group.occupation_group_label}.
           <br />
           SSYK: {occupation.occupation_group.ssyk}
