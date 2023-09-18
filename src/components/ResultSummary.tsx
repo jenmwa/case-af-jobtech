@@ -1,6 +1,14 @@
 import { IOccupation } from "../models/IOccupation";
-import { LinkVariation, TypographyVariation } from "@digi/arbetsformedlingen";
-import { DigiLink, DigiTypography } from "@digi/arbetsformedlingen-react";
+import {
+  LinkVariation,
+  ListType,
+  TypographyVariation,
+} from "@digi/arbetsformedlingen";
+import {
+  DigiLink,
+  DigiList,
+  DigiTypography,
+} from "@digi/arbetsformedlingen-react";
 import { useState, useEffect } from "react";
 import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
 import { enrichedOccupation } from "../services/enrichedOccupationsServices";
@@ -47,11 +55,12 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         </p>
         <p>SSYK: {occupation.occupation_group.ssyk}</p>
         <h6>Topp 5 kompetenser:</h6>
-        <ul>
+        <DigiList afListType={ListType.BULLET}>
+          <div></div>
           {topFive.map((term, index) => (
             <li key={index}>{term}</li>
           ))}
-        </ul>
+        </DigiList>
         <DigiLink afHref="/Occupation" afVariation={LinkVariation.SMALL}>
           Läs mer
         </DigiLink>
