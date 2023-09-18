@@ -2,6 +2,7 @@ import axios from "axios";
 import { IGetSCBStatisticsSalary, IGetSCBStatisticsSalaryResponse } from "../models/IGetSCBStatisticsSalary";
 
 
+const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const URL = 'https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0110/AM0110A/LonYrkeRegion4A';
 const SSYKcode = "2512";
 const REQUESTBODY: IGetSCBStatisticsSalary = {
@@ -44,28 +45,14 @@ const REQUESTBODY: IGetSCBStatisticsSalary = {
   "response": {
     "format": "json"
   }
-
 }
 
 export const getSCBStatisticsSalary = async () => {
   try {
-    // const response = await axios.get<IGetSCBStatisticsSalaryResponse>(URL);
-    const response = await axios.post<IGetSCBStatisticsSalaryResponse>(URL, REQUESTBODY); //Cross-Origin Error
+    const response = await axios.post<IGetSCBStatisticsSalaryResponse>(`${PROXY_URL}${URL}`, REQUESTBODY);
     console.log(response.data);
-    return response.data;
+    return response.data.data;
   } catch (error) {
-    console.error('Error', error)
+    console.error('Error', error);
   }
 }
-
-export const getSCBStatistics = async () => {
-  try {
-    // const response = await axios.get<IGetSCBStatisticsSalaryResponse>(URL);
-    const response = await axios.get(URL); //Cross-Origin Error
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error', error)
-  }
-}
-
