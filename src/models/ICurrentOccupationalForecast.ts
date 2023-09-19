@@ -1,6 +1,6 @@
 export interface ICurrentOccupationalForecast {
   concept_id: string,
-  ar: string,
+  ar: number,
   bristvarde: number,
   ssyk: number,
   ingress: string,
