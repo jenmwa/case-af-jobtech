@@ -4,8 +4,6 @@ import { IOccupation } from "../models/IOccupation";
 import { useEffect, useState } from "react";
 import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
 import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
-import { DigiButton, DigiIconBars } from "@digi/arbetsformedlingen-react";
-import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
 import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
 
 export interface IDeficiencyValue {
@@ -87,23 +85,26 @@ export const Occupation = () => {
     }
   });
 
+  console.log(Number(ssykObject.id));
+
   //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
-  const getForecast = async () => {
-    console.log(Number(ssykObject.id));
-
-    const getForecast = await getCurrentOccupationalForecast();
-    if (getForecast) {
-      console.log(getForecast);
-      findDeficiencyValues(getForecast);
-    } else {
-      console.log("oops, something went wrong. Please try again.");
+  useEffect(() => {
+    const getForecast = async () => {
+      const getData = await getCurrentOccupationalForecast();
+      if (getData) {
+        console.log(getForecast);
+        findDeficiencyValues(getData);
+      } else {
+        console.log("oops, something went wrong. Please try again.");
+      }
+    };
+    if (getForecast.length === 0) {
+      getForecast();
     }
-  };
+  }, []);
 
-  const findDeficiencyValues = (
-    getForecast: ICurrentOccupationalForecast[]
-  ) => {
-    const data = getForecast?.filter(
+  const findDeficiencyValues = (getData: ICurrentOccupationalForecast[]) => {
+    const data = getData?.filter(
       (findMatch) => findMatch.ssyk === Number(ssykObject.id)
     );
     console.log(data);
@@ -126,17 +127,9 @@ export const Occupation = () => {
     console.log("click");
     navigate("/");
   };
+
   return (
     <>
-      <DigiButton
-        afSize={ButtonSize.SMALL}
-        afVariation={ButtonVariation.PRIMARY}
-        afFullWidth={true}
-        onAfOnClick={getForecast}
-      >
-        <DigiIconBars slot="icon" />
-        En knapp
-      </DigiButton>
       <OccupationShow
         occupationFound={occupationFound}
         valuesAsArray={valuesAsArray}
