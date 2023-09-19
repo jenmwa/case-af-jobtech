@@ -11,41 +11,112 @@ export const OccupationForecast = ({
 }: IOccupationForecast) => {
   console.log(deficiencyValue2023);
 
-  // const checkDeficiencyValues = (value: number | undefined) => {
-  //   if (Number(value) === undefined) {
-  //     console.log("undefined value");
-  //   } else if (Number(value) <= 2) {
-  //     console.log("no need");
-  //   } else if (Number(value) === 3) {
-  //     console.log("looking stable");
-  //   } else if (Number(value) >= 5) {
-  //     console.log("ALL THE NEED!");
-  //     return "green";
-  //   }
-  // };
+  const checkDeficiencyValues = () => {
+    const bristvarde2023 = Number(deficiencyValue2023?.bristvarde);
+    const bristvarde2026 = Number(deficiencyValue2026?.bristvarde);
 
-  if (
-    (Number(deficiencyValue2023?.bristvarde) ||
-      Number(deficiencyValue2026?.bristvarde)) <= 2
-  ) {
-    console.log("no need");
-  } else if (
-    (Number(deficiencyValue2023?.bristvarde) ||
-      Number(deficiencyValue2026?.bristvarde)) === 3
-  ) {
-    console.log("looking stable");
-  } else if (
-    (Number(deficiencyValue2023?.bristvarde) ||
-      Number(deficiencyValue2026?.bristvarde)) >= 4
-  ) {
-    console.log("ALL THE NEED!");
-  }
+    if (bristvarde2023 <= 2 || bristvarde2026 <= 2) {
+      console.log("no need");
+      return { value: "400", text: "Ej brist" };
+      // return "400";
+    } else if (
+      bristvarde2023 === 3 ||
+      bristvarde2026 === 3 ||
+      bristvarde2023 === 4 ||
+      bristvarde2026 === 4
+    ) {
+      console.log("looking stable");
+      // setStrokeDashoffsetValue("250");
+      return { value: "250", text: "I balans" };
+    } else if (bristvarde2023 >= 5 || bristvarde2026 >= 5) {
+      console.log("ALL THE NEED!");
+      return { value: "60", text: "Hög" };
+      // return "60";
+    }
+  };
+
+  const result = checkDeficiencyValues();
+  const htmlSVG = (
+    <div>
+      <h4>2023</h4>
+      <svg width="200" height="200">
+        <g transform="rotate(-190 100 100)">
+          <circle
+            r="70"
+            cx="100"
+            cy="100"
+            fill="transparent"
+            stroke="lightgrey"
+            strokeWidth="2rem"
+            strokeDasharray="439.8"
+            strokeDashoffset="0"
+          ></circle>
+          <circle
+            r="70"
+            cx="100"
+            cy="100"
+            fill="transparent"
+            stroke="#ca2c92"
+            strokeWidth="2rem"
+            strokeDasharray="500"
+            strokeDashoffset={result?.value}
+          ></circle>
+        </g>
+        <text x="50%" y="50%" dominantBaseline="central" textAnchor="middle">
+          {result?.text}
+        </text>
+      </svg>
+    </div>
+  );
 
   return (
     <>
       <p>Framtidsprognos</p>
-      <p>bristvärde 2023: {deficiencyValue2023?.bristvarde}</p>
-      <p>bristvärde 2026: {deficiencyValue2026?.bristvarde}</p>
+      <p>
+        Efterfrågan 2023:
+        {/* {checkDeficiencyValues()} */}
+      </p>
+      <p>
+        bristvärde 2026:
+        {/* {checkDeficiencyValues()} */}
+      </p>
+      {htmlSVG}
     </>
   );
 };
+
+// <div>
+// <h4>2023</h4>
+// <svg width="200" height="200">
+//   <g transform="rotate(-190 100 100)">
+//     <circle
+//       r="70"
+//       cx="100"
+//       cy="100"
+//       fill="transparent"
+//       stroke="lightgrey"
+//       stroke-width="2rem"
+//       stroke-dasharray="439.8"
+//       stroke-dashoffset="0"
+//     ></circle>
+//     <circle
+//       r="70"
+//       cx="100"
+//       cy="100"
+//       fill="transparent"
+//       stroke="#ca2c92"
+//       stroke-width="2rem"
+//       stroke-dasharray="500"
+//       stroke-dashoffset={strokeDashoffsetValue}
+//     ></circle>
+//   </g>
+//   {/* <text
+//     x="50%"
+//     y="50%"
+//     dominant-baseline="central"
+//     text-anchor="middle"
+//   >
+//     I balans
+//   </text> */}
+// </svg>
+// </div>
