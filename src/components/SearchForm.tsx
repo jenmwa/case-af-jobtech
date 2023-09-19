@@ -5,13 +5,15 @@ import {
   FormInputVariation,
   FormTextareaValidation,
   FormTextareaVariation,
+  FormValidationMessageVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiButton,
   DigiFormInput,
   DigiFormTextarea,
+  DigiFormValidationMessage,
 } from "@digi/arbetsformedlingen-react";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { ISearchByText } from "../models/ISearchByText";
 
 interface ISearchFormProps {
@@ -21,26 +23,42 @@ export default function SearchForm(props: ISearchFormProps) {
   const [freeSearch, setFreeSearch] = useState<string>("");
   const [headerSearch, setHeaderSearch] = useState<string>("");
 
-  const getWorkTitles = async (e: FormEvent) => {
+  const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
+    setInputLength(wordCount(freeSearch));
+    console.log(inputLength);
 
-    let search: ISearchByText;
-
-    if (headerSearch === "") {
-      search = {
-        input_text: freeSearch,
-      };
+    if (inputLength < 3) {
+      setIsValid(false);
+      return;
     } else {
-      search = {
-        input_text: freeSearch,
-        input_headline: headerSearch,
-      };
-    }
+      setIsValid(true);
 
-    props.getWorkData(search);
+      let search: ISearchByText;
+
+      if (headerSearch === "") {
+        search = {
+          input_text: freeSearch,
+        };
+      } else {
+        search = {
+          input_text: freeSearch,
+          input_headline: headerSearch,
+        };
+      }
+      props.getWorkData(search);
+    }
   };
 
-  useEffect(() => {}, [freeSearch, headerSearch]);
+  function wordCount(s: string) {
+    s = s.replace(/(^\s*)|(\s*$)/gi, ""); //exclude  start and end white-space
+    s = s.replace(/[ ]{2,}/gi, " "); //2 or more space to 1
+    s = s.replace(/\n /, "\n"); // exclude newline with a start spacing
+    console.log("counting");
+    return s.split(" ").filter(function (str) {
+      return str != "";
+    }).length;
+  }
 
   return (
     <section>
@@ -54,6 +72,13 @@ export default function SearchForm(props: ISearchFormProps) {
           afRequired={true}
           onAfOnChange={(e) => setFreeSearch(e.target.value)}
         ></DigiFormTextarea>
+        {!isValid ? (
+          <DigiFormValidationMessage
+            afVariation={FormValidationMessageVariation.ERROR}
+          >
+            Du måste ange minst tre ord
+          </DigiFormValidationMessage>
+        ) : null}
         <DigiFormInput
           afLabel="Vad heter utbildningen?"
           afVariation={FormInputVariation.MEDIUM}

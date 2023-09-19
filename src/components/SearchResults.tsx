@@ -1,10 +1,15 @@
-import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
+import {
+  DigiExpandableAccordion,
+  DigiLoaderSpinner,
+} from "@digi/arbetsformedlingen-react";
 import { IOccupation } from "../models/IOccupation";
 import { ResultSummary } from "./ResultSummary";
 // import { useState } from "react";
+import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
 
 interface ISearchresultsProps {
   relatedOccupations: IOccupation[];
+  isLoading: boolean;
 }
 
 export default function SearchResults(props: ISearchresultsProps) {
@@ -16,5 +21,25 @@ export default function SearchResults(props: ISearchresultsProps) {
     </div>
   ));
 
-  return <section>{occupationHtml}</section>;
+  if (props.isLoading) {
+    return (
+      <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
+    );
+  } else {
+    if (occupationHtml.length === 0) {
+      return (
+        <p>
+          Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa
+          andra sökord
+        </p>
+      );
+    } else {
+      return (
+        <section>
+          <h3>Följande yrken matchar din utbildning:</h3>
+          {occupationHtml}
+        </section>
+      );
+    }
+  }
 }
