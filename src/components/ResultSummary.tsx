@@ -93,7 +93,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
           ))}
         </DigiList>
         <DigiLink
-          afHref="/occupation/:id"
+          afHref={`/yrke/${occupation.occupation_group.ssyk}`}
           af-target="_blank"
           afVariation={LinkVariation.SMALL}
           af-describedby="Läs mer här"
