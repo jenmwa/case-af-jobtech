@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
 import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
 import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
+import { ISCBData } from "../models/IGetSCBStatisticsSalary";
 
 export interface IDeficiencyValue {
   bristvarde: number;
@@ -58,25 +59,7 @@ export const Occupation = () => {
         const test = await getSCBStatisticsSalary(ssyk);
         console.log(test);
         if (test) {
-          const keysArray = test.map((item) => item.key[1]).flat();
-          const valuesArray = test.map((item) => item.values).flat();
-          console.log("Keys Array:", keysArray);
-          console.log("Values Array:", valuesArray);
-
-          const keysArrayToNumbers = keysArray.map((stringValue) => {
-            return parseInt(stringValue);
-          });
-          console.log(keysArrayToNumbers);
-
-          const valuesArrayToNumbers = valuesArray.map((stringValue) => {
-            return parseInt(stringValue);
-          });
-          console.log(valuesArrayToNumbers);
-
-          setKeysAsArray(keysArrayToNumbers);
-          setValuesAsArray(valuesArrayToNumbers);
-        } else {
-          console.log("no data found");
+          getValuesArray(test);
         }
       };
       if (keysAsArray.length === 0) {
@@ -84,6 +67,30 @@ export const Occupation = () => {
       }
     }
   });
+
+  const getValuesArray = (test: ISCBData[]) => {
+    if (test) {
+      const keysArray = test.map((item) => item.key[1]).flat();
+      const valuesArray = test.map((item) => item.values).flat();
+      console.log("Keys Array:", keysArray);
+      console.log("Values Array:", valuesArray);
+
+      const keysArrayToNumbers = keysArray.map((stringValue) => {
+        return parseInt(stringValue);
+      });
+      console.log(keysArrayToNumbers);
+
+      const valuesArrayToNumbers = valuesArray.map((stringValue) => {
+        return parseInt(stringValue);
+      });
+      console.log(valuesArrayToNumbers);
+
+      setKeysAsArray(keysArrayToNumbers);
+      setValuesAsArray(valuesArrayToNumbers);
+    } else {
+      console.log("no data found");
+    }
+  };
 
   console.log(Number(ssykObject.id));
 
@@ -98,10 +105,10 @@ export const Occupation = () => {
         console.log("oops, something went wrong. Please try again.");
       }
     };
-    if (getForecast.length === 0) {
+    if (deficiencyValue2023 === undefined) {
       getForecast();
     }
-  }, []);
+  });
 
   const findDeficiencyValues = (getData: ICurrentOccupationalForecast[]) => {
     const data = getData?.filter(
