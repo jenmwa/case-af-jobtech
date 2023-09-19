@@ -2,18 +2,18 @@ import {
   DigiExpandableAccordion,
   DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
-import { IOccupation } from "../models/IOccupation";
 import { ResultSummary } from "./ResultSummary";
-// import { useState } from "react";
 import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
+import { useOutletData } from "../context/useOutletData";
 
 interface ISearchresultsProps {
-  relatedOccupations: IOccupation[];
   isLoading: boolean;
 }
 
 export default function SearchResults(props: ISearchresultsProps) {
-  const occupationHtml = props.relatedOccupations.map((occupation) => (
+  const { searchData } = useOutletData();
+
+  const occupationHtml = searchData?.map((occupation) => (
     <div key={occupation.id}>
       <DigiExpandableAccordion afHeading={occupation.occupation_label}>
         <ResultSummary occupation={occupation} />
@@ -26,7 +26,7 @@ export default function SearchResults(props: ISearchresultsProps) {
       <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
     );
   } else {
-    if (occupationHtml.length === 0) {
+    if (searchData === null) {
       return (
         <p>
           Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa

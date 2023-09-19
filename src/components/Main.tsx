@@ -33,8 +33,7 @@ export default function Main() {
       <DigiLayoutContainer>
         <MainFlex>
           <SearchForm getWorkData={getWorkData} />
-          {searchButtonClicked ? <SearchResults relatedOccupations={relatedOccupations} isLoading={isLoading}/>
-          : <SearchResultsPlaceholder />}
+          {searchData === null ? <SearchResultsPlaceholder /> : <SearchResults isLoading={isLoading}/>}
         </MainFlex>
       </DigiLayoutContainer>
     </main>
