@@ -5,20 +5,17 @@ import { SalaryStatistics } from "./SalaryStatistics";
 import { OccupationAbout } from "./OccupationAbout";
 import { OccupationCompetences } from "./OccupationCompetences";
 import { OccupationForecast } from "./OccupationForecast";
+import { IDeficiencyValue } from "./Occupation";
 
 interface IOccupationShowProps {
   occupationFound?: IOccupation;
   valuesAsArray: number[];
   keysAsArray: number[];
   handleReturnButton: () => void;
-  result2023: {
-    value: string;
-    text: string;
-  };
-  result2026: {
-    value: string;
-    text: string;
-  };
+  deficiencyValue2023: IDeficiencyValue | undefined;
+  deficiencyValue2026: IDeficiencyValue | undefined;
+  result2023: { value: string; text: string };
+  result2026: { value: string; text: string };
 }
 
 export const OccupationShow = ({

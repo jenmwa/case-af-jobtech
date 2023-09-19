@@ -24,6 +24,17 @@ const ourList: IOccupation[] = [
     },
   },
   {
+    id: "i5hV_FDf_Qnc",
+    occupation_label: "Webbtekniker",
+    concept_taxonomy_id: "i5hV_FDf_Qnc",
+    legacy_ams_taxonomy_id: "7046",
+    occupation_group: {
+      occupation_group_label: "Webbmaster och webbadministratörer",
+      concept_taxonomy_id: "Fv7d_YhP_YmS",
+      ssyk: "3515",
+    },
+  },
+  {
     id: "PTs4_wYQ_zDP",
     occupation_label: "Webbdesigner",
     concept_taxonomy_id: "PTs4_wYQ_zDP",
@@ -32,6 +43,18 @@ const ourList: IOccupation[] = [
       occupation_group_label: "Designer inom spel och digitala medier",
       concept_taxonomy_id: "Mbt6_3ko_DiD",
       ssyk: "2173",
+    },
+  },
+
+  {
+    id: "YtrL_oQj_sck",
+    occupation_label: "Datapedagog/IT-pedagog/Datautbildare",
+    concept_taxonomy_id: "YtrL_oQj_sck",
+    legacy_ams_taxonomy_id: "3637",
+    occupation_group: {
+      occupation_group_label: "\u00d6vriga utbildare och instrukt\u00f6rer",
+      concept_taxonomy_id: "1CX5_mZw_Vcq",
+      ssyk: "3449",
     },
   },
 ];
@@ -97,32 +120,34 @@ export const Occupation = () => {
   //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
   useEffect(() => {
     const getForecast = async () => {
-      const getData = await getCurrentOccupationalForecast();
-      if (getData) {
-        console.log(getForecast);
-        findDeficiencyValues(getData);
-      } else {
-        console.log("oops, something went wrong. Please try again.");
+      try {
+        const getData = await getCurrentOccupationalForecast();
+        console.log(await getData);
+        if (getData) {
+          console.log(await getData);
+          findDeficiencyValues(getData);
+        } else {
+          console.log("oops, something went wrong. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
       }
     };
-    if (deficiencyValue2023 === undefined) {
-      getForecast();
-    }
-  });
+    getForecast();
+  }, []);
 
   const findDeficiencyValues = (getData: ICurrentOccupationalForecast[]) => {
-    const data = getData?.filter(
+    console.log(getData);
+    console.log(ssykObject);
+    console.log(Number(ssykObject.id));
+    const data = getData.filter(
       (findMatch) => findMatch.ssyk === Number(ssykObject.id)
     );
     console.log(data);
-    if (data) {
-      const deficiencyValue23 = data?.find(
-        (rightMatch) => rightMatch.ar === 23
-      );
+    if (data.length > 0) {
+      const deficiencyValue23 = data.find((rightMatch) => rightMatch.ar === 23);
       console.log(deficiencyValue23?.bristvarde);
-      const deficiencyValue26 = data?.find(
-        (rightMatch) => rightMatch.ar === 26
-      );
+      const deficiencyValue26 = data.find((rightMatch) => rightMatch.ar === 26);
       console.log(deficiencyValue26?.bristvarde);
       setDeficiencyValue2023(deficiencyValue23);
       setDeficiencyValue2026(deficiencyValue26);
@@ -137,7 +162,7 @@ export const Occupation = () => {
     } else if (bristvarde >= 5) {
       return { value: "60", text: "Hög" };
     } else {
-      return { value: "0", text: "Ej Tillgängligt" };
+      return { value: "500", text: "Ej Tillgängligt" };
     }
   };
 
@@ -161,6 +186,8 @@ export const Occupation = () => {
           valuesAsArray={valuesAsArray}
           keysAsArray={keysAsArray}
           handleReturnButton={handleReturnButton}
+          deficiencyValue2023={deficiencyValue2023}
+          deficiencyValue2026={deficiencyValue2026}
           result2023={result2023}
           result2026={result2026}
         ></OccupationShow>
