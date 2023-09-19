@@ -13,8 +13,9 @@ import {
 import { useState, useEffect } from "react";
 import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
 import { enrichedOccupation } from "../services/enrichedOccupationsServices";
-import { StyledExpandInfo } from "./styled/Competencies";
 import { StyledCompetenciesList } from "./styled/CompetenciesList";
+import { getSsykDescription } from "../services/getSsykDescriptionServices";
+import { ISSYKData } from "../models/ISsykData";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -27,6 +28,7 @@ interface ICompetency {
 
 export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
   const [topFive, setTopFive] = useState<string[]>([]);
+  const [matchingText, setMatchingText] = useState<string | null>(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -46,19 +48,40 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
       setTopFive(topFive);
     };
 
+    const getJobSummary = async () => {
+      try {
+        const response: ISSYKData = await getSsykDescription();
+        const ssykToMatch = occupation.occupation_group.ssyk;
+
+        const indexOfMatch = response.variables[0].values.findIndex(
+          (value) => value === ssykToMatch
+        );
+        if (indexOfMatch !== -1) {
+          const matchingText = response.variables[0].valueTexts[indexOfMatch];
+          setMatchingText(matchingText);
+        } else {
+          console.log(`Matching SSYK Value: ${ssykToMatch} not found.`);
+          setMatchingText(null);
+        }
+      } catch (error) {
+        console.error("Error fetching SSYK data:", error);
+        setMatchingText(null);
+      }
+    };
+
     getData();
+    getJobSummary();
   }, [occupation]);
 
   return (
     <>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
-        <StyledExpandInfo>
-          *Placeholder för sammanfattning av yrket* <br />
+        <h6>{matchingText && <p>Översikt: {matchingText}</p>}</h6>
+        <p>
           Tillhör yrkesgrupp:{" "}
-          {occupation.occupation_group.occupation_group_label}.
-          <br />
-          SSYK: {occupation.occupation_group.ssyk}
-        </StyledExpandInfo>
+          {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
+          {occupation.occupation_group.ssyk})
+        </p>
 
         <h6>Topp 5 kompetenser:</h6>
         <DigiList afListType={ListType.BULLET}>
@@ -82,4 +105,4 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
   );
 };
 
-// javascript html css
+// html css javascript
