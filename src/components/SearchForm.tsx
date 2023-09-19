@@ -25,9 +25,6 @@ export default function SearchForm(props: ISearchFormProps) {
   const [headerSearch, setHeaderSearch] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
   const [inputLength, setInputLength] = useState<number>(0);
-  const [freeSearchValue, setFreeSearchValue] = useState<string>("");
-
-  console.log(freeSearch);
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
