@@ -129,6 +129,24 @@ export const Occupation = () => {
     }
   };
 
+  const checkDeficiencyValues = (bristvarde: number) => {
+    if (bristvarde <= 2) {
+      return { value: "400", text: "Ej brist" };
+    } else if (bristvarde === 3 || bristvarde === 4) {
+      return { value: "250", text: "I balans" };
+    } else if (bristvarde >= 5) {
+      return { value: "60", text: "Hög" };
+    } else {
+      return { value: "0", text: "Ej Tillgängligt" };
+    }
+  };
+
+  const bristvarde2023 = Number(deficiencyValue2023?.bristvarde);
+  const bristvarde2026 = Number(deficiencyValue2026?.bristvarde);
+
+  const result2023 = checkDeficiencyValues(bristvarde2023);
+  const result2026 = checkDeficiencyValues(bristvarde2026);
+
   const navigate = useNavigate();
   const handleReturnButton = () => {
     console.log("click");
@@ -137,14 +155,16 @@ export const Occupation = () => {
 
   return (
     <>
-      <OccupationShow
-        occupationFound={occupationFound}
-        valuesAsArray={valuesAsArray}
-        keysAsArray={keysAsArray}
-        handleReturnButton={handleReturnButton}
-        deficiencyValue2023={deficiencyValue2023}
-        deficiencyValue2026={deficiencyValue2026}
-      ></OccupationShow>
+      <div style={{ padding: "2rem" }}>
+        <OccupationShow
+          occupationFound={occupationFound}
+          valuesAsArray={valuesAsArray}
+          keysAsArray={keysAsArray}
+          handleReturnButton={handleReturnButton}
+          result2023={result2023}
+          result2026={result2026}
+        ></OccupationShow>
+      </div>
     </>
   );
 };
