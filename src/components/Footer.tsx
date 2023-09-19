@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
       <footer>
-        <h1></h1>
+        <p>© all right reserved, Yrkestipsarna 2023</p>
       </footer>
   );
 }
