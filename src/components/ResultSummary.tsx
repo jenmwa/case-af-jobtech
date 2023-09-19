@@ -1,11 +1,14 @@
 import { IOccupation } from "../models/IOccupation";
 
 import {
+  ButtonSize,
+  ButtonVariation,
   LinkVariation,
   ListType,
   TypographyVariation,
 } from "@digi/arbetsformedlingen";
 import {
+  DigiButton,
   DigiLink,
   DigiList,
   DigiTypography,
@@ -92,14 +95,21 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
             </StyledCompetenciesList>
           ))}
         </DigiList>
-        <DigiLink
+        {/* <DigiLink
           afHref={`/yrke/${occupation.occupation_group.ssyk}`}
           af-target="_blank"
           afVariation={LinkVariation.SMALL}
           af-describedby="Läs mer här"
         >
           Läs mer
-        </DigiLink>
+        </DigiLink> */}
+        <DigiButton
+          afSize={ButtonSize.SMALL}
+          afVariation={ButtonVariation.PRIMARY}
+          afFullWidth={false}
+        >
+          Läs mer
+        </DigiButton>
       </DigiTypography>
     </>
   );
