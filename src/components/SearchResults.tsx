@@ -12,6 +12,7 @@ interface ISearchresultsProps {
 
 export default function SearchResults(props: ISearchresultsProps) {
   const { searchData } = useOutletData();
+  console.log(searchData)
 
   const occupationHtml = searchData?.map((occupation) => (
     <div key={occupation.id}>
@@ -26,7 +27,7 @@ export default function SearchResults(props: ISearchresultsProps) {
       <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
     );
   } else {
-    if (searchData === null) {
+    if (searchData?.length === 0) {
       return (
         <p>
           Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa

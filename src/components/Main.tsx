@@ -12,7 +12,6 @@ import { useOutletData } from "../context/useOutletData";
 export default function Main() {
   const [relatedOccupations, setRelatedOccupations] = useState<IOccupation[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [searchButtonClicked, setSearchButtonClicked] = useState<boolean>(false);
   const { searchData, setSearchData } = useOutletData();
 
   useEffect(() => {
@@ -20,7 +19,6 @@ export default function Main() {
   }, [searchData]);
 
   const getWorkData = async (search: ISearchByText) => {
-    setSearchButtonClicked(true);
     setIsLoading(true);
     const data = await matchByText(search);
     setSearchData(data.related_occupations);

@@ -25,6 +25,9 @@ export default function SearchForm(props: ISearchFormProps) {
   const [headerSearch, setHeaderSearch] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
   const [inputLength, setInputLength] = useState<number>(0);
+  const [freeSearchValue, setFreeSearchValue] = useState<string>("");
+
+  console.log(freeSearch);
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
@@ -62,12 +65,12 @@ export default function SearchForm(props: ISearchFormProps) {
   }
 
   function handleFreeSearch(e: DigiFormTextareaCustomEvent<HTMLTextAreaElement> ) {
-    setFreeSearch(JSON.stringify(e.target.value));
+    setFreeSearch(e.target.value);
     setInputLength(wordCount(freeSearch));
   }
 
   function handleHeaderSearch(e: DigiFormInputCustomEvent<HTMLInputElement>) {
-    const newValue = JSON.stringify(e.target.value);
+    const newValue = e.target.value as string;
     setHeaderSearch(newValue);
   }
 
@@ -82,6 +85,7 @@ export default function SearchForm(props: ISearchFormProps) {
           afValidation={FormTextareaValidation.NEUTRAL}
           afRequired={true}
           onAfOnKeyup={handleFreeSearch}
+          afValue={freeSearch}
         ></DigiFormTextarea>
         {!isValid ? (
           <DigiFormValidationMessage
