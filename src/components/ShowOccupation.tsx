@@ -11,7 +11,7 @@ interface IShowOccupationProps {
 }
 
 export const ShowOccupation = ({ occupationFound }: IShowOccupationProps) => {
-  const [keysAsArray, setKeysAsArray] = useState<string[]>([]);
+  const [keysAsArray, setKeysAsArray] = useState<number[]>([]);
   const [valuesAsArray, setValuesAsArray] = useState<number[]>([]);
 
   //OBS lägg in felhantering, om value=== ".." , ta föregående
@@ -27,12 +27,17 @@ export const ShowOccupation = ({ occupationFound }: IShowOccupationProps) => {
           console.log("Keys Array:", keysArray);
           console.log("Values Array:", valuesArray);
 
+          const keysArrayToNumbers = keysArray.map((stringValue) => {
+            return parseInt(stringValue);
+          });
+          console.log(keysArrayToNumbers);
+
           const valuesArrayToNumbers = valuesArray.map((stringValue) => {
             return parseInt(stringValue);
           });
           console.log(valuesArrayToNumbers);
 
-          setKeysAsArray(keysArray);
+          setKeysAsArray(keysArrayToNumbers);
           setValuesAsArray(valuesArrayToNumbers);
         } else {
           console.log("no data found");
@@ -59,6 +64,9 @@ export const ShowOccupation = ({ occupationFound }: IShowOccupationProps) => {
         <p>Inget yrke hittades</p>
       )}
       <br></br>
+      <p>Om yrket</p>
+      <p>Vanligaste kompetenserna</p>
+      <p>Framtidsprognos</p>
       <SalaryStatistics
         keysAsArray={keysAsArray}
         valuesAsArray={valuesAsArray}

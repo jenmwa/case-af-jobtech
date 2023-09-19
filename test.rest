@@ -87,4 +87,25 @@ Content-Type: application/json
   }
 }
 
-###6
+###
+//SCB hämta SSYK beskrivningar
+GET https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0208/AM0208Z/SSYKBeskrivning
+Content-Type: application/application/json
+
+{
+  "query": [
+    {
+      "code": "ContentsCode",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "0000020A"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "format": "json"
+  }
+}
+###
