@@ -69,15 +69,15 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
       }
     };
 
-    Promise.all([getData(), getJobSummary()]).then(() => {});
+    getData();
+    getJobSummary();
   }, [occupation]);
 
   return (
     <>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
+        <h6>{matchingText && <p>Översikt: {matchingText}</p>}</h6>
         <p>
-          {matchingText && <span>Översikt: {matchingText}</span>}
-          <br />
           Tillhör yrkesgrupp:{" "}
           {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
           {occupation.occupation_group.ssyk})
@@ -104,3 +104,5 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
     </>
   );
 };
+
+// html css javascript
