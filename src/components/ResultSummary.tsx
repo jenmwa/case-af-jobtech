@@ -95,14 +95,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
             </StyledCompetenciesList>
           ))}
         </DigiList>
-        {/* <DigiLink
-          afHref={`/yrke/${occupation.occupation_group.ssyk}`}
-          af-target="_blank"
-          afVariation={LinkVariation.SMALL}
-          af-describedby="Läs mer här"
-        >
-          Läs mer
-        </DigiLink> */}
+
         <DigiButton
           afSize={ButtonSize.SMALL}
           afVariation={ButtonVariation.PRIMARY}
