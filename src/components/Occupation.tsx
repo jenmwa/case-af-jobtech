@@ -3,7 +3,14 @@ import { OccupationShow } from "./OccupationShow";
 import { IOccupation } from "../models/IOccupation";
 import { useEffect, useState } from "react";
 import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
+import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
+import { DigiButton, DigiIconBars } from "@digi/arbetsformedlingen-react";
+import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
+import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
 
+export interface IDeficiencyValue {
+  bristvarde: number;
+}
 //listmock, lägga resultat från sök i context och hämta?
 const ourList: IOccupation[] = [
   {
@@ -36,10 +43,19 @@ export const Occupation = () => {
 
   const [keysAsArray, setKeysAsArray] = useState<number[]>([]);
   const [valuesAsArray, setValuesAsArray] = useState<number[]>([]);
+  const [deficiencyValue2023, setDeficiencyValue2023] =
+    useState<IDeficiencyValue>();
+  const [deficiencyValue2026, setDeficiencyValue2026] =
+    useState<IDeficiencyValue>();
+
+  const occupationFound = ourList.find(
+    (occupation) => occupation.occupation_group.ssyk === ssykObject.id
+  );
 
   useEffect(() => {
     if (occupationFound) {
       const ssyk = occupationFound.occupation_group.ssyk;
+
       const getDataSCB = async () => {
         const test = await getSCBStatisticsSalary(ssyk);
         console.log(test);
@@ -71,9 +87,39 @@ export const Occupation = () => {
     }
   });
 
-  const occupationFound = ourList.find(
-    (occupation) => occupation.occupation_group.ssyk === ssykObject.id
-  );
+  //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
+  const getForecast = async () => {
+    console.log(Number(ssykObject.id));
+
+    const getForecast = await getCurrentOccupationalForecast();
+    if (getForecast) {
+      console.log(getForecast);
+      findDeficiencyValues(getForecast);
+    } else {
+      console.log("oops, something went wrong. Please try again.");
+    }
+  };
+
+  const findDeficiencyValues = (
+    getForecast: ICurrentOccupationalForecast[]
+  ) => {
+    const data = getForecast?.filter(
+      (findMatch) => findMatch.ssyk === Number(ssykObject.id)
+    );
+    console.log(data);
+    if (data) {
+      const deficiencyValue23 = data?.find(
+        (rightMatch) => rightMatch.ar === 23
+      );
+      console.log(deficiencyValue23?.bristvarde);
+      const deficiencyValue26 = data?.find(
+        (rightMatch) => rightMatch.ar === 26
+      );
+      console.log(deficiencyValue26?.bristvarde);
+      setDeficiencyValue2023(deficiencyValue23);
+      setDeficiencyValue2026(deficiencyValue26);
+    }
+  };
 
   const navigate = useNavigate();
   const handleReturnButton = () => {
@@ -82,11 +128,22 @@ export const Occupation = () => {
   };
   return (
     <>
+      <DigiButton
+        afSize={ButtonSize.SMALL}
+        afVariation={ButtonVariation.PRIMARY}
+        afFullWidth={true}
+        onAfOnClick={getForecast}
+      >
+        <DigiIconBars slot="icon" />
+        En knapp
+      </DigiButton>
       <OccupationShow
         occupationFound={occupationFound}
         valuesAsArray={valuesAsArray}
         keysAsArray={keysAsArray}
         handleReturnButton={handleReturnButton}
+        deficiencyValue2023={deficiencyValue2023}
+        deficiencyValue2026={deficiencyValue2026}
       ></OccupationShow>
     </>
   );
