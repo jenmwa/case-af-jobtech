@@ -15,6 +15,7 @@ import {
 } from "@digi/arbetsformedlingen-react";
 import { FormEvent, useState } from "react";
 import { ISearchByText } from "../models/ISearchByText";
+import { DigiFormInputCustomEvent, DigiFormTextareaCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 
 interface ISearchFormProps {
   getWorkData: (search: ISearchByText) => void;
@@ -27,7 +28,6 @@ export default function SearchForm(props: ISearchFormProps) {
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
-    setInputLength(wordCount(freeSearch));
     console.log(inputLength);
 
     if (inputLength < 3) {
@@ -56,10 +56,19 @@ export default function SearchForm(props: ISearchFormProps) {
     s = s.replace(/(^\s*)|(\s*$)/gi, ""); //exclude  start and end white-space
     s = s.replace(/[ ]{2,}/gi, " "); //2 or more space to 1
     s = s.replace(/\n /, "\n"); // exclude newline with a start spacing
-    console.log("counting");
     return s.split(" ").filter(function (str) {
       return str != "";
     }).length;
+  }
+
+  function handleFreeSearch(e: DigiFormTextareaCustomEvent<HTMLTextAreaElement> ) {
+    setFreeSearch(JSON.stringify(e.target.value));
+    setInputLength(wordCount(freeSearch));
+  }
+
+  function handleHeaderSearch(e: DigiFormInputCustomEvent<HTMLInputElement>) {
+    const newValue = JSON.stringify(e.target.value);
+    setHeaderSearch(newValue);
   }
 
   return (
@@ -72,7 +81,7 @@ export default function SearchForm(props: ISearchFormProps) {
           afVariation={FormTextareaVariation.MEDIUM}
           afValidation={FormTextareaValidation.NEUTRAL}
           afRequired={true}
-          onAfOnChange={(e) => setFreeSearch(e.target.value)}
+          onAfOnKeyup={handleFreeSearch}
         ></DigiFormTextarea>
         {!isValid ? (
           <DigiFormValidationMessage
@@ -87,7 +96,7 @@ export default function SearchForm(props: ISearchFormProps) {
           afType={FormInputType.TEXT}
           afValidation={FormInputValidation.NEUTRAL}
           afRequired={false}
-          onAfOnChange={(e) => setHeaderSearch(JSON.stringify(e.target.value))}
+          onAfOnKeyup={handleHeaderSearch}
         ></DigiFormInput>
         <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
           Sök
