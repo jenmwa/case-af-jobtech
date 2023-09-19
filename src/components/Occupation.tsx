@@ -9,8 +9,8 @@ import { IOccupation } from "../models/IOccupation";
 //   navigate("/occupation/" + ourTestOccupationObject.ssyk);
 // };
 // return<>
-//       <DigiButton onAfOnClick={testParams}>Testa Params</DigiButton>
-//       </>
+//  <DigiButton onAfOnClick={testParams}>Testa Params</DigiButton>
+// </>
 
 //listmock, lägga resultat från sök i context och hämta?
 const ourList: IOccupation[] = [

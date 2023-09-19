@@ -15,11 +15,11 @@ export const router = createBrowserRouter([
         index: true,
       },
       {
-        path: "/occupation/:id",
+        path: "/yrke/:id",
         element: <Occupation></Occupation>,
       },
       {
-        path: "/about",
+        path: "/om",
         element: <About></About>,
       },
     ],
