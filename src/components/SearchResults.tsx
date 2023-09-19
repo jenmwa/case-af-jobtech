@@ -24,11 +24,16 @@ if(props.isLoading){
     afSize={LoaderSpinnerSize.MEDIUM}>
     </DigiLoaderSpinner>
   } else {
-    return (
-    <section>
-      {occupationHtml}
-    </section>
-    )
+    if(occupationHtml.length === 0){
+      return <p>Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa andra sökord</p>
+    } else{
+      return (
+      <section>
+        <h3>Följande yrken matchar din utbildning:</h3>
+        {occupationHtml}
+      </section>
+      )
+    }
   }
 }
 
