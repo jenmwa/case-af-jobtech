@@ -66,7 +66,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
           setMatchingText(null);
         }
       } catch (error) {
-        console.error("Error fetching SSYK data:", error);
+        // console.error("Error fetching SSYK data:", error);
         setMatchingText(null);
       }
     };
