@@ -101,7 +101,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         >
           Läs mer
         </DigiLinkButton> */}
-      <Link to={`/yrke/${occupation.concept_taxonomy_id}`}>Läs mer</Link>
+        <Link to={`/yrke/${occupation.concept_taxonomy_id}`}>Läs mer</Link>
       </DigiTypography>
     </>
   );
