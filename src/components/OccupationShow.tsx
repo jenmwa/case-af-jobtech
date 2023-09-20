@@ -6,11 +6,10 @@ import { OccupationAbout } from "./OccupationAbout";
 import { OccupationCompetences } from "./OccupationCompetences";
 import { OccupationForecast } from "./OccupationForecast";
 import { IDeficiencyValue } from "./Occupation";
-import { ISSYKData } from "../models/ISsykData";
 
 interface IOccupationShowProps {
   occupationFound?: IOccupation;
-  ssykdata: ISSYKData;
+  findIndexText: string;
   valuesAsArray: number[];
   keysAsArray: number[];
   handleReturnButton: () => void;
@@ -22,7 +21,7 @@ interface IOccupationShowProps {
 
 export const OccupationShow = ({
   occupationFound,
-  ssykdata,
+  findIndexText,
   valuesAsArray,
   keysAsArray,
   handleReturnButton,
@@ -35,7 +34,7 @@ export const OccupationShow = ({
         <div>
           <h2>{occupationFound.occupation_label}</h2>
           <p>
-            <span style={{ fontWeight: "bold" }}>
+            <span style={{ fontWeight: "italic" }}>
               {occupationFound.occupation_group.occupation_group_label}
             </span>{" "}
             (SSYK: {occupationFound.occupation_group.ssyk})
@@ -45,7 +44,7 @@ export const OccupationShow = ({
         <p>Inget yrke hittades</p>
       )}
       <br></br>
-      <OccupationAbout ssykdata={ssykdata}></OccupationAbout>
+      <OccupationAbout findIndexText={findIndexText}></OccupationAbout>
       <OccupationCompetences></OccupationCompetences>
       <OccupationForecast
         result2023={result2023}

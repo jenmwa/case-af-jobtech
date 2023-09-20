@@ -16,7 +16,7 @@ export const OccupationForecast = ({
 }: IOccupationForecast) => {
   return (
     <>
-      <h3>Framtidsprognos</h3>
+      <h4>Framtidsprognos</h4>
       <p>
         Arbetsförmedlingen bedömning gällande bristvärdet för [yrkesrollen].
       </p>

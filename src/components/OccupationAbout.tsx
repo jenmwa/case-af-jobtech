@@ -1,14 +1,13 @@
-import { ISSYKData } from "../models/ISsykData";
-
 interface IOccupationAboutProps {
-  ssykdata: ISSYKData;
+  findIndexText: string;
 }
 
-export const OccupationAbout = ({ ssykdata }: IOccupationAboutProps) => {
-  console.log(ssykdata);
+export const OccupationAbout = ({ findIndexText }: IOccupationAboutProps) => {
+  console.log(findIndexText);
   return (
     <>
       <h3>Yrkesbeskrivning{}</h3>
+      <p>{findIndexText}</p>
     </>
   );
 };

@@ -8,6 +8,7 @@ import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalFore
 import { ISCBData } from "../models/IGetSCBStatisticsSalary";
 import { useOutletData } from "../context/useOutletData";
 import { SSYKdataContext } from "../context/SSYKdataContext";
+import { useSSYKDetails } from "../hooks/useSSYKDetails";
 
 export interface IDeficiencyValue {
   bristvarde: number;
@@ -34,22 +35,24 @@ export const Occupation = () => {
     (occupation) => occupation.concept_taxonomy_id === conceptTaxonomyId.id
   );
 
-  const ssyk = occupationFound?.occupation_group.ssyk;
+  const ssyk = occupationFound?.occupation_group.ssyk || "";
 
-  console.log(JSON.stringify(ssyk));
-  console.log(ssykdata.variables[0].values);
+  const findIndexText = useSSYKDetails(ssyk, ssykdata) || "";
+  console.log(findIndexText);
+  // console.log(JSON.stringify(ssyk));
+  // console.log(ssykdata.variables[0].values);
 
-  const ssykDetailsList = ssykdata.variables[0].values;
-  const index = ssykDetailsList.indexOf(ssyk);
-  console.log(index);
-  if (index !== -1) {
-    console.log("Index found:", index);
-    const findIndexText = ssykdata.variables[0].valueTexts[index];
-    console.log(findIndexText);
-    return findIndexText;
-  } else {
-    console.log("Value not found in the list");
-  }
+  // const ssykDetailsList = ssykdata.variables[0].values;
+  // const index = ssykDetailsList.indexOf(ssyk);
+  // console.log(index);
+  // if (index !== -1) {
+  //   console.log("Index found:", index);
+  //   const findIndexText = ssykdata.variables[0].valueTexts[index];
+  //   console.log(findIndexText);
+  //   return findIndexText;
+  // } else {
+  //   console.log("Value not found in the list");
+  // }
 
   useEffect(() => {
     if (occupationFound) {
@@ -156,7 +159,7 @@ export const Occupation = () => {
     <>
       <div style={{ padding: "2rem" }}>
         <OccupationShow
-          ssykdata={ssykdata}
+          findIndexText={findIndexText}
           occupationFound={occupationFound}
           valuesAsArray={valuesAsArray}
           keysAsArray={keysAsArray}
