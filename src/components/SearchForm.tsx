@@ -15,7 +15,11 @@ import {
 } from "@digi/arbetsformedlingen-react";
 import { FormEvent, useState } from "react";
 import { ISearchByText } from "../models/ISearchByText";
-import { DigiFormInputCustomEvent, DigiFormTextareaCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
+import {
+  DigiFormInputCustomEvent,
+  DigiFormTextareaCustomEvent,
+} from "@digi/arbetsformedlingen/dist/types/components";
+import { CompetenciesTags } from "./CompetenciesTags";
 
 interface ISearchFormProps {
   getWorkData: (search: ISearchByText) => void;
@@ -61,7 +65,9 @@ export default function SearchForm(props: ISearchFormProps) {
     }).length;
   }
 
-  function handleFreeSearch(e: DigiFormTextareaCustomEvent<HTMLTextAreaElement> ) {
+  function handleFreeSearch(
+    e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>
+  ) {
     setFreeSearch(e.target.value);
     setInputLength(wordCount(freeSearch));
   }
@@ -72,37 +78,42 @@ export default function SearchForm(props: ISearchFormProps) {
   }
 
   return (
-    <section>
-      <h3>Sök yrken</h3>
-      <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
-        <DigiFormTextarea
-          afLabel="Vad innehåller utbildningen du är intresserad av?"
-          afLabelDescription="Ange minst tre saker du kommer lära dig på utbildningen"
-          afVariation={FormTextareaVariation.MEDIUM}
-          afValidation={FormTextareaValidation.NEUTRAL}
-          afRequired={true}
-          onAfOnKeyup={handleFreeSearch}
-          afValue={freeSearch}
-        ></DigiFormTextarea>
-        {!isValid ? (
-          <DigiFormValidationMessage
-            afVariation={FormValidationMessageVariation.ERROR}
-          >
-            Du måste ange minst tre ord
-          </DigiFormValidationMessage>
-        ) : null}
-        <DigiFormInput
-          afLabel="Vad heter utbildningen?"
-          afVariation={FormInputVariation.MEDIUM}
-          afType={FormInputType.TEXT}
-          afValidation={FormInputValidation.NEUTRAL}
-          afRequired={false}
-          onAfOnKeyup={handleHeaderSearch}
-        ></DigiFormInput>
-        <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
-          Sök
-        </DigiButton>
-      </form>
-    </section>
+    <>
+      <section>
+        <h3>Sök yrken</h3>
+        <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
+          <DigiFormTextarea
+            afLabel="Vad innehåller utbildningen du är intresserad av?"
+            afLabelDescription="Ange minst tre saker du kommer lära dig på utbildningen"
+            afVariation={FormTextareaVariation.MEDIUM}
+            afValidation={FormTextareaValidation.NEUTRAL}
+            afRequired={true}
+            onAfOnKeyup={handleFreeSearch}
+            afValue={freeSearch}
+          ></DigiFormTextarea>
+          {!isValid ? (
+            <DigiFormValidationMessage
+              afVariation={FormValidationMessageVariation.ERROR}
+            >
+              Du måste ange minst tre ord
+            </DigiFormValidationMessage>
+          ) : null}
+          <DigiFormInput
+            afLabel="Vad heter utbildningen?"
+            afVariation={FormInputVariation.MEDIUM}
+            afType={FormInputType.TEXT}
+            afValidation={FormInputValidation.NEUTRAL}
+            afRequired={false}
+            onAfOnKeyup={handleHeaderSearch}
+          ></DigiFormInput>
+          <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
+            Sök
+          </DigiButton>
+        </form>
+      </section>
+      <section>
+        <CompetenciesTags></CompetenciesTags>
+      </section>
+    </>
   );
 }

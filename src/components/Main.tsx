@@ -15,23 +15,28 @@ export default function Main() {
   const { searchData, setSearchData } = useOutletData();
 
   useEffect(() => {
-    console.log(searchData);
+    // console.log(searchData, "searchData");
   }, [searchData]);
 
   const getWorkData = async (search: ISearchByText) => {
     setIsLoading(true);
     const data = await matchByText(search);
-    setSearchData(data.related_occupations);
+    setSearchData(data);
+    console.log(data);
     //setRelatedOccupations(data.related_occupations);
     setIsLoading(false);
-  }
+  };
 
   return (
     <main>
       <DigiLayoutContainer>
         <MainFlex>
           <SearchForm getWorkData={getWorkData} />
-          {searchData === null ? <SearchResultsPlaceholder /> : <SearchResults isLoading={isLoading}/>}
+          {searchData === null ? (
+            <SearchResultsPlaceholder />
+          ) : (
+            <SearchResults isLoading={isLoading} />
+          )}
         </MainFlex>
       </DigiLayoutContainer>
     </main>
