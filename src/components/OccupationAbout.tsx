@@ -1,7 +1,14 @@
-export const OccupationAbout = () => {
+import { ISSYKData } from "../models/ISsykData";
+
+interface IOccupationAboutProps {
+  ssykdata: ISSYKData;
+}
+
+export const OccupationAbout = ({ ssykdata }: IOccupationAboutProps) => {
+  console.log(ssykdata);
   return (
     <>
-      <h3>Om {}</h3>
+      <h3>Yrkesbeskrivning{}</h3>
     </>
   );
 };

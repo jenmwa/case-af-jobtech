@@ -6,9 +6,11 @@ import { OccupationAbout } from "./OccupationAbout";
 import { OccupationCompetences } from "./OccupationCompetences";
 import { OccupationForecast } from "./OccupationForecast";
 import { IDeficiencyValue } from "./Occupation";
+import { ISSYKData } from "../models/ISsykData";
 
 interface IOccupationShowProps {
   occupationFound?: IOccupation;
+  ssykdata: ISSYKData;
   valuesAsArray: number[];
   keysAsArray: number[];
   handleReturnButton: () => void;
@@ -20,6 +22,7 @@ interface IOccupationShowProps {
 
 export const OccupationShow = ({
   occupationFound,
+  ssykdata,
   valuesAsArray,
   keysAsArray,
   handleReturnButton,
@@ -42,7 +45,7 @@ export const OccupationShow = ({
         <p>Inget yrke hittades</p>
       )}
       <br></br>
-      <OccupationAbout></OccupationAbout>
+      <OccupationAbout ssykdata={ssykdata}></OccupationAbout>
       <OccupationCompetences></OccupationCompetences>
       <OccupationForecast
         result2023={result2023}

@@ -141,6 +141,7 @@ export const Occupation = () => {
     <>
       <div style={{ padding: "2rem" }}>
         <OccupationShow
+          ssykdata={ssykdata}
           occupationFound={occupationFound}
           valuesAsArray={valuesAsArray}
           keysAsArray={keysAsArray}
