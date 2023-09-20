@@ -18,7 +18,7 @@ export default function SearchResults(props: ISearchresultsProps) {
       <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
     );
   } else {
-    if (searchData?.length === 0 || searchData === null) {
+    if (searchData?.length === 0) {
       return (
         <p>
           Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa
@@ -28,7 +28,8 @@ export default function SearchResults(props: ISearchresultsProps) {
     } else {
       return (
         <section>
-          {searchData.map((occupation) => (
+          <h2>Följande yrkestitlar matchar din sökning:</h2>
+          {searchData?.map((occupation) => (
             <div key={occupation.id}>
               <DigiExpandableAccordion afHeading={occupation.occupation_label}>
                 <ResultSummary occupation={occupation} />
