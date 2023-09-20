@@ -1,70 +1,27 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { OccupationShow } from "./OccupationShow";
-import { IOccupation } from "../models/IOccupation";
-import { useEffect, useState } from "react";
+// import { IOccupation } from "../models/IOccupation";
+import { useContext, useEffect, useState } from "react";
 import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
 import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
 import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
 import { ISCBData } from "../models/IGetSCBStatisticsSalary";
 import { useOutletData } from "../context/useOutletData";
+import { SSYKdataContext } from "../context/SSYKdataContext";
 
 export interface IDeficiencyValue {
   bristvarde: number;
 }
-//listmock, lägga resultat från sök i context och hämta?
-const ourList: IOccupation[] = [
-  {
-    id: "GDHs_eoz_uKx",
-    occupation_label: "Frontend-utvecklare",
-    concept_taxonomy_id: "GDHs_eoz_uKx",
-    legacy_ams_taxonomy_id: "7633",
-    occupation_group: {
-      occupation_group_label: "Mjukvaru- och systemutvecklare m.fl.",
-      concept_taxonomy_id: "DJh5_yyF_hEM",
-      ssyk: "2512",
-    },
-  },
-  {
-    id: "i5hV_FDf_Qnc",
-    occupation_label: "Webbtekniker",
-    concept_taxonomy_id: "i5hV_FDf_Qnc",
-    legacy_ams_taxonomy_id: "7046",
-    occupation_group: {
-      occupation_group_label: "Webbmaster och webbadministratörer",
-      concept_taxonomy_id: "Fv7d_YhP_YmS",
-      ssyk: "3515",
-    },
-  },
-  {
-    id: "PTs4_wYQ_zDP",
-    occupation_label: "Webbdesigner",
-    concept_taxonomy_id: "PTs4_wYQ_zDP",
-    legacy_ams_taxonomy_id: "3919",
-    occupation_group: {
-      occupation_group_label: "Designer inom spel och digitala medier",
-      concept_taxonomy_id: "Mbt6_3ko_DiD",
-      ssyk: "2173",
-    },
-  },
-
-  {
-    id: "YtrL_oQj_sck",
-    occupation_label: "Datapedagog/IT-pedagog/Datautbildare",
-    concept_taxonomy_id: "YtrL_oQj_sck",
-    legacy_ams_taxonomy_id: "3637",
-    occupation_group: {
-      occupation_group_label: "\u00d6vriga utbildare och instrukt\u00f6rer",
-      concept_taxonomy_id: "1CX5_mZw_Vcq",
-      ssyk: "3449",
-    },
-  },
-];
 
 export const Occupation = () => {
+  const ssykdata = useContext(SSYKdataContext);
+  console.log("ssykdata from context:", ssykdata);
+
   const conceptTaxonomyId = useParams<{ id: string }>();
   console.log(conceptTaxonomyId);
+
   const { searchData } = useOutletData();
-  console.log(searchData);
+  console.log(searchData?.related_occupations);
 
   const [keysAsArray, setKeysAsArray] = useState<number[]>([]);
   const [valuesAsArray, setValuesAsArray] = useState<number[]>([]);
@@ -73,11 +30,11 @@ export const Occupation = () => {
   const [deficiencyValue2026, setDeficiencyValue2026] =
     useState<IDeficiencyValue>();
 
-  const occupationFound = ourList.find(
+  const occupationFound = searchData?.related_occupations.find(
     (occupation) => occupation.concept_taxonomy_id === conceptTaxonomyId.id
   );
+
   const ssyk = occupationFound?.occupation_group.ssyk;
-  console.log(occupationFound?.occupation_label);
 
   useEffect(() => {
     if (occupationFound) {
@@ -119,8 +76,6 @@ export const Occupation = () => {
       console.log("no data found");
     }
   };
-
-  // console.log(Number(ssykObject.id));
 
   //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
   useEffect(() => {

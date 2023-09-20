@@ -54,12 +54,13 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
       try {
         const response: ISSYKData = await getSsykDescription();
         const ssykToMatch = occupation.occupation_group.ssyk;
-
+        console.log(response, ssykToMatch);
         const indexOfMatch = response.variables[0].values.findIndex(
           (value) => value === ssykToMatch
         );
         if (indexOfMatch !== -1) {
           const matchingText = response.variables[0].valueTexts[indexOfMatch];
+          console.log("index to match:", response, ssykToMatch, indexOfMatch);
           setMatchingText(matchingText);
         } else {
           console.log(`Matching SSYK Value: ${ssykToMatch} not found.`);

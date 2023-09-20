@@ -30,7 +30,13 @@ export const OccupationShow = ({
     <>
       {occupationFound ? (
         <div>
-          <h2>yrke: {occupationFound.occupation_label}</h2>
+          <h2>{occupationFound.occupation_label}</h2>
+          <p>
+            <span style={{ fontWeight: "bold" }}>
+              {occupationFound.occupation_group.occupation_group_label}
+            </span>{" "}
+            (SSYK: {occupationFound.occupation_group.ssyk})
+          </p>
         </div>
       ) : (
         <p>Inget yrke hittades</p>
