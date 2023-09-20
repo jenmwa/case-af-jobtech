@@ -1,13 +1,13 @@
 import { IOccupation } from "../models/IOccupation";
 
 import {
-  LinkButtonSize,
-  LinkButtonVariation,
+  //LinkButtonSize,
+  //LinkButtonVariation,
   ListType,
   TypographyVariation,
 } from "@digi/arbetsformedlingen";
 import {
-  DigiLinkButton,
+  //DigiLinkButton,
   DigiList,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
@@ -17,6 +17,7 @@ import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 import { StyledCompetenciesList } from "./styled/CompetenciesList";
 import { getSsykDescription } from "../services/getSsykDescriptionServices";
 import { ISSYKData } from "../models/ISsykData";
+import { Link } from "react-router-dom";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -93,13 +94,14 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
             </StyledCompetenciesList>
           ))}
         </DigiList>
-        <DigiLinkButton
+        {/* <DigiLinkButton
           afHref={`/yrke/${occupation.concept_taxonomy_id}`}
           afSize={LinkButtonSize.MEDIUM}
           afVariation={LinkButtonVariation.SECONDARY}
         >
           Läs mer
-        </DigiLinkButton>
+        </DigiLinkButton> */}
+      <Link to={`/yrke/${occupation.concept_taxonomy_id}`}>Läs mer</Link>
       </DigiTypography>
     </>
   );
