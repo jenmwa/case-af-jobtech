@@ -2,17 +2,19 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { createContext, useState } from "react";
-import { IOccupation } from "../models/IOccupation";
+import { IOccupation1 } from "../models/IOccupation";
 
 interface OutletContextProps {
-  searchData: IOccupation[] | null;
-  setSearchData: React.Dispatch<React.SetStateAction<IOccupation[] | null>>;
+  searchData: IOccupation1 | null;
+  setSearchData: React.Dispatch<React.SetStateAction<IOccupation1 | null>>;
 }
 
-export const OutletContext = createContext<OutletContextProps | undefined>(undefined);
+export const OutletContext = createContext<OutletContextProps | undefined>(
+  undefined
+);
 
 export const Layout = () => {
-  const [searchData, setSearchData] = useState<IOccupation[] | null>(null);
+  const [searchData, setSearchData] = useState<IOccupation1 | null>(null);
 
   return (
     <>
