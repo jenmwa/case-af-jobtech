@@ -60,7 +60,6 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         );
         if (indexOfMatch !== -1) {
           const matchingText = ssykdata.variables[0].valueTexts[indexOfMatch];
-          console.log("index to match:", ssykdata, ssykToMatch, indexOfMatch);
           setMatchingText(matchingText);
         } else {
           console.log(`Matching SSYK Value: ${ssykToMatch} not found.`);
