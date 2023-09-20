@@ -1,18 +1,22 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { OccupationShow } from "./OccupationShow";
 // import { IOccupation } from "../models/IOccupation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
 import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
 import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
 import { ISCBData } from "../models/IGetSCBStatisticsSalary";
 import { useOutletData } from "../context/useOutletData";
+import { SSYKdataContext } from "../context/SSYKdataContext";
 
 export interface IDeficiencyValue {
   bristvarde: number;
 }
 
 export const Occupation = () => {
+  const ssykdata = useContext(SSYKdataContext);
+  console.log("ssykdata from context:", ssykdata);
+
   const conceptTaxonomyId = useParams<{ id: string }>();
   console.log(conceptTaxonomyId);
 
