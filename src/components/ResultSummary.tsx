@@ -11,13 +11,13 @@ import {
   DigiList,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
 import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 import { StyledCompetenciesList } from "./styled/CompetenciesList";
-import { getSsykDescription } from "../services/getSsykDescriptionServices";
-import { ISSYKData } from "../models/ISsykData";
+
 import { Link } from "react-router-dom";
+import { SSYKdataContext } from "../context/SSYKdataContext";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -31,6 +31,7 @@ interface ICompetency {
 export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
   const [topFive, setTopFive] = useState<string[]>([]);
   const [matchingText, setMatchingText] = useState<string | null>(null);
+  const ssykdata = useContext(SSYKdataContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -52,15 +53,13 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
 
     const getJobSummary = async () => {
       try {
-        const response: ISSYKData = await getSsykDescription();
         const ssykToMatch = occupation.occupation_group.ssyk;
-        console.log(response, ssykToMatch);
-        const indexOfMatch = response.variables[0].values.findIndex(
+
+        const indexOfMatch = ssykdata.variables[0].values.findIndex(
           (value) => value === ssykToMatch
         );
         if (indexOfMatch !== -1) {
-          const matchingText = response.variables[0].valueTexts[indexOfMatch];
-          console.log("index to match:", response, ssykToMatch, indexOfMatch);
+          const matchingText = ssykdata.variables[0].valueTexts[indexOfMatch];
           setMatchingText(matchingText);
         } else {
           console.log(`Matching SSYK Value: ${ssykToMatch} not found.`);
@@ -74,7 +73,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
 
     getData();
     getJobSummary();
-  }, [occupation]);
+  }, [occupation, ssykdata]);
 
   return (
     <>
