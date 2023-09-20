@@ -19,7 +19,6 @@ import {
   DigiFormInputCustomEvent,
   DigiFormTextareaCustomEvent,
 } from "@digi/arbetsformedlingen/dist/types/components";
-import { CompetenciesTags } from "./CompetenciesTags";
 
 interface ISearchFormProps {
   getWorkData: (search: ISearchByText) => void;
@@ -110,9 +109,6 @@ export default function SearchForm(props: ISearchFormProps) {
             Sök
           </DigiButton>
         </form>
-      </section>
-      <section>
-        <CompetenciesTags></CompetenciesTags>
       </section>
     </>
   );
