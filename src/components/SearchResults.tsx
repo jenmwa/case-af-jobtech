@@ -9,7 +9,7 @@ import { LoaderSpinnerSize, TagSize } from "@digi/arbetsformedlingen";
 import { useOutletData } from "../context/useOutletData";
 import { matchByText } from "../services/matchByTextServices";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
-import { useState } from "react";
+import "../style/_pagination.scss";
 
 interface ISearchresultsProps {
   isLoading: boolean;
@@ -17,7 +17,6 @@ interface ISearchresultsProps {
 
 export default function SearchResults(props: ISearchresultsProps) {
   const { searchData, setSearchData } = useOutletData();
-  const [paginationNr, setPaginationNr] = useState<number>(0);
 
   const handleChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
@@ -32,11 +31,8 @@ export default function SearchResults(props: ISearchresultsProps) {
       const newResults = await matchByText(newSearch);
 
       setSearchData(newResults);
-      setPaginationNr(e.detail);
     }
   };
-
-  console.log(Math.ceil(searchData?.hits_total / 10));
 
   const competencies =
     searchData?.identified_keywords_for_input.competencies.map(
@@ -77,13 +73,16 @@ export default function SearchResults(props: ISearchresultsProps) {
               </DigiExpandableAccordion>
             </div>
           ))}
-          <DigiNavigationPagination
-            afTotalPages={
-              searchData ? Math.floor(searchData.hits_total / 10) : 5
-            }
-            afInitActivePage={1}
-            onAfOnPageChange={handleChange}
-          ></DigiNavigationPagination>
+          <article className="pagination-wrapper">
+            <DigiNavigationPagination
+              afTotalPages={
+                searchData ? Math.floor(searchData.hits_total / 10) : 5
+              }
+              afInitActivePage={1}
+              onAfOnPageChange={handleChange}
+              className="pagination"
+            ></DigiNavigationPagination>
+          </article>
         </section>
       );
     }
