@@ -60,8 +60,8 @@ const ourList: IOccupation[] = [
 ];
 
 export const Occupation = () => {
-  const ssykObject = useParams<{ id: string }>();
-  console.log(JSON.stringify(ssykObject));
+  const conceptTaxonomyId = useParams<{ id: string }>();
+  console.log(conceptTaxonomyId);
 
   const [keysAsArray, setKeysAsArray] = useState<number[]>([]);
   const [valuesAsArray, setValuesAsArray] = useState<number[]>([]);
@@ -71,8 +71,10 @@ export const Occupation = () => {
     useState<IDeficiencyValue>();
 
   const occupationFound = ourList.find(
-    (occupation) => occupation.occupation_group.ssyk === ssykObject.id
+    (occupation) => occupation.concept_taxonomy_id === conceptTaxonomyId.id
   );
+  const ssyk = occupationFound?.occupation_group.ssyk;
+  console.log(occupationFound?.occupation_label);
 
   useEffect(() => {
     if (occupationFound) {
@@ -115,7 +117,7 @@ export const Occupation = () => {
     }
   };
 
-  console.log(Number(ssykObject.id));
+  // console.log(Number(ssykObject.id));
 
   //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
   useEffect(() => {
@@ -138,20 +140,10 @@ export const Occupation = () => {
 
   const findDeficiencyValues = (getData: ICurrentOccupationalForecast[]) => {
     console.log(getData);
-    console.log(ssykObject);
-    console.log(Number(ssykObject.id));
-    const data = getData.filter(
-      (findMatch) => findMatch.ssyk === Number(ssykObject.id)
-    );
-    // for (const i of getData) {
-    //   console.log("Item SSYK:", i.ssyk);
-    //   console.log("ssykObject.id:", Number(ssykObject.id));
-    //   if (i.ssyk === Number(ssykObject.id)) {
-    //     console.log("Match Found:", i);
-    //   } else if (i.ssyk !== Number(ssykObject.id)) {
-    //     console.log("No Match");
-    //   }
-    // }
+    console.log(ssyk);
+    console.log(Number(ssyk));
+    const data = getData.filter((findMatch) => findMatch.ssyk === Number(ssyk));
+
     console.log(data);
     if (data.length > 0) {
       const deficiencyValue23 = data.find((rightMatch) => rightMatch.ar === 23);

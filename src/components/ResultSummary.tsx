@@ -94,7 +94,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
           ))}
         </DigiList>
         <DigiLinkButton
-          afHref={`/yrke/${occupation.occupation_group.ssyk}`}
+          afHref={`/yrke/${occupation.concept_taxonomy_id}`}
           afSize={LinkButtonSize.MEDIUM}
           afVariation={LinkButtonVariation.SECONDARY}
         >
