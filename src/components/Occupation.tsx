@@ -36,6 +36,21 @@ export const Occupation = () => {
 
   const ssyk = occupationFound?.occupation_group.ssyk;
 
+  console.log(JSON.stringify(ssyk));
+  console.log(ssykdata.variables[0].values);
+
+  const ssykDetailsList = ssykdata.variables[0].values;
+  const index = ssykDetailsList.indexOf(ssyk);
+  console.log(index);
+  if (index !== -1) {
+    console.log("Index found:", index);
+    const findIndexText = ssykdata.variables[0].valueTexts[index];
+    console.log(findIndexText);
+    return findIndexText;
+  } else {
+    console.log("Value not found in the list");
+  }
+
   useEffect(() => {
     if (occupationFound) {
       const ssyk = occupationFound.occupation_group.ssyk;
