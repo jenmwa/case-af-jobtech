@@ -23,6 +23,7 @@ import {
 interface ISearchFormProps {
   getWorkData: (search: ISearchByText) => void;
 }
+
 export default function SearchForm(props: ISearchFormProps) {
   const [freeSearch, setFreeSearch] = useState<string>("");
   const [headerSearch, setHeaderSearch] = useState<string>("");
@@ -52,6 +53,8 @@ export default function SearchForm(props: ISearchFormProps) {
         };
       }
       props.getWorkData(search);
+      setFreeSearch("");
+      setHeaderSearch("");
     }
   };
 
@@ -104,6 +107,7 @@ export default function SearchForm(props: ISearchFormProps) {
             afValidation={FormInputValidation.NEUTRAL}
             afRequired={false}
             onAfOnKeyup={handleHeaderSearch}
+            afValue={headerSearch}
           ></DigiFormInput>
           <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
             Sök
