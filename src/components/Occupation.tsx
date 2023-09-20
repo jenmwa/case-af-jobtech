@@ -6,6 +6,7 @@ import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
 import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
 import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
 import { ISCBData } from "../models/IGetSCBStatisticsSalary";
+import { useOutletData } from "../context/useOutletData";
 
 export interface IDeficiencyValue {
   bristvarde: number;
@@ -62,6 +63,8 @@ const ourList: IOccupation[] = [
 export const Occupation = () => {
   const conceptTaxonomyId = useParams<{ id: string }>();
   console.log(conceptTaxonomyId);
+  const { searchData } = useOutletData();
+  console.log(searchData);
 
   const [keysAsArray, setKeysAsArray] = useState<number[]>([]);
   const [valuesAsArray, setValuesAsArray] = useState<number[]>([]);
