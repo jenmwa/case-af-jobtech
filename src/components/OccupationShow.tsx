@@ -32,8 +32,10 @@ export const OccupationShow = ({
         <div>
           <h2>{occupationFound.occupation_label}</h2>
           <p>
-            {occupationFound.occupation_group.occupation_group_label} (SSYK:{" "}
-            {occupationFound.occupation_group.ssyk})
+            <span style={{ fontWeight: "bold" }}>
+              {occupationFound.occupation_group.occupation_group_label}
+            </span>{" "}
+            (SSYK: {occupationFound.occupation_group.ssyk})
           </p>
         </div>
       ) : (
