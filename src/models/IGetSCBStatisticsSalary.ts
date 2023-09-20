@@ -50,7 +50,7 @@ interface ISCBColumn {
   type: string,
 }
 
-interface ISCBData {
+export interface ISCBData {
   key: string[]
   values: string[]
 }

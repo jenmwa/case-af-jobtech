@@ -14,7 +14,7 @@ export const SalaryStatistics = ({
 }: ISalaryStatisticsProps) => {
   const afChartData: IChartData = {
     data: {
-      xValues: [1, 2, 3, 4, 5, 6],
+      xValues: [1, 2, 3, 4, 5, 6], //hårddata, antal staplar, och det är = keysAsArray.length (keysArray antal index som en array m numbers)
       series: [
         {
           yValues: valuesAsArray,
@@ -34,6 +34,7 @@ export const SalaryStatistics = ({
     <>
       <div
         style={{
+          //ordentlig klassiställt för styletag
           width: "90%",
           height: "400px",
           background: "lightgrey",
