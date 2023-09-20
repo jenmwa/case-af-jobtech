@@ -122,7 +122,7 @@ export const Occupation = () => {
     const getForecast = async () => {
       try {
         const getData = await getCurrentOccupationalForecast();
-        console.log(await getData);
+        console.log(getData);
         if (getData) {
           console.log(await getData);
           findDeficiencyValues(getData);
@@ -143,6 +143,15 @@ export const Occupation = () => {
     const data = getData.filter(
       (findMatch) => findMatch.ssyk === Number(ssykObject.id)
     );
+    // for (const i of getData) {
+    //   console.log("Item SSYK:", i.ssyk);
+    //   console.log("ssykObject.id:", Number(ssykObject.id));
+    //   if (i.ssyk === Number(ssykObject.id)) {
+    //     console.log("Match Found:", i);
+    //   } else if (i.ssyk !== Number(ssykObject.id)) {
+    //     console.log("No Match");
+    //   }
+    // }
     console.log(data);
     if (data.length > 0) {
       const deficiencyValue23 = data.find((rightMatch) => rightMatch.ar === 23);
