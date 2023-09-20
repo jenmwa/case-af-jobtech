@@ -1,32 +1,30 @@
 import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
 import { DigiButton, DigiIconArrowBack } from "@digi/arbetsformedlingen-react";
 import { IOccupation } from "../models/IOccupation";
-import { SalaryStatistics } from "./SalaryStatistics";
+import { SalaryStatistics } from "./OccupationSalaryStatistics";
 import { OccupationAbout } from "./OccupationAbout";
 import { OccupationCompetences } from "./OccupationCompetences";
 import { OccupationForecast } from "./OccupationForecast";
-import { IDeficiencyValue } from "./Occupation";
+// import { IDeficiencyValue } from "./Occupation";
 
 interface IOccupationShowProps {
   occupationFound?: IOccupation;
   findIndexText: string;
-  valuesAsArray: number[];
-  keysAsArray: number[];
+  chartLineYValues: number[];
+  chartLineXValues: string[];
   handleReturnButton: () => void;
-  deficiencyValue2023: IDeficiencyValue | undefined;
-  deficiencyValue2026: IDeficiencyValue | undefined;
-  result2023: { value: string; text: string };
-  result2026: { value: string; text: string };
+  deficiencyValueData2023: { value: string; text: string };
+  deficiencyValueData2026: { value: string; text: string };
 }
 
 export const OccupationShow = ({
   occupationFound,
   findIndexText,
-  valuesAsArray,
-  keysAsArray,
+  chartLineYValues,
+  chartLineXValues,
   handleReturnButton,
-  result2023,
-  result2026,
+  deficiencyValueData2023,
+  deficiencyValueData2026,
 }: IOccupationShowProps) => {
   return (
     <>
@@ -34,7 +32,7 @@ export const OccupationShow = ({
         <div>
           <h2>{occupationFound.occupation_label}</h2>
           <p>
-            <span style={{ fontWeight: "italic" }}>
+            <span style={{ fontWeight: "bold" }}>
               {occupationFound.occupation_group.occupation_group_label}
             </span>{" "}
             (SSYK: {occupationFound.occupation_group.ssyk})
@@ -47,12 +45,13 @@ export const OccupationShow = ({
       <OccupationAbout findIndexText={findIndexText}></OccupationAbout>
       <OccupationCompetences></OccupationCompetences>
       <OccupationForecast
-        result2023={result2023}
-        result2026={result2026}
+        deficiencyValueData2023={deficiencyValueData2023}
+        deficiencyValueData2026={deficiencyValueData2026}
+        occupationFound={occupationFound}
       ></OccupationForecast>
       <SalaryStatistics
-        keysAsArray={keysAsArray}
-        valuesAsArray={valuesAsArray}
+        chartLineXValues={chartLineXValues}
+        chartLineYValues={chartLineYValues}
       ></SalaryStatistics>
       <DigiButton
         afSize={ButtonSize.MEDIUM}

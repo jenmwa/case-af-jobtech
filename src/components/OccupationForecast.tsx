@@ -4,21 +4,25 @@ import {
   LayoutColumnsElement,
   LayoutColumnsVariation,
 } from "@digi/arbetsformedlingen";
+import { IOccupation } from "../models/IOccupation";
 
 interface IOccupationForecast {
-  result2023: { value: string; text: string };
-  result2026: { value: string; text: string };
+  deficiencyValueData2023: { value: string; text: string };
+  deficiencyValueData2026: { value: string; text: string };
+  occupationFound?: IOccupation;
 }
 
 export const OccupationForecast = ({
-  result2023,
-  result2026,
+  deficiencyValueData2023,
+  deficiencyValueData2026,
+  occupationFound,
 }: IOccupationForecast) => {
   return (
     <>
       <h4>Framtidsprognos</h4>
       <p>
-        Arbetsförmedlingen bedömning gällande bristvärdet för [yrkesrollen].
+        Arbetsförmedlingen bedömning gällande bristvärdet för{" "}
+        {occupationFound?.occupation_label}.
       </p>
       <DigiLayoutColumns
         afElement={LayoutColumnsElement.DIV}
@@ -26,13 +30,13 @@ export const OccupationForecast = ({
       >
         <SVGCircle
           title="2023"
-          value={result2023.value}
-          text={result2023.text}
+          value={deficiencyValueData2023.value}
+          text={deficiencyValueData2023.text}
         ></SVGCircle>
         <SVGCircle
           title="2026"
-          value={result2026.value}
-          text={result2026.text}
+          value={deficiencyValueData2026.value}
+          text={deficiencyValueData2026.text}
         ></SVGCircle>
       </DigiLayoutColumns>
     </>
