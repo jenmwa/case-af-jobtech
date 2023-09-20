@@ -12,22 +12,13 @@ interface ISearchresultsProps {
 
 export default function SearchResults(props: ISearchresultsProps) {
   const { searchData } = useOutletData();
-  console.log(searchData)
-
-  const occupationHtml = searchData?.map((occupation) => (
-    <div key={occupation.id}>
-      <DigiExpandableAccordion afHeading={occupation.occupation_label}>
-        <ResultSummary occupation={occupation} />
-      </DigiExpandableAccordion>
-    </div>
-  ));
 
   if (props.isLoading) {
     return (
       <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
     );
   } else {
-    if (searchData?.length === 0) {
+    if (searchData?.length === 0 || searchData === null) {
       return (
         <p>
           Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa
@@ -37,8 +28,13 @@ export default function SearchResults(props: ISearchresultsProps) {
     } else {
       return (
         <section>
-          <h3>Följande yrken matchar din utbildning:</h3>
-          {occupationHtml}
+          {searchData.map((occupation) => (
+            <div key={occupation.id}>
+              <DigiExpandableAccordion afHeading={occupation.occupation_label}>
+                <ResultSummary occupation={occupation} />
+              </DigiExpandableAccordion>
+            </div>
+          ))}
         </section>
       );
     }
