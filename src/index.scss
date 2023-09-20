@@ -5,11 +5,16 @@ $font-path: "/node_modules/@digi/arbetsformedlingen/dist/digi-arbetsformedlingen
 
 @import 'style/footer';
 @import 'style/navigation';
+@import 'style/searchResults';
 
 body{
   display:flex;
   flex-direction: column;
   padding: 0; 
   margin: 0;
+  min-height: 100vh;
+}
+
+main{
   min-height: 100vh;
 }
