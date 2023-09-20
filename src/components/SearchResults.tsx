@@ -2,31 +2,23 @@ import {
   DigiExpandableAccordion,
   DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
-import { IOccupation } from "../models/IOccupation";
 import { ResultSummary } from "./ResultSummary";
-// import { useState } from "react";
 import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
+import { useOutletData } from "../context/useOutletData";
 
 interface ISearchresultsProps {
-  relatedOccupations: IOccupation[];
   isLoading: boolean;
 }
 
 export default function SearchResults(props: ISearchresultsProps) {
-  const occupationHtml = props.relatedOccupations.map((occupation) => (
-    <div key={occupation.id}>
-      <DigiExpandableAccordion afHeading={occupation.occupation_label}>
-        <ResultSummary occupation={occupation} />
-      </DigiExpandableAccordion>
-    </div>
-  ));
+  const { searchData } = useOutletData();
 
   if (props.isLoading) {
     return (
       <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
     );
   } else {
-    if (occupationHtml.length === 0) {
+    if (searchData?.length === 0) {
       return (
         <p>
           Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa
@@ -36,8 +28,14 @@ export default function SearchResults(props: ISearchresultsProps) {
     } else {
       return (
         <section>
-          <h3>Följande yrken matchar din utbildning:</h3>
-          {occupationHtml}
+          <h2>Följande yrkestitlar matchar din sökning:</h2>
+          {searchData?.map((occupation) => (
+            <div key={occupation.id}>
+              <DigiExpandableAccordion afHeading={occupation.occupation_label}>
+                <ResultSummary occupation={occupation} />
+              </DigiExpandableAccordion>
+            </div>
+          ))}
         </section>
       );
     }

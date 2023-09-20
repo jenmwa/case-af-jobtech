@@ -62,12 +62,12 @@ export default function SearchForm(props: ISearchFormProps) {
   }
 
   function handleFreeSearch(e: DigiFormTextareaCustomEvent<HTMLTextAreaElement> ) {
-    setFreeSearch(JSON.stringify(e.target.value));
+    setFreeSearch(e.target.value);
     setInputLength(wordCount(freeSearch));
   }
 
   function handleHeaderSearch(e: DigiFormInputCustomEvent<HTMLInputElement>) {
-    const newValue = JSON.stringify(e.target.value);
+    const newValue = e.target.value as string;
     setHeaderSearch(newValue);
   }
 
@@ -82,6 +82,7 @@ export default function SearchForm(props: ISearchFormProps) {
           afValidation={FormTextareaValidation.NEUTRAL}
           afRequired={true}
           onAfOnKeyup={handleFreeSearch}
+          afValue={freeSearch}
         ></DigiFormTextarea>
         {!isValid ? (
           <DigiFormValidationMessage
