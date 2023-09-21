@@ -7,6 +7,7 @@ export default function Header() {
         <h2>LOGGA</h2>
         <div className='navigation'>
           <Link to="/">Yrkestipsarn</Link>
+          <Link to="/utbildning">Sök utbildning</Link>
           <Link to="/om">Om</Link>
         </div>
       </div>
