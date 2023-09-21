@@ -2,19 +2,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { OccupationShow } from "./OccupationShow";
 import { useContext, useEffect, useState } from "react";
 import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
-import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
-import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
 import { ISCBData } from "../models/IGetSCBStatisticsSalary";
 import { useOutletData } from "../context/useOutletData";
 import { SSYKdataContext } from "../context/SSYKdataContext";
 import { useSSYKDetails } from "../hooks/useSSYKDetails";
+import { ForecastContext } from "../context/ForecastContext";
+import { useForecastData } from "../hooks/useForecastData";
 
 export interface IDeficiencyValue {
-  bristvarde: number;
+  deficiencyValue23: {
+    value: string;
+    text: string;
+  } | null;
+  deficiencyValue26: {
+    value: string;
+    text: string;
+  } | null;
 }
 
 export const Occupation = () => {
   const ssykdata = useContext(SSYKdataContext);
+  const forecastData = useContext(ForecastContext);
   const { searchData } = useOutletData();
 
   const conceptTaxonomyId = useParams<{ id: string }>();
@@ -22,11 +30,12 @@ export const Occupation = () => {
 
   const [chartLineXValues, setChartLineXValues] = useState<string[]>([]);
   const [chartLineYValues, setChartLineYValues] = useState<number[]>([]);
-  const [deficiencyValue2023, setDeficiencyValue2023] =
-    useState<IDeficiencyValue>();
-  const [deficiencyValue2026, setDeficiencyValue2026] =
-    useState<IDeficiencyValue>();
 
+  // const [forecastDataValues, setForecastDataValues] =
+  //   useState<IDeficiencyValue>();
+  // const [deficiencyValue2023, setDeficiencyValue2023] =
+  //   useState<IDeficienyValueAndText>({ value: "", text: "" });
+  // const [deficiencyValue2026, setDeficiencyValue2026] = useState<number>();
   const occupationFound = searchData?.related_occupations.find(
     (occupation) => occupation.concept_taxonomy_id === conceptTaxonomyId.id
   );
@@ -51,6 +60,9 @@ export const Occupation = () => {
     }
   });
 
+  const findForeCastData = useForecastData(forecastData, ssykToMatch);
+  console.log(findForeCastData);
+
   const getValuesArray = (chartLineData: ISCBData[]) => {
     if (chartLineData) {
       const chartLineXValues = chartLineData.map((item) => item.key[1]).flat();
@@ -72,66 +84,27 @@ export const Occupation = () => {
     }
   };
 
-  //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
-  useEffect(() => {
-    const getForecast = async () => {
-      try {
-        const getData = await getCurrentOccupationalForecast();
-        console.log(getData);
-        if (getData) {
-          console.log(getData);
-          findDeficiencyValues(getData);
-        } else {
-          console.log("oops, something went wrong. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    getForecast();
-  }, []);
+  // const checkDeficiencyValues = (deficiencyValue: number) => {
+  //   if (deficiencyValue <= 2) {
+  //     return { value: "400", text: "Ej brist" };
+  //   } else if (deficiencyValue === 3 || deficiencyValue === 4) {
+  //     return { value: "250", text: "I balans" };
+  //   } else if (deficiencyValue >= 5) {
+  //     return { value: "60", text: "Hög" };
+  //   } else {
+  //     return { value: "500", text: "Ej Tillgängligt" };
+  //   }
+  // };
 
-  const findDeficiencyValues = (getData: ICurrentOccupationalForecast[]) => {
-    const data = getData.filter(
-      (findMatch) => findMatch.ssyk === Number(ssykToMatch)
-    );
+  // const deficiencyValue2023variable = Number(deficiencyValue2023?.bristvarde);
+  // const deficiencyValue2026variable = Number(deficiencyValue2026?.bristvarde);
 
-    console.log(data);
-    if (data.length > 0) {
-      const findDeficiencyValue23 = data.find(
-        (rightMatch) => rightMatch.ar === 23
-      );
-      console.log(findDeficiencyValue23?.bristvarde);
-      const findDeficiencyValue26 = data.find(
-        (rightMatch) => rightMatch.ar === 26
-      );
-      console.log(findDeficiencyValue26?.bristvarde);
-      setDeficiencyValue2023(findDeficiencyValue23);
-      setDeficiencyValue2026(findDeficiencyValue26);
-    }
-  };
-
-  const checkDeficiencyValues = (deficiencyValue: number) => {
-    if (deficiencyValue <= 2) {
-      return { value: "400", text: "Ej brist" };
-    } else if (deficiencyValue === 3 || deficiencyValue === 4) {
-      return { value: "250", text: "I balans" };
-    } else if (deficiencyValue >= 5) {
-      return { value: "60", text: "Hög" };
-    } else {
-      return { value: "500", text: "Ej Tillgängligt" };
-    }
-  };
-
-  const deficiencyValue2023variable = Number(deficiencyValue2023?.bristvarde);
-  const deficiencyValue2026variable = Number(deficiencyValue2026?.bristvarde);
-
-  const deficiencyValueData2023 = checkDeficiencyValues(
-    deficiencyValue2023variable
-  );
-  const deficiencyValueData2026 = checkDeficiencyValues(
-    deficiencyValue2026variable
-  );
+  // const deficiencyValueData2023 = checkDeficiencyValues(
+  //   deficiencyValue2023variable
+  // );
+  // const deficiencyValueData2026 = checkDeficiencyValues(
+  //   deficiencyValue2026variable
+  // );
 
   const handleReturnButton = () => {
     navigate("/");
@@ -146,8 +119,10 @@ export const Occupation = () => {
           chartLineYValues={chartLineYValues}
           chartLineXValues={chartLineXValues}
           handleReturnButton={handleReturnButton}
-          deficiencyValueData2023={deficiencyValueData2023}
-          deficiencyValueData2026={deficiencyValueData2026}
+          findForeCastData={findForeCastData}
+          // defValues={defValues}
+          // deficiencyValueData2023={deficiencyValueData2023}
+          // deficiencyValueData2026={deficiencyValueData2026}
         ></OccupationShow>
       </div>
     </>

@@ -5,17 +5,20 @@ import {
   LayoutColumnsVariation,
 } from "@digi/arbetsformedlingen";
 import { IOccupation } from "../models/IOccupation";
+import { IDeficiencyValue } from "./Occupation";
 
 interface IOccupationForecast {
-  deficiencyValueData2023: { value: string; text: string };
-  deficiencyValueData2026: { value: string; text: string };
+  // deficiencyValueData2023: { value: string; text: string };
+  // deficiencyValueData2026: { value: string; text: string };
   occupationFound?: IOccupation;
+  findForeCastData: IDeficiencyValue | undefined;
 }
 
 export const OccupationForecast = ({
-  deficiencyValueData2023,
-  deficiencyValueData2026,
+  // deficiencyValueData2023,
+  // deficiencyValueData2026,
   occupationFound,
+  findForeCastData,
 }: IOccupationForecast) => {
   return (
     <>
@@ -30,8 +33,8 @@ export const OccupationForecast = ({
       >
         <SVGCircle
           title="2023"
-          value={deficiencyValueData2023.value}
-          text={deficiencyValueData2023.text}
+          value={findForeCastData.deficiencyValue23.value}
+          text={findForeCastData?.deficiencyValue23.text}
         ></SVGCircle>
         <SVGCircle
           title="2026"
