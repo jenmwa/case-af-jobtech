@@ -32,7 +32,6 @@ export default function SearchForm(props: ISearchFormProps) {
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
-    console.log(inputLength);
 
     if (inputLength < 3) {
       setIsValid(false);
