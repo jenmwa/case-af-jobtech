@@ -55,14 +55,9 @@ export default function SearchResults(props: ISearchresultsProps) {
   if (searchData) {
     if (searchData.related_occupations.length > 9 && !showPagination) {
       setShowPagination(true);
-
-      if (searchData.hits_total / 10 > 10) {
-        setTotalPages(10);
-      } else {
-        setTotalPages(Math.floor(searchData.hits_total / 10));
-      }
-    }
-    if (searchData.related_occupations.length < 9 && showPagination) {
+      const totalPages = Math.min(10, Math.floor(searchData.hits_total / 10));
+      setTotalPages(totalPages);
+    } else if (searchData.related_occupations.length <= 9 && showPagination) {
       setShowPagination(false);
     }
   }
