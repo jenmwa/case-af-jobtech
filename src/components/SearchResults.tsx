@@ -21,7 +21,7 @@ export default function SearchResults(props: ISearchresultsProps) {
   const [showPagination, setShowPagination] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
 
-  const handleChange = async (
+  const handlePaginationChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
   ) => {
     if (searchData) {
@@ -92,7 +92,7 @@ export default function SearchResults(props: ISearchresultsProps) {
               <DigiNavigationPagination
                 afTotalPages={totalPages}
                 afInitActivePage={1}
-                onAfOnPageChange={handleChange}
+                onAfOnPageChange={handlePaginationChange}
                 className="pagination"
               ></DigiNavigationPagination>
             </article>
