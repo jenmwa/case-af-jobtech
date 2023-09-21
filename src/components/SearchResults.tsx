@@ -10,6 +10,7 @@ import { useOutletData } from "../context/useOutletData";
 import { matchByText } from "../services/matchByTextServices";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import "../style/_pagination.scss";
+import { useState } from "react";
 
 interface ISearchresultsProps {
   isLoading: boolean;
@@ -17,6 +18,8 @@ interface ISearchresultsProps {
 
 export default function SearchResults(props: ISearchresultsProps) {
   const { searchData, setSearchData } = useOutletData();
+  const [showPagination, setShowPagination] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   const handleChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
@@ -48,6 +51,22 @@ export default function SearchResults(props: ISearchresultsProps) {
         );
       }
     );
+
+  if (searchData) {
+    if (searchData.related_occupations.length > 9 && !showPagination) {
+      setShowPagination(true);
+
+      if (searchData.hits_total / 10 > 10) {
+        setTotalPages(10);
+      } else {
+        setTotalPages(Math.floor(searchData.hits_total / 10));
+      }
+    }
+    if (searchData.related_occupations.length < 9 && showPagination) {
+      setShowPagination(false);
+    }
+  }
+
   if (props.isLoading) {
     return (
       <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
@@ -73,16 +92,21 @@ export default function SearchResults(props: ISearchresultsProps) {
               </DigiExpandableAccordion>
             </div>
           ))}
-          <article className="pagination-wrapper">
-            <DigiNavigationPagination
-              afTotalPages={10}
-              afInitActivePage={1}
-              onAfOnPageChange={handleChange}
-              className="pagination"
-            ></DigiNavigationPagination>
-          </article>
+          {showPagination && (
+            <article className="pagination-wrapper">
+              <DigiNavigationPagination
+                afTotalPages={totalPages}
+                afInitActivePage={1}
+                onAfOnPageChange={handleChange}
+                className="pagination"
+              ></DigiNavigationPagination>
+            </article>
+          )}
         </section>
       );
     }
   }
 }
+
+// node html css
+//apotek butik läkemedel medicin
