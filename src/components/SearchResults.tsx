@@ -75,9 +75,7 @@ export default function SearchResults(props: ISearchresultsProps) {
           ))}
           <article className="pagination-wrapper">
             <DigiNavigationPagination
-              afTotalPages={
-                searchData ? Math.floor(searchData.hits_total / 10) : 5
-              }
+              afTotalPages={10}
               afInitActivePage={1}
               onAfOnPageChange={handleChange}
               className="pagination"
