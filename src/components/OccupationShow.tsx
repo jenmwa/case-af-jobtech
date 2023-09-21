@@ -1,30 +1,30 @@
 import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
 import { DigiButton, DigiIconArrowBack } from "@digi/arbetsformedlingen-react";
 import { IOccupation } from "../models/IOccupation";
-import { SalaryStatistics } from "./SalaryStatistics";
+import { SalaryStatistics } from "./OccupationSalaryStatistics";
 import { OccupationAbout } from "./OccupationAbout";
 import { OccupationCompetences } from "./OccupationCompetences";
 import { OccupationForecast } from "./OccupationForecast";
-import { IDeficiencyValue } from "./Occupation";
+// import { IDeficiencyValue } from "./Occupation";
 
 interface IOccupationShowProps {
   occupationFound?: IOccupation;
-  valuesAsArray: number[];
-  keysAsArray: number[];
+  findIndexText: string;
+  chartLineYValues: number[];
+  chartLineXValues: string[];
   handleReturnButton: () => void;
-  deficiencyValue2023: IDeficiencyValue | undefined;
-  deficiencyValue2026: IDeficiencyValue | undefined;
-  result2023: { value: string; text: string };
-  result2026: { value: string; text: string };
+  deficiencyValueData2023: { value: string; text: string };
+  deficiencyValueData2026: { value: string; text: string };
 }
 
 export const OccupationShow = ({
   occupationFound,
-  valuesAsArray,
-  keysAsArray,
+  findIndexText,
+  chartLineYValues,
+  chartLineXValues,
   handleReturnButton,
-  result2023,
-  result2026,
+  deficiencyValueData2023,
+  deficiencyValueData2026,
 }: IOccupationShowProps) => {
   return (
     <>
@@ -42,15 +42,16 @@ export const OccupationShow = ({
         <p>Inget yrke hittades</p>
       )}
       <br></br>
-      <OccupationAbout></OccupationAbout>
+      <OccupationAbout findIndexText={findIndexText}></OccupationAbout>
       <OccupationCompetences></OccupationCompetences>
       <OccupationForecast
-        result2023={result2023}
-        result2026={result2026}
+        deficiencyValueData2023={deficiencyValueData2023}
+        deficiencyValueData2026={deficiencyValueData2026}
+        occupationFound={occupationFound}
       ></OccupationForecast>
       <SalaryStatistics
-        keysAsArray={keysAsArray}
-        valuesAsArray={valuesAsArray}
+        chartLineXValues={chartLineXValues}
+        chartLineYValues={chartLineYValues}
       ></SalaryStatistics>
       <DigiButton
         afSize={ButtonSize.MEDIUM}

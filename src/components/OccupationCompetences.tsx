@@ -1,7 +1,8 @@
 export const OccupationCompetences = () => {
   return (
     <>
-      <p>Vanligaste kompetenserna</p>
+      <h4>Vanligaste kompetenserna</h4>
+      <p>fyll på</p>
     </>
   );
 };
