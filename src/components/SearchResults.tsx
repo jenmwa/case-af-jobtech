@@ -64,7 +64,7 @@ export default function SearchResults(props: ISearchresultsProps) {
 
   if (props.isLoading) {
     return (
-      <DigiLoaderSpinner afSize={LoaderSpinnerSize.MEDIUM}></DigiLoaderSpinner>
+      <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
     );
   } else {
     if (searchData?.related_occupations.length === 0) {
@@ -76,7 +76,7 @@ export default function SearchResults(props: ISearchresultsProps) {
       );
     } else {
       return (
-        <section>
+        <section className="searchResults">
           <h4 className="keyWordsHeader">Sökningen baseras på följande ord:</h4>
           <div className="keyWords">{competencies}</div>
           <h3>Följande yrkestitlar matchar din sökning:</h3>
