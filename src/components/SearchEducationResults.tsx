@@ -20,8 +20,14 @@ export default function SearchEducationResults({
   return (
     <>
       <section>
-        <h2>Utbildningar</h2>
-        {showNoResult ? <h4>No result found</h4> : accordionComponents}
+        {showNoResult ? (
+          <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
+        ) : (
+          <>
+            <h2>Utbildningar</h2>
+            {accordionComponents}
+          </>
+        )}
       </section>
     </>
   );
