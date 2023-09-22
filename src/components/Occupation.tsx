@@ -140,7 +140,7 @@ export const Occupation = () => {
   );
 
   const handleReturnButton = () => {
-    navigate("/");
+    navigate("/sok-yrke");
   };
 
   return (
