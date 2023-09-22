@@ -4,6 +4,7 @@ import { Occupation } from "./Occupation";
 import Main from "./Main";
 import { About } from "./About";
 import Education from "./Education";
+import Home from "./Home";
 
 export const router = createBrowserRouter([
   {
@@ -12,8 +13,12 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Main></Main>,
+        element: <Home></Home>,
         index: true,
+      },
+      {
+        path: "/sok-yrke",
+        element: <Main></Main>,
       },
       {
         path: "/yrke/:id",
@@ -24,7 +29,7 @@ export const router = createBrowserRouter([
         element: <About></About>,
       },
       {
-        path:"/utbildning",
+        path:"/sok-utbildning",
         element: <Education></Education>,
       }
     ],

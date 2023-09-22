@@ -1,0 +1,14 @@
+.home{
+  button{
+    margin-right: 20px;
+    a{
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: bold;
+  
+      &:visited{
+        color: #FFFFFF;
+      }
+    }
+  }
+}
