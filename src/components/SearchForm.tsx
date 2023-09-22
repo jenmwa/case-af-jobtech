@@ -25,7 +25,14 @@ interface ISearchFormProps {
 }
 
 export default function SearchForm(props: ISearchFormProps) {
-  const [freeSearch, setFreeSearch] = useState<string>("");
+  const descriptionFromLocalStorage = localStorage.getItem(
+    "educationDescriptionText"
+  );
+  const initialTextFreeSearch = descriptionFromLocalStorage
+    ? descriptionFromLocalStorage
+    : "";
+
+  const [freeSearch, setFreeSearch] = useState<string>(initialTextFreeSearch);
   const [headerSearch, setHeaderSearch] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
   const [inputLength, setInputLength] = useState<number>(0);
