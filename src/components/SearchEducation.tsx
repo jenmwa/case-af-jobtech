@@ -18,9 +18,9 @@ export default function SearchEducation({
   setEduResult,
 }: ISubmitSearchEduProps) {
   const [searchEduText, setSearchEduText] = useState<string>("");
+
   const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
     setSearchEduText(e.target.value);
-    console.log(searchEduText, "textquery");
   };
 
   const submitSearchEdu = async (e: FormEvent) => {
@@ -29,13 +29,11 @@ export default function SearchEducation({
       const result = await getEducations({});
       if (result) {
         setEduResult(result);
-        console.log("tom", result);
       }
     } else {
       const result = await getEducations({ query: searchEduText });
       if (result) {
         setEduResult(result);
-        console.log("tom", result);
       }
     }
   };
