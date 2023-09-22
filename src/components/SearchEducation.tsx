@@ -8,29 +8,35 @@ import { DigiButton, DigiFormTextarea } from "@digi/arbetsformedlingen-react";
 import { DigiFormTextareaCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import { FormEvent, useState } from "react";
 import { getEducations } from "../services/educationServices";
+import { IEducations } from "../models/IEducations";
 
-export default function SearchEducation() {
+interface ISubmitSearchEduProps {
+  setEduResult: (result: IEducations) => void;
+}
+
+export default function SearchEducation({
+  setEduResult,
+}: ISubmitSearchEduProps) {
   const [searchEduText, setSearchEduText] = useState<string>("");
-  const [eduResult, setEduResult] = useState<any>({});
-
   const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
     setSearchEduText(e.target.value);
+    console.log(searchEduText, "textquery");
   };
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
-
     if (searchEduText === "") {
       const result = await getEducations({});
       if (result) {
         setEduResult(result);
+        console.log("tom", result);
       }
-      console.log("tom", result);
     } else {
       const result = await getEducations({ query: searchEduText });
-      setEduResult(result);
-
-      console.log("ord", result);
+      if (result) {
+        setEduResult(result);
+        console.log("tom", result);
+      }
     }
   };
 
