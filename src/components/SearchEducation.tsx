@@ -5,18 +5,27 @@ import {
   ButtonVariation,
 } from "@digi/arbetsformedlingen";
 import { DigiButton, DigiFormTextarea } from "@digi/arbetsformedlingen-react";
-import { FormEvent } from "react";
+import { DigiFormTextareaCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
+import { FormEvent, useState } from "react";
 import { getEducations } from "../services/educationServices";
 
 export default function SearchEducation() {
-  // const [ ] = useState()
+  const [searchEduText, setSearchEduText] = useState<string>("");
+
+  const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
+    setSearchEduText(e.target.value);
+  };
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("click");
 
-    const result = await getEducations({});
-    console.log(result);
+    if (searchEduText === "") {
+      const result = await getEducations({});
+      console.log("tom", result);
+    } else {
+      const result = await getEducations({ query: searchEduText });
+      console.log("ord", result);
+    }
   };
 
   return (
@@ -24,7 +33,7 @@ export default function SearchEducation() {
       <section>
         <h2>Sök utbildning</h2>
         <form
-          onSubmit={(e) => {
+          onSubmit={(e: FormEvent) => {
             submitSearchEdu(e);
           }}
         >
@@ -33,6 +42,8 @@ export default function SearchEducation() {
             afVariation={FormTextareaVariation.MEDIUM}
             afValidation={FormTextareaValidation.NEUTRAL}
             afLabelDescription="Lämnas textrutan blank så hämtas alla utbildningar"
+            onAfOnChange={textInput}
+            afValue={searchEduText}
           ></DigiFormTextarea>
           <DigiButton
             afSize={ButtonSize.MEDIUM}
