@@ -13,7 +13,7 @@ import {
   DigiFormTextarea,
   DigiFormValidationMessage,
 } from "@digi/arbetsformedlingen-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { ISearchByText } from "../models/ISearchByText";
 import {
   DigiFormInputCustomEvent,
@@ -25,10 +25,26 @@ interface ISearchFormProps {
 }
 
 export default function SearchForm(props: ISearchFormProps) {
-  const [freeSearch, setFreeSearch] = useState<string>("");
+  const descriptionFromLocalStorage = localStorage.getItem(
+    "educationDescriptionText"
+  );
+  // const initialTextFreeSearch = descriptionFromLocalStorage
+  //   ? descriptionFromLocalStorage
+  //   : "";
+
+  const [freeSearch, setFreeSearch] = useState<string>('');
   const [headerSearch, setHeaderSearch] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
   const [inputLength, setInputLength] = useState<number>(0);
+
+  useEffect(() => {
+    if (descriptionFromLocalStorage) {
+      setFreeSearch(descriptionFromLocalStorage);
+      setInputLength(wordCount(descriptionFromLocalStorage));
+    } else{
+      return
+    }
+  }, [])
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
@@ -54,6 +70,7 @@ export default function SearchForm(props: ISearchFormProps) {
       props.getWorkData(search);
       setFreeSearch("");
       setHeaderSearch("");
+      localStorage.removeItem("educationDescriptionText");
     }
   };
 
@@ -69,9 +86,16 @@ export default function SearchForm(props: ISearchFormProps) {
   function handleFreeSearch(
     e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>
   ) {
-    setFreeSearch(e.target.value);
     setInputLength(wordCount(freeSearch));
+    localStorage.setItem("educationDescriptionText", e.target.value);
+    setFreeSearch(e.target.value);
   }
+
+  // const test = (e: DigiFormTextareaCustomEvent<HTMLInputElement>) => {
+  //   setInputLength(wordCount(freeSearch));
+  //   localStorage.setItem("educationDescriptionText", e.target.value);
+  //   setFreeSearch(e.target.value);
+  // };
 
   function handleHeaderSearch(e: DigiFormInputCustomEvent<HTMLInputElement>) {
     const newValue = e.target.value as string;
@@ -81,7 +105,7 @@ export default function SearchForm(props: ISearchFormProps) {
   return (
     <>
       <section>
-        <h3>Sök yrken</h3>
+        <h2>Sök yrken</h2>
         <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
           <DigiFormTextarea
             afLabel="Vad innehåller utbildningen du är intresserad av?"
@@ -91,6 +115,7 @@ export default function SearchForm(props: ISearchFormProps) {
             afRequired={true}
             onAfOnKeyup={handleFreeSearch}
             afValue={freeSearch}
+           // onAfOnFocusout={test}
           ></DigiFormTextarea>
           {!isValid ? (
             <DigiFormValidationMessage

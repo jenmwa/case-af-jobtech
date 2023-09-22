@@ -2,58 +2,57 @@
 
 ## Jenny
 
-### Yesterday I…,
+### Yesterday I…
 
-Hämtade brisvärdesindex, matchar yrket med jobtech api. Spenderade låååååång tid på visuell feedback och felsökning.
-Hittat felet och skapat felhantering.
+tenta, tog lite em off, gjorde context av forecastData.
 
 ### today I will…
 
-Fortsätta med felhantering, hur visar vi fel för användare?
-Byta route-id till concept-id istället för ssyk.
+kolla boarden.
 
 ### I'm stuck with…
 
-Nej. Vet vad som är felet, så fortsättre med det.
+evighetsloopar.
 
 ## TIL
 
-Kolla att data som man vill hämta finns!
+påminnelse om att en komponent är en stor funktion.
 
 ## Nani
 
-### Yesterday I…,
+### Yesterday I…
 
-Fixade endpoint till job-summary. Fixade läs-mer länk så att den inte öppnas i ny flik. Lite småfix med styling av länk.
+tenta, fixade pagination, nummer på sidorna (liten bugg), villkorstyrd pagination.
 
 ### today I will…
 
-Plockar en ny issue. Kompetenserna som taggar 'live' när man skriver söktext?
+formulär.
 
 ### I'm stuck with…
 
-Inte just nu.
+gjorde state, skapade loop... löstes till slut! 🎉
 
 ## TIL
 
-Inget speciellt.
+läs felmeddelandet 10gånger till!
 
 ## Evelina
 
 ### Yesterday I…,
 
-Löste dethär med att state inte uppdateras state. La ett context som inehåller sökresultaten. Sökresultat stannar även om man byter sida.
+tenta, stajlade, lade in illustration, positionering. Service för hämta utbildningar samt utbild baserad på id, lade till en Route, + basic struktur och (tomma) komponenter.
 
 ### today I will…
 
-Lösa buggar som det jag gjorde igår har skapat. Kolla vad som finns på projekt.
+Vi får se efter att vi gått igenom boarden.
 
 ### I'm stuck with…
 
-Sitter inte fast
+nada!
 
 ## TIL
 
-State, hur man hanterar formulär.
+igen, designsystemet lite knöligt...
 
+Mergea till main
 Lägg in skärmdump på skrumboard
