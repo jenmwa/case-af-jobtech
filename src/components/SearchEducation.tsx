@@ -11,6 +11,7 @@ import { getEducations } from "../services/educationServices";
 
 export default function SearchEducation() {
   const [searchEduText, setSearchEduText] = useState<string>("");
+  const [eduResult, setEduResult] = useState<any>({});
 
   const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
     setSearchEduText(e.target.value);
@@ -21,9 +22,14 @@ export default function SearchEducation() {
 
     if (searchEduText === "") {
       const result = await getEducations({});
+      if (result) {
+        setEduResult(result);
+      }
       console.log("tom", result);
     } else {
       const result = await getEducations({ query: searchEduText });
+      setEduResult(result);
+
       console.log("ord", result);
     }
   };
