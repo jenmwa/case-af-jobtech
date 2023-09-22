@@ -18,6 +18,7 @@ import { StyledCompetenciesList } from "./styled/CompetenciesList";
 
 import { Link } from "react-router-dom";
 import { SSYKdataContext } from "../context/SSYKdataContext";
+import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -74,6 +75,9 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
     getData();
     getJobSummary();
   }, [occupation, ssykdata]);
+
+  // const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
+  // console.log(stateEnrichedOccupation, "test");
 
   return (
     <>

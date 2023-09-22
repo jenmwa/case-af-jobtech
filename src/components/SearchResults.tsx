@@ -11,7 +11,10 @@ import { matchByText } from "../services/matchByTextServices";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import "../style/_pagination.scss";
 import { useEffect, useState, useContext } from "react";
-import { enrichedOccupation } from "../services/enrichedOccupationsServices";
+import {
+  enrichedOccupation,
+  getEnrichedOccupations,
+} from "../services/enrichedOccupationsServices";
 import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
 import { IOccupation } from "../models/IOccupation";
 
@@ -24,9 +27,7 @@ export default function SearchResults(props: ISearchresultsProps) {
   const [showPagination, setShowPagination] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
 
-  const { stateEnrichedOccupation, dispatchEnrichedOccupation } = useContext(
-    EnrichedOccupationContext
-  );
+  const { dispatchEnrichedOccupation } = useContext(EnrichedOccupationContext);
 
   const handlePaginationChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
@@ -69,29 +70,18 @@ export default function SearchResults(props: ISearchresultsProps) {
     }
   }
   useEffect(() => {
-    const setEnrichedOccupations = async () => {
-      if (searchData?.related_occupations.length) {
-        const promises = searchData.related_occupations.map(
-          async (occupation) => {
-            return enrichedOccupation({
-              occupation_id: occupation.id,
-              include_metadata: true,
-            });
-          }
-        );
-
-        const results: IOccupation[] = await Promise.all(promises);
-
+    const fetchData = async () => {
+      const result = await getEnrichedOccupations(searchData);
+      if (result) {
         dispatchEnrichedOccupation({
           type: "GOT_ENRICHED_DATA",
-          payload: results,
+          payload: result,
         });
       }
     };
 
-    setEnrichedOccupations();
+    fetchData();
   }, [dispatchEnrichedOccupation, searchData]);
-  console.log(stateEnrichedOccupation);
 
   if (props.isLoading) {
     return (

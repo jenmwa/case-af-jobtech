@@ -107,10 +107,8 @@ export default function SearchForm(props: ISearchFormProps) {
     props.setSearchData(null);
   }
 
-  // const { state, dispatch } = useContext(EnrichedOccupationContext);
-  // console.log(state);
-
-  // // dispatch({ type: "GOT_ENRICHED_DATA", payload: JSON.stringify() });
+  // const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
+  // console.log(stateEnrichedOccupation, "node html css");
 
   return (
     <>
