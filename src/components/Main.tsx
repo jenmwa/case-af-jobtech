@@ -23,7 +23,7 @@ export default function Main() {
     <main>
       <DigiLayoutContainer>
         <MainFlex>
-          <SearchForm getWorkData={getWorkData} />
+          <SearchForm getWorkData={getWorkData} setSearchData={setSearchData}/>
           {searchData === null ? (
             <SearchResultsPlaceholder />
           ) : (
