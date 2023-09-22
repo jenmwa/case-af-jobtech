@@ -41,7 +41,6 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         (globalOccupation) => globalOccupation.id === occupation.id
       );
 
-      console.log(results);
       if (results) {
         const competencies =
           results.metadata.enriched_candidates_term_frequency.competencies;
