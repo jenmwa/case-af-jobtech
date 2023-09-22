@@ -6,7 +6,6 @@ import { SSYKoccupationdescriptionReducer } from "./reducers/SSYKoccupationdescr
 import { ISSYKData } from "./models/ISsykData";
 import { getSsykDescription } from "./services/getSsykDescriptionServices";
 import { SSYKdataContext } from "./context/SSYKdataContext";
-// import { SSYKdataDispatchContext } from "./context/SSYKdataDispatchContext";
 import { ForecastReducer } from "./reducers/ForecastReducer";
 import { getCurrentOccupationalForecast } from "./services/getCurrentOccupationalForecast";
 import { ForecastContext } from "./context/ForecastContext";
@@ -33,7 +32,6 @@ export function App() {
     if (forecastData.length > 0) return;
     const getForecastData = async () => {
       const forecastData = await getCurrentOccupationalForecast();
-      console.log(forecastData);
 
       forecastDispatch({
         type: "GOT_DATA",
@@ -50,9 +48,7 @@ export function App() {
       <DigiTypography>
         <SSYKdataContext.Provider value={SSYKdata}>
           <ForecastContext.Provider value={forecastData}>
-            {/* <SSYKdataDispatchContext.Provider value={dispatch}> */}
             <RouterProvider router={router}></RouterProvider>
-            {/* </SSYKdataDispatchContext.Provider> */}
           </ForecastContext.Provider>
         </SSYKdataContext.Provider>
       </DigiTypography>

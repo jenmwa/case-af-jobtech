@@ -5,7 +5,6 @@ import { SalaryStatistics } from "./OccupationSalaryStatistics";
 import { OccupationAbout } from "./OccupationAbout";
 import { OccupationCompetences } from "./OccupationCompetences";
 import { OccupationForecast } from "./OccupationForecast";
-import { IDeficiencyValue } from "./Occupation";
 // import { IDeficiencyValue } from "./Occupation";
 
 interface IOccupationShowProps {
@@ -14,9 +13,8 @@ interface IOccupationShowProps {
   chartLineYValues: number[];
   chartLineXValues: string[];
   handleReturnButton: () => void;
-  findForeCastData: IDeficiencyValue | undefined;
-  // deficiencyValueData2023: { value: string; text: string };
-  // deficiencyValueData2026: { value: string; text: string };
+  deficiencyValueData2023: { value: string; text: string };
+  deficiencyValueData2026: { value: string; text: string };
 }
 
 export const OccupationShow = ({
@@ -25,10 +23,9 @@ export const OccupationShow = ({
   chartLineYValues,
   chartLineXValues,
   handleReturnButton,
-  findForeCastData,
-}: // deficiencyValueData2023,
-// deficiencyValueData2026,
-IOccupationShowProps) => {
+  deficiencyValueData2023,
+  deficiencyValueData2026,
+}: IOccupationShowProps) => {
   return (
     <>
       {occupationFound ? (
@@ -48,9 +45,8 @@ IOccupationShowProps) => {
       <OccupationAbout findIndexText={findIndexText}></OccupationAbout>
       <OccupationCompetences></OccupationCompetences>
       <OccupationForecast
-        findForeCastData={findForeCastData}
-        // deficiencyValueData2023={deficiencyValueData2023}
-        // deficiencyValueData2026={deficiencyValueData2026}
+        deficiencyValueData2023={deficiencyValueData2023}
+        deficiencyValueData2026={deficiencyValueData2026}
         occupationFound={occupationFound}
       ></OccupationForecast>
       <SalaryStatistics
