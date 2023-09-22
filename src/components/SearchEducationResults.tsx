@@ -1,7 +1,5 @@
 import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
 import { IEducations } from "../models/IEducations";
-import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
-import { useContext } from "react";
 
 interface IEducationProps {
   eduResult: IEducations;
