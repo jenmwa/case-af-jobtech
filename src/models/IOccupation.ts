@@ -15,6 +15,11 @@ export interface IOccupation {
   occupation_label: string;
   concept_taxonomy_id: string;
   legacy_ams_taxonomy_id: string;
+  metadata: {
+    enriched_candidates_term_frequency: {
+      competencies: [];
+    };
+  };
   occupation_group: {
     occupation_group_label: string;
     concept_taxonomy_id: string;

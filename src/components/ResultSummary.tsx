@@ -33,23 +33,24 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
   const [topFive, setTopFive] = useState<string[]>([]);
   const [matchingText, setMatchingText] = useState<string | null>(null);
   const ssykdata = useContext(SSYKdataContext);
+  const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
 
   useEffect(() => {
-    const getData = async () => {
-      const enrichedData: IEnrichedOccupation = {
-        occupation_id: occupation.id,
-        include_metadata: true,
-      };
+    const getData = () => {
+      const results = stateEnrichedOccupation.find(
+        (globalOccupation) => globalOccupation.id === occupation.id
+      );
 
-      const results = await enrichedOccupation(enrichedData);
+      console.log(results);
+      if (results) {
+        const competencies =
+          results.metadata.enriched_candidates_term_frequency.competencies;
 
-      const competencies =
-        results.metadata.enriched_candidates_term_frequency.competencies;
-
-      const topFive = competencies
-        .slice(0, 5)
-        .map((comp: ICompetency) => comp.term);
-      setTopFive(topFive);
+        const topFive = competencies
+          .slice(0, 5)
+          .map((comp: ICompetency) => comp.term);
+        setTopFive(topFive);
+      }
     };
 
     const getJobSummary = async () => {
@@ -74,10 +75,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
 
     getData();
     getJobSummary();
-  }, [occupation, ssykdata]);
-
-  // const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
-  // console.log(stateEnrichedOccupation, "test");
+  }, [occupation, ssykdata, stateEnrichedOccupation]);
 
   return (
     <>
