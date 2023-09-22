@@ -29,19 +29,21 @@ export default function SearchEducation({
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
+
     if (searchEduText === "") {
       const result = await getEducations({});
       if (result) {
         setEduResult(result);
+        setShowNoResult(false);
       }
     } else {
       const result = await getEducations({ query: searchEduText });
       if (result) {
         if (result.hits > 0) {
           setEduResult(result);
+          setShowNoResult(false);
         } else {
           if (!showNoResult) {
-            console.log("finns ej");
             setShowNoResult(true);
           }
         }

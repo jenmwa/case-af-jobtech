@@ -21,8 +21,7 @@ export default function SearchEducationResults({
     <>
       <section>
         <h2>Utbildningar</h2>
-        {showNoResult && <h4>No result found</h4>}
-        {accordionComponents}
+        {showNoResult ? <h4>No result found</h4> : accordionComponents}
       </section>
     </>
   );
