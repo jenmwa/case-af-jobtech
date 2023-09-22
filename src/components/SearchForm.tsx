@@ -70,6 +70,7 @@ export default function SearchForm(props: ISearchFormProps) {
       props.getWorkData(search);
       setFreeSearch("");
       setHeaderSearch("");
+      localStorage.removeItem("educationDescriptionText");
     }
   };
 
