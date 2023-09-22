@@ -14,7 +14,7 @@ export const About = () => {
     } catch (error) {
       console.log("Error:", error);
     }
-    navigate("/");
+    navigate("/sok-yrke");
   };
   return (
     <>

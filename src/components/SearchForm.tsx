@@ -76,9 +76,16 @@ export default function SearchForm(props: ISearchFormProps) {
   function handleFreeSearch(
     e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>
   ) {
-    setFreeSearch(e.target.value);
     setInputLength(wordCount(freeSearch));
+    localStorage.setItem("educationDescriptionText", e.target.value);
+    setFreeSearch(e.target.value);
   }
+
+  const test = (e: DigiFormTextareaCustomEvent<HTMLInputElement>) => {
+    setInputLength(wordCount(freeSearch));
+    localStorage.setItem("educationDescriptionText", e.target.value);
+    setFreeSearch(e.target.value);
+  };
 
   function handleHeaderSearch(e: DigiFormInputCustomEvent<HTMLInputElement>) {
     const newValue = e.target.value as string;
@@ -98,6 +105,7 @@ export default function SearchForm(props: ISearchFormProps) {
             afRequired={true}
             onAfOnKeyup={handleFreeSearch}
             afValue={freeSearch}
+            onAfOnFocusout={test}
           ></DigiFormTextarea>
           {!isValid ? (
             <DigiFormValidationMessage
