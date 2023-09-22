@@ -10,13 +10,20 @@ export default function Education() {
     hits: 0,
     result: [],
   });
+  const [showNoResult, setShowNoResult] = useState<boolean>(false);
 
-  console.log("ändrad?", eduResult);
   return (
     <DigiLayoutContainer>
       <MainFlex>
-        <SearchEducation setEduResult={setEduResult}></SearchEducation>
-        <SearchEducationResults />
+        <SearchEducation
+          setEduResult={setEduResult}
+          showNoResult={showNoResult}
+          setShowNoResult={setShowNoResult}
+        ></SearchEducation>
+        <SearchEducationResults
+          eduResult={eduResult}
+          showNoResult={showNoResult}
+        ></SearchEducationResults>
       </MainFlex>
     </DigiLayoutContainer>
   );

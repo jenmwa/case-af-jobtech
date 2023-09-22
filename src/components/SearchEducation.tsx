@@ -12,10 +12,14 @@ import { IEducations } from "../models/IEducations";
 
 interface ISubmitSearchEduProps {
   setEduResult: (result: IEducations) => void;
+  showNoResult: boolean;
+  setShowNoResult: (value: boolean) => void;
 }
 
 export default function SearchEducation({
   setEduResult,
+  showNoResult,
+  setShowNoResult,
 }: ISubmitSearchEduProps) {
   const [searchEduText, setSearchEduText] = useState<string>("");
 
@@ -33,7 +37,14 @@ export default function SearchEducation({
     } else {
       const result = await getEducations({ query: searchEduText });
       if (result) {
-        setEduResult(result);
+        if (result.hits > 0) {
+          setEduResult(result);
+        } else {
+          if (!showNoResult) {
+            console.log("finns ej");
+            setShowNoResult(true);
+          }
+        }
       }
     }
   };
