@@ -100,9 +100,6 @@ export default function SearchForm(props: ISearchFormProps) {
     props.setSearchData(null);
   }
 
-  // const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
-  // console.log(stateEnrichedOccupation, "node html css");
-
   return (
     <>
       <section className="searchWorkForm">
