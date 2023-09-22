@@ -13,13 +13,20 @@ import {
   DigiFormTextarea,
   DigiFormValidationMessage,
 } from "@digi/arbetsformedlingen-react";
-import { FormEvent, SetStateAction, useEffect, useState } from "react";
+import {
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+  useContext,
+} from "react";
 import { ISearchByText } from "../models/ISearchByText";
 import {
   DigiFormInputCustomEvent,
   DigiFormTextareaCustomEvent,
 } from "@digi/arbetsformedlingen/dist/types/components";
 import { IOccupation1 } from "../models/IOccupation";
+import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
 
 interface ISearchFormProps {
   getWorkData: (search: ISearchByText) => void;
@@ -100,9 +107,14 @@ export default function SearchForm(props: ISearchFormProps) {
     props.setSearchData(null);
   }
 
+  // const { state, dispatch } = useContext(EnrichedOccupationContext);
+  // console.log(state);
+
+  // // dispatch({ type: "GOT_ENRICHED_DATA", payload: JSON.stringify() });
+
   return (
     <>
-      <section className='searchWorkForm'>
+      <section className="searchWorkForm">
         <h2>Sök yrken</h2>
         <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
           <DigiFormTextarea
@@ -133,7 +145,11 @@ export default function SearchForm(props: ISearchFormProps) {
           <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
             Sök
           </DigiButton>
-          <DigiButton afType="button" afVariation={ButtonVariation.SECONDARY} onAfOnClick={handleReset}>
+          <DigiButton
+            afType="button"
+            afVariation={ButtonVariation.SECONDARY}
+            onAfOnClick={handleReset}
+          >
             Rensa sökresultat
           </DigiButton>
         </form>

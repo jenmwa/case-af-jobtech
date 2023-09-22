@@ -10,7 +10,10 @@ import { useOutletData } from "../context/useOutletData";
 import { matchByText } from "../services/matchByTextServices";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import "../style/_pagination.scss";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { enrichedOccupation } from "../services/enrichedOccupationsServices";
+import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
+import { IOccupation } from "../models/IOccupation";
 
 interface ISearchresultsProps {
   isLoading: boolean;
@@ -20,6 +23,10 @@ export default function SearchResults(props: ISearchresultsProps) {
   const { searchData, setSearchData } = useOutletData();
   const [showPagination, setShowPagination] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
+
+  const { stateEnrichedOccupation, dispatchEnrichedOccupation } = useContext(
+    EnrichedOccupationContext
+  );
 
   const handlePaginationChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
@@ -61,6 +68,30 @@ export default function SearchResults(props: ISearchresultsProps) {
       setShowPagination(false);
     }
   }
+  useEffect(() => {
+    const setEnrichedOccupations = async () => {
+      if (searchData?.related_occupations.length) {
+        const promises = searchData.related_occupations.map(
+          async (occupation) => {
+            return enrichedOccupation({
+              occupation_id: occupation.id,
+              include_metadata: true,
+            });
+          }
+        );
+
+        const results: IOccupation[] = await Promise.all(promises);
+
+        dispatchEnrichedOccupation({
+          type: "GOT_ENRICHED_DATA",
+          payload: results,
+        });
+      }
+    };
+
+    setEnrichedOccupations();
+  }, [dispatchEnrichedOccupation, searchData]);
+  console.log(stateEnrichedOccupation);
 
   if (props.isLoading) {
     return (
