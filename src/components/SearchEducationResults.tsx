@@ -4,11 +4,13 @@ import { IEducations } from "../models/IEducations";
 interface IEducationProps {
   eduResult: IEducations;
   showNoResult: boolean;
+  searched: boolean;
 }
 
 export default function SearchEducationResults({
   eduResult,
   showNoResult,
+  searched,
 }: IEducationProps) {
   const titles = eduResult.result.map((edu) => edu.education.title[0].content);
   const accordionComponents = titles.map((title, index) => (
@@ -20,12 +22,19 @@ export default function SearchEducationResults({
   return (
     <>
       <section>
-        {showNoResult ? (
-          <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
+        {!searched ? (
+          <h3>placeholder</h3>
         ) : (
           <>
-            <h2>Utbildningar</h2>
-            {accordionComponents}
+            {" "}
+            <h3>Utbildningar</h3>
+            {showNoResult ? (
+              <h3>
+                Inga utbildningar hittades. Var vänlig sök på något annat.
+              </h3>
+            ) : (
+              accordionComponents
+            )}
           </>
         )}
       </section>

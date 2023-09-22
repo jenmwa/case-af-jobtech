@@ -14,12 +14,14 @@ interface ISubmitSearchEduProps {
   setEduResult: (result: IEducations) => void;
   showNoResult: boolean;
   setShowNoResult: (value: boolean) => void;
+  setSearched: (value: boolean) => void;
 }
 
 export default function SearchEducation({
   setEduResult,
   showNoResult,
   setShowNoResult,
+  setSearched,
 }: ISubmitSearchEduProps) {
   const [searchEduText, setSearchEduText] = useState<string>("");
 
@@ -29,7 +31,7 @@ export default function SearchEducation({
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
-
+    setSearched(true);
     if (searchEduText === "") {
       const result = await getEducations({});
       if (result) {

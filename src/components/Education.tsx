@@ -11,6 +11,7 @@ export default function Education() {
     result: [],
   });
   const [showNoResult, setShowNoResult] = useState<boolean>(false);
+  const [searched, setSearched] = useState<boolean>(false);
 
   return (
     <DigiLayoutContainer>
@@ -19,10 +20,12 @@ export default function Education() {
           setEduResult={setEduResult}
           showNoResult={showNoResult}
           setShowNoResult={setShowNoResult}
+          setSearched={setSearched}
         ></SearchEducation>
         <SearchEducationResults
           eduResult={eduResult}
           showNoResult={showNoResult}
+          searched={searched}
         ></SearchEducationResults>
       </MainFlex>
     </DigiLayoutContainer>

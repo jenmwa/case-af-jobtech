@@ -2,8 +2,7 @@ import axios from "axios";
 import { IEducations } from "../models/IEducations";
 import { IEducation } from "../models/IEducation";
 
-
-const URL = 'https://jobed-connect-api.jobtechdev.se/v1/educations';
+const URL = "https://jobed-connect-api.jobtechdev.se/v1/educations";
 
 //https://jobed-connect-api.jobtechdev.se/v1/educations/
 
@@ -20,20 +19,19 @@ interface ISearchEducationParams {
 
 export const getEducations = async (params: ISearchEducationParams) => {
   try {
-    const response = await axios.get<IEducations>(URL+'?', { params });
-    console.log(response.data);
+    const response = await axios.get<IEducations>(URL + "?", { params });
+    // console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error('Error:', error)
+    console.error("Error:", error);
   }
-}
-
+};
 
 export const getEducation = async (id: string) => {
   try {
-    const response = await axios.get<IEducation>(URL+'/'+id);
+    const response = await axios.get<IEducation>(URL + "/" + id);
     return response.data;
   } catch (error) {
-    console.error('Error:', error)
+    console.error("Error:", error);
   }
 };
