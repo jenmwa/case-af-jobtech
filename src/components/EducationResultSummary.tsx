@@ -19,13 +19,7 @@ export default function EducationResultSummary(props: IEducationResultSummaryPro
       setData(data);
       }
       getData();
-    }, [])
-
-  // const getData = async () => {
-  // const data = await getEducation(props.id);
-  // setData(data);
-  // }
-  // getData();
+    }, [props.id]);
 
 
   const setDescription = () => {
