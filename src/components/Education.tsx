@@ -6,7 +6,11 @@ import { useState } from "react";
 import { IEducations } from "../models/IEducations";
 
 export default function Education() {
-  const [eduResult, setEduResult] = useState<IEducations>({});
+  const [eduResult, setEduResult] = useState<IEducations>({
+    hits: 0,
+    result: [],
+  });
+
   console.log("ändrad?", eduResult);
   return (
     <DigiLayoutContainer>
