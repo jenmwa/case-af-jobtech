@@ -2,17 +2,21 @@ import { DigiTypography } from "@digi/arbetsformedlingen-react";
 import { router } from "./components/router";
 import { RouterProvider } from "react-router-dom";
 import { useEffect, useReducer } from "react";
-import { SSYKoccupationdescriptionReducer } from "./reducers/SSYKoccupationdesriptionReducer";
+import { SSYKoccupationdescriptionReducer } from "./reducers/SSYKoccupationdescriptionReducer";
 import { ISSYKData } from "./models/ISsykData";
 import { getSsykDescription } from "./services/getSsykDescriptionServices";
 import { SSYKdataContext } from "./context/SSYKdataContext";
-import { SSYKdataDispatchContext } from "./context/SSYKdataDispatchContext";
+import { ForecastReducer } from "./reducers/ForecastReducer";
+import { getCurrentOccupationalForecast } from "./services/getCurrentOccupationalForecast";
+import { ForecastContext } from "./context/ForecastContext";
 
 export function App() {
   const [SSYKdata, dispatch] = useReducer(SSYKoccupationdescriptionReducer, {
     title: "",
     variables: [],
   });
+
+  const [forecastData, forecastDispatch] = useReducer(ForecastReducer, []);
 
   useEffect(() => {
     if (SSYKdata.variables.length > 0) return;
@@ -24,13 +28,28 @@ export function App() {
     if (SSYKdata.variables.length === 0) getSSYKData();
   });
 
+  useEffect(() => {
+    if (forecastData.length > 0) return;
+    const getForecastData = async () => {
+      const forecastData = await getCurrentOccupationalForecast();
+
+      forecastDispatch({
+        type: "GOT_DATA",
+        payload: JSON.stringify(forecastData),
+      });
+    };
+    if (forecastData.length === 0) {
+      getForecastData();
+    }
+  });
+
   return (
     <>
       <DigiTypography>
         <SSYKdataContext.Provider value={SSYKdata}>
-          <SSYKdataDispatchContext.Provider value={dispatch}>
+          <ForecastContext.Provider value={forecastData}>
             <RouterProvider router={router}></RouterProvider>
-          </SSYKdataDispatchContext.Provider>
+          </ForecastContext.Provider>
         </SSYKdataContext.Provider>
       </DigiTypography>
     </>

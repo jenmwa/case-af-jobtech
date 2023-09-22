@@ -6,7 +6,6 @@ const URL = 'https://data.jobtechdev.se/yrkesprognoser/current/Yrkesprognos.json
 export const getCurrentOccupationalForecast = async () => {
   try {
     const response = await axios.get<ICurrentOccupationalForecast[]>(URL)
-    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Error:', error)

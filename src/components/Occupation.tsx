@@ -2,12 +2,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { OccupationShow } from "./OccupationShow";
 import { useContext, useEffect, useState } from "react";
 import { getSCBStatisticsSalary } from "../services/getSCBStatisticsServices";
-import { getCurrentOccupationalForecast } from "../services/getCurrentOccupationalForecast";
 import { ICurrentOccupationalForecast } from "../models/ICurrentOccupationalForecast";
 import { ISCBData } from "../models/IGetSCBStatisticsSalary";
 import { useOutletData } from "../context/useOutletData";
 import { SSYKdataContext } from "../context/SSYKdataContext";
 import { useSSYKDetails } from "../hooks/useSSYKDetails";
+import { ForecastContext } from "../context/ForecastContext";
 
 export interface IDeficiencyValue {
   bristvarde: number;
@@ -16,6 +16,7 @@ export interface IDeficiencyValue {
 export const Occupation = () => {
   const ssykdata = useContext(SSYKdataContext);
   const { searchData } = useOutletData();
+  const forecastData = useContext(ForecastContext);
 
   const conceptTaxonomyId = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -51,45 +52,36 @@ export const Occupation = () => {
     }
   });
 
+  useEffect(() => {
+    if (!forecastData) return;
+    const getForecast = () => {
+      if (forecastData) {
+        console.log(forecastData);
+        findDeficiencyValues(forecastData);
+      } else {
+        console.log("oops, something went wrong. Please try again.");
+      }
+    };
+    if (forecastData) {
+      getForecast();
+    }
+  });
+
   const getValuesArray = (chartLineData: ISCBData[]) => {
     if (chartLineData) {
       const chartLineXValues = chartLineData.map((item) => item.key[1]).flat();
       const chartLineYValues = chartLineData.map((item) => item.values).flat();
-      console.log("X Keys Array:", chartLineXValues);
-      console.log("Y Values Array:", chartLineYValues);
-
       const chartLineYValuesToNumbers = chartLineYValues.map(
         (chartLineStringValue) => {
           return parseInt(chartLineStringValue);
         }
       );
-      console.log(chartLineYValuesToNumbers);
-
       setChartLineXValues(chartLineXValues);
       setChartLineYValues(chartLineYValuesToNumbers);
     } else {
       console.log("no data found");
     }
   };
-
-  //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
-  useEffect(() => {
-    const getForecast = async () => {
-      try {
-        const getData = await getCurrentOccupationalForecast();
-        console.log(getData);
-        if (getData) {
-          console.log(getData);
-          findDeficiencyValues(getData);
-        } else {
-          console.log("oops, something went wrong. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    getForecast();
-  }, []);
 
   const findDeficiencyValues = (getData: ICurrentOccupationalForecast[]) => {
     const data = getData.filter(
@@ -134,7 +126,7 @@ export const Occupation = () => {
   );
 
   const handleReturnButton = () => {
-    navigate("/");
+    navigate("/sok-yrke");
   };
 
   return (

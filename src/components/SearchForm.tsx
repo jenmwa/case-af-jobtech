@@ -28,11 +28,8 @@ export default function SearchForm(props: ISearchFormProps) {
   const descriptionFromLocalStorage = localStorage.getItem(
     "educationDescriptionText"
   );
-  // const initialTextFreeSearch = descriptionFromLocalStorage
-  //   ? descriptionFromLocalStorage
-  //   : "";
 
-  const [freeSearch, setFreeSearch] = useState<string>('');
+  const [freeSearch, setFreeSearch] = useState<string>("");
   const [headerSearch, setHeaderSearch] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
   const [inputLength, setInputLength] = useState<number>(0);
@@ -41,10 +38,10 @@ export default function SearchForm(props: ISearchFormProps) {
     if (descriptionFromLocalStorage) {
       setFreeSearch(descriptionFromLocalStorage);
       setInputLength(wordCount(descriptionFromLocalStorage));
-    } else{
-      return
+    } else {
+      return;
     }
-  }, [])
+  }, []);
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
@@ -91,12 +88,6 @@ export default function SearchForm(props: ISearchFormProps) {
     setFreeSearch(e.target.value);
   }
 
-  // const test = (e: DigiFormTextareaCustomEvent<HTMLInputElement>) => {
-  //   setInputLength(wordCount(freeSearch));
-  //   localStorage.setItem("educationDescriptionText", e.target.value);
-  //   setFreeSearch(e.target.value);
-  // };
-
   function handleHeaderSearch(e: DigiFormInputCustomEvent<HTMLInputElement>) {
     const newValue = e.target.value as string;
     setHeaderSearch(newValue);
@@ -115,7 +106,6 @@ export default function SearchForm(props: ISearchFormProps) {
             afRequired={true}
             onAfOnKeyup={handleFreeSearch}
             afValue={freeSearch}
-           // onAfOnFocusout={test}
           ></DigiFormTextarea>
           {!isValid ? (
             <DigiFormValidationMessage
