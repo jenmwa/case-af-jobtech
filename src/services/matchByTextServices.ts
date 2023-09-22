@@ -1,8 +1,13 @@
 import axios from "axios";
 import { ISearchByText } from "../models/ISearchByText";
+import { IOccupation1 } from "../models/IOccupation";
 
 const URL =
   "https://jobed-connect-api.jobtechdev.se/v1/occupations/match-by-text";
+
+interface IResponse {
+  data: IOccupation1;
+}
 
 export const matchByText = async (search: ISearchByText) => {
   const config = {
@@ -17,7 +22,7 @@ export const matchByText = async (search: ISearchByText) => {
     },
   };
 
-  const response = await axios(config);
+  const response: IResponse = await axios(config);
 
   return response.data;
 };
