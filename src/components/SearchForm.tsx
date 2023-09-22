@@ -88,7 +88,7 @@ export default function SearchForm(props: ISearchFormProps) {
   return (
     <>
       <section>
-        <h3>Sök yrken</h3>
+        <h2>Sök yrken</h2>
         <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
           <DigiFormTextarea
             afLabel="Vad innehåller utbildningen du är intresserad av?"
