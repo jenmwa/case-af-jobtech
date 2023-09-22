@@ -1,0 +1,29 @@
+.nav{
+  background: grey;
+  height: 70px;
+  margin-bottom: 30px;
+  .headerFlex{
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2{
+      margin-bottom:0;
+    }
+    .navigation{
+      display:flex;
+      align-items: center;
+      gap: 30px;
+      a{
+        text-decoration: none;
+        color: #000000;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

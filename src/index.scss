@@ -1,0 +1,18 @@
+@import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css";
+
+$font-path: "/node_modules/@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/assets/fonts/" !default;
+@import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.scss";
+
+@import 'style/footer';
+@import 'style/navigation';
+@import 'style/searchResults';
+@import 'style/placeholder';
+
+body{
+  padding: 0; 
+  margin: 0;
+}
+
+main{
+  min-height: 100vh;
+}
