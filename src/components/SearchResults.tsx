@@ -11,12 +11,8 @@ import { matchByText } from "../services/matchByTextServices";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import "../style/_pagination.scss";
 import { useEffect, useState, useContext } from "react";
-import {
-  enrichedOccupation,
-  getEnrichedOccupations,
-} from "../services/enrichedOccupationsServices";
+import { getEnrichedOccupations } from "../services/enrichedOccupationsServices";
 import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
-import { IOccupation } from "../models/IOccupation";
 
 interface ISearchresultsProps {
   isLoading: boolean;
