@@ -12,10 +12,7 @@ import {
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 import { useState, useEffect, useContext } from "react";
-import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
-import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 import { StyledCompetenciesList } from "./styled/CompetenciesList";
-
 import { Link } from "react-router-dom";
 import { SSYKdataContext } from "../context/SSYKdataContext";
 import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
@@ -41,7 +38,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         (globalOccupation) => globalOccupation.id === occupation.id
       );
 
-      if (results) {
+      if (results?.metadata) {
         const competencies =
           results.metadata.enriched_candidates_term_frequency.competencies;
 

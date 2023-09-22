@@ -24,6 +24,7 @@ export default function SearchResults(props: ISearchresultsProps) {
   const [totalPages, setTotalPages] = useState<number>(0);
 
   const { dispatchEnrichedOccupation } = useContext(EnrichedOccupationContext);
+  const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
 
   const handlePaginationChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
@@ -38,6 +39,16 @@ export default function SearchResults(props: ISearchresultsProps) {
       const newResults = await matchByText(newSearch);
 
       setSearchData(newResults);
+
+      const newResultEnriched = await getEnrichedOccupations(newResults);
+
+      if (newResultEnriched) {
+        dispatchEnrichedOccupation({
+          type: "GOT_ENRICHED_DATA",
+          payload: newResultEnriched,
+        });
+      }
+      console.log("stateEnrichedOccupation", stateEnrichedOccupation);
     }
   };
 
