@@ -1,6 +1,14 @@
 .home{
+  padding-top: 30px;
+  img{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-top: 60px;
+  }
   button{
     margin-right: 20px;
+    margin-top: 10px;
     a{
       text-decoration: none;
       color: #FFFFFF;
@@ -10,5 +18,12 @@
         color: #FFFFFF;
       }
     }
+  }
+}
+
+@media (min-width: 1000px) {
+  .home{
+    display: flex;
+    align-items: center;
   }
 }
