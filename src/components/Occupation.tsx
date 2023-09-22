@@ -77,7 +77,7 @@ export const Occupation = () => {
 
   //sätt i app så hämtar vi den från start, lägg i context så vi kommer åt för sök i routern.
   useEffect(() => {
-    if (forecastData.length > 0) return;
+    if (!ssykToMatch) return;
     const getForecast = async () => {
       try {
         const getData = await getCurrentOccupationalForecast();
@@ -92,7 +92,7 @@ export const Occupation = () => {
         console.error("Error:", error);
       }
     };
-    if (forecastData.length === 0) {
+    if (ssykToMatch) {
       getForecast();
     }
   }, []);
