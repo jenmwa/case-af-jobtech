@@ -37,14 +37,16 @@ export default function SearchForm(props: ISearchFormProps) {
   const [inputLength, setInputLength] = useState<number>(0);
 
   useEffect(() => {
-    if (descriptionFromLocalStorage) {
+    if (!descriptionFromLocalStorage) return;
+    const getFromLocalStorage = () => {
       handleReset();
       setFreeSearch(descriptionFromLocalStorage);
       setInputLength(wordCount(descriptionFromLocalStorage));
-    } else {
-      return;
+    };
+    if (descriptionFromLocalStorage) {
+      getFromLocalStorage();
     }
-  }, []);
+  });
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
@@ -102,7 +104,7 @@ export default function SearchForm(props: ISearchFormProps) {
 
   return (
     <>
-      <section className='searchWorkForm'>
+      <section className="searchWorkForm">
         <h2>Sök yrken</h2>
         <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
           <DigiFormTextarea
@@ -133,7 +135,11 @@ export default function SearchForm(props: ISearchFormProps) {
           <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
             Sök
           </DigiButton>
-          <DigiButton afType="button" afVariation={ButtonVariation.SECONDARY} onAfOnClick={handleReset}>
+          <DigiButton
+            afType="button"
+            afVariation={ButtonVariation.SECONDARY}
+            onAfOnClick={handleReset}
+          >
             Rensa sökresultat
           </DigiButton>
         </form>
