@@ -1,4 +1,3 @@
-import { DigiTypography } from "@digi/arbetsformedlingen-react";
 import { router } from "./components/router";
 import { RouterProvider } from "react-router-dom";
 import { useEffect, useReducer } from "react";
@@ -9,6 +8,7 @@ import { SSYKdataContext } from "./context/SSYKdataContext";
 import { ForecastReducer } from "./reducers/ForecastReducer";
 import { getCurrentOccupationalForecast } from "./services/getCurrentOccupationalForecast";
 import { ForecastContext } from "./context/ForecastContext";
+import { StyledDigiTypography } from "./components/styled/Fonts";
 
 export function App() {
   const [SSYKdata, dispatch] = useReducer(SSYKoccupationdescriptionReducer, {
@@ -45,13 +45,13 @@ export function App() {
 
   return (
     <>
-      <DigiTypography>
+      <StyledDigiTypography>
         <SSYKdataContext.Provider value={SSYKdata}>
           <ForecastContext.Provider value={forecastData}>
             <RouterProvider router={router}></RouterProvider>
           </ForecastContext.Provider>
         </SSYKdataContext.Provider>
-      </DigiTypography>
+      </StyledDigiTypography>
     </>
   );
 }
