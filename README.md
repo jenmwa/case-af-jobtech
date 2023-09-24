@@ -3,11 +3,11 @@
 
 # Swedish: Case 1 för AF med hjälp av JobTech
 
-Detta är en applikation som låter användaren söka efter utbildningar och utforska olika karriärsmöjligheter. Denna applikation är på svenska.
+Detta är en applikation som låter användaren söka efter utbildningar och utforska olika karriärsmöjligheter. Applikationen är på svenska.
 
 ## Funktioner
 
-- **Utbildningssökning:** Sök enkelt efter utbildningsprogram genom att textrutan i textrutan. För varje utbildning finns en kort översikt.
+- **Utbildningssökning:** Sök enkelt efter utbildningsprogram genom att skriva i textrutan. För varje utbildning finns en kort översikt.
 
 - **Matchning av jobb:** Ta din utbildningsöversikt och upptäck matchande jobbmöjligheter med bara några klick.
 
@@ -31,11 +31,11 @@ This is an innovative application that empowers users to seamlessly explore educ
 
 ## Features
 
-- **Educational Search**: Easily search for educational programs by inputting keywords into the text box. For each program, you'll receive a brief overview.
+- **Educational Search**: Search for educational programs by typing in keywords. For each program, you'll receive a brief overview.
 
 - **Job Matching**: Take your educational summary and discover corresponding job opportunities in just a few clicks.
 
-- **Comprehensive Job Insights**: Dive deep into job details by clicking on specific listings. Access information on job field prognosis; stability, demand levels, and salary statistics.
+- **Comprehensive Job Insights**: Get information such as on job field prognosis; stability, demand levels, and salary statistics.
 
 - **Design**: We've incorporated [Arbetsförmedlingens designsystem](https://designsystem.arbetsformedlingen.se/) to create an intuitive and visually appealing user interface.
 
