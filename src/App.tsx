@@ -8,6 +8,8 @@ import { SSYKdataContext } from "./context/SSYKdataContext";
 import { ForecastReducer } from "./reducers/ForecastReducer";
 import { getCurrentOccupationalForecast } from "./services/getCurrentOccupationalForecast";
 import { ForecastContext } from "./context/ForecastContext";
+import { EnrichedOccupationReducer } from "./reducers/EnrichedOccupationReducer";
+import { EnrichedOccupationContext } from "./context/EnrichedOccupationContext";
 import { StyledDigiTypography } from "./components/styled/Fonts";
 import { TypographyVariation } from "@digi/arbetsformedlingen";
 
@@ -18,6 +20,11 @@ export function App() {
   });
 
   const [forecastData, forecastDispatch] = useReducer(ForecastReducer, []);
+
+  const [enrichedOccupation, enrichedOccupationDispatch] = useReducer(
+    EnrichedOccupationReducer,
+    []
+  );
 
   useEffect(() => {
     if (SSYKdata.variables.length > 0) return;
@@ -47,11 +54,18 @@ export function App() {
   return (
     <>
       <StyledDigiTypography afVariation={TypographyVariation.SMALL}>
-        <SSYKdataContext.Provider value={SSYKdata}>
-          <ForecastContext.Provider value={forecastData}>
-            <RouterProvider router={router}></RouterProvider>
-          </ForecastContext.Provider>
-        </SSYKdataContext.Provider>
+        <EnrichedOccupationContext.Provider
+          value={{
+            stateEnrichedOccupation: enrichedOccupation,
+            dispatchEnrichedOccupation: enrichedOccupationDispatch,
+          }}
+        >
+          <SSYKdataContext.Provider value={SSYKdata}>
+            <ForecastContext.Provider value={forecastData}>
+              <RouterProvider router={router}></RouterProvider>
+            </ForecastContext.Provider>
+          </SSYKdataContext.Provider>
+        </EnrichedOccupationContext.Provider>
       </StyledDigiTypography>
     </>
   );

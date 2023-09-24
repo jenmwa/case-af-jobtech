@@ -8,6 +8,8 @@ import { useOutletData } from "../context/useOutletData";
 import { SSYKdataContext } from "../context/SSYKdataContext";
 import { useSSYKDetails } from "../hooks/useSSYKDetails";
 import { ForecastContext } from "../context/ForecastContext";
+import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
+import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 
 export interface IDeficiencyValue {
   bristvarde: number;
@@ -41,7 +43,7 @@ export const Occupation = () => {
 
       const getDataSCB = async () => {
         const chartLineData = await getSCBStatisticsSalary(ssyk);
-        console.log(chartLineData);
+        // console.log(chartLineData);
         if (chartLineData) {
           getValuesArray(chartLineData);
         }
@@ -56,7 +58,8 @@ export const Occupation = () => {
     if (!forecastData) return;
     const getForecast = () => {
       if (forecastData) {
-        console.log(forecastData);
+        // console.log(forecastData);
+
         findDeficiencyValues(forecastData);
       } else {
         console.log("oops, something went wrong. Please try again.");
@@ -88,16 +91,16 @@ export const Occupation = () => {
       (findMatch) => findMatch.ssyk === Number(ssykToMatch)
     );
 
-    console.log(data);
+    // console.log(data);
     if (data.length > 0) {
       const findDeficiencyValue23 = data.find(
         (rightMatch) => rightMatch.ar === 23
       );
-      console.log(findDeficiencyValue23?.bristvarde);
+      // console.log(findDeficiencyValue23?.bristvarde);
       const findDeficiencyValue26 = data.find(
         (rightMatch) => rightMatch.ar === 26
       );
-      console.log(findDeficiencyValue26?.bristvarde);
+      // console.log(findDeficiencyValue26?.bristvarde);
       setDeficiencyValue2023(findDeficiencyValue23);
       setDeficiencyValue2026(findDeficiencyValue26);
     }
