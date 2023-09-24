@@ -9,6 +9,7 @@ import { ForecastReducer } from "./reducers/ForecastReducer";
 import { getCurrentOccupationalForecast } from "./services/getCurrentOccupationalForecast";
 import { ForecastContext } from "./context/ForecastContext";
 import { StyledDigiTypography } from "./components/styled/Fonts";
+import { TypographyVariation } from "@digi/arbetsformedlingen";
 
 export function App() {
   const [SSYKdata, dispatch] = useReducer(SSYKoccupationdescriptionReducer, {
@@ -45,7 +46,7 @@ export function App() {
 
   return (
     <>
-      <StyledDigiTypography>
+      <StyledDigiTypography afVariation={TypographyVariation.SMALL}>
         <SSYKdataContext.Provider value={SSYKdata}>
           <ForecastContext.Provider value={forecastData}>
             <RouterProvider router={router}></RouterProvider>
