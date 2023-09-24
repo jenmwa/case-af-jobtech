@@ -15,7 +15,7 @@ Detta är en applikation som låter användaren söka efter utbildningar och utf
 
 - **Design:** Vi har använt [Arbetsförmedlingens designsystem](https://designsystem.arbetsformedlingen.se/) som bas för designen.
 
-- **Använda databaser:**
+- **Använda källor:**
   - [JobTec](https://jobed-connect-api.jobtechdev.se/)
   - [SCB](https://www.scb.se/)
 
