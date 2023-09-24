@@ -13,14 +13,14 @@ export const SalaryStatistics = ({
   chartLineXValues,
   chartLineYValues,
 }: ISalaryStatisticsProps) => {
-  const chartLineXValuesToIndexArray: number[] = chartLineXValues.map(
-    (_, index) => index + 1
-  );
-  // console.log(chartLineXValuesToIndexArray);
+  // const chartLineXValuesToIndexArray: number[] = chartLineXValues.map(
+  //   (_, index) => index + 1
+  // );
 
   const afChartData: ChartLineData = {
     data: {
       xValues: [1, 2, 3, 4, 5, 6],
+      // xValues: chartLineXValuesToIndexArray,
       series: [
         {
           yValues: chartLineYValues,
