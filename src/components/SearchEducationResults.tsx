@@ -1,5 +1,10 @@
-import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
+import {
+  DigiExpandableAccordion,
+  DigiMediaImage,
+} from "@digi/arbetsformedlingen-react";
 import { IEducations } from "../models/IEducations";
+import illustration from "/illustration-person-computer-phone.svg";
+import "../style/_searchEducationResults.scss";
 
 interface IEducationProps {
   eduResult: IEducations;
@@ -23,7 +28,14 @@ export default function SearchEducationResults({
     <>
       <section>
         {!searched ? (
-          <h3>placeholder</h3>
+          <DigiMediaImage
+            className="search-edu-img"
+            afUnlazy
+            afHeight="300"
+            afWidth="300"
+            afSrc={illustration}
+            afAlt="Illustration person framför datorn med mobilen i handen och hörlurar i öronen"
+          ></DigiMediaImage>
         ) : (
           <>
             {" "}
