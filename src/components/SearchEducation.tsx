@@ -88,8 +88,6 @@ export default function SearchEducation({
   };
 
   const handleRemote = (e: DigiFormRadiobuttonCustomEvent<HTMLDigiFormRadiobuttonElement>) => {
-    console.log(e.target.value)
-    console.log('Event object:', e);
     if(e.target.value === "yes"){
       setRemote(true);
     } else if(e.target.value === "no"){
@@ -115,7 +113,7 @@ export default function SearchEducation({
 
   return (
     <>
-      <section>
+      <section className='searchEducationForm'>
         <h2>Sök utbildning</h2>
         <form
           onSubmit={(e: FormEvent) => {
@@ -149,6 +147,7 @@ export default function SearchEducation({
 	          afLabel="Vilken typ av utbildning vill du läsa?"
 	          afPlaceholder="Välj typ av utbildning"
             onAfOnChange={handleEduForm} 
+            afValue="all"
 	        >
             <option value="all">Alla</option>
             {educationForms.map((form) => (
