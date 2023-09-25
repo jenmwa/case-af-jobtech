@@ -66,7 +66,8 @@ export default function SearchEducationResults({
 
   if (searchEduData) {
     if (searchEduData.hits >= 100) {
-      if (totalPages !== 10) setTotalPages(10);
+      console.log(searchEduData.hits);
+      if (totalPages !== 100) setTotalPages(100);
     } else {
       const totalPagesCalc = Math.floor(searchEduData.hits / 10);
       if (totalPages !== totalPagesCalc) {
