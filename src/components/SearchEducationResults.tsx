@@ -1,5 +1,7 @@
 import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
 import { IEducations } from "../models/IEducations";
+import EducationResultSummary from "./EducationResultSummary";
+import SearchResultsPlaceholder from "./SearchResultsPlaceholder";
 
 interface IEducationProps {
   eduResult: IEducations;
@@ -12,10 +14,11 @@ export default function SearchEducationResults({
   showNoResult,
   searched,
 }: IEducationProps) {
+  //console.log('I sökresultat',eduResult.result[0].education.identifier);
   const titles = eduResult.result.map((edu) => edu.education.title[0].content);
   const accordionComponents = titles.map((title, index) => (
     <DigiExpandableAccordion key={index} afHeading={title}>
-      <p>Ea nulla enim enim voluptate mollit proident.</p>
+      <EducationResultSummary id={eduResult.result[index].education.identifier} />
     </DigiExpandableAccordion>
   ));
 
@@ -23,7 +26,7 @@ export default function SearchEducationResults({
     <>
       <section>
         {!searched ? (
-          <h3>placeholder</h3>
+          <SearchResultsPlaceholder />
         ) : (
           <>
             {" "}

@@ -36,15 +36,16 @@ export default function SearchForm(props: ISearchFormProps) {
   const [isValid, setIsValid] = useState<boolean>(true);
   const [inputLength, setInputLength] = useState<number>(0);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (descriptionFromLocalStorage) {
+    if (!descriptionFromLocalStorage) {
+      return;
+    } else {
       handleReset();
       setFreeSearch(descriptionFromLocalStorage);
       setInputLength(wordCount(descriptionFromLocalStorage));
-    } else {
-      return;
     }
-  }, []);
+  });
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
