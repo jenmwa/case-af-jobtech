@@ -2,6 +2,7 @@ import {
   DigiExpandableAccordion,
   DigiLoaderSpinner,
   DigiMediaImage,
+  DigiNavigationPagination,
 } from "@digi/arbetsformedlingen-react";
 import { IEducations } from "../models/IEducations";
 import EducationResultSummary from "./EducationResultSummary";
@@ -37,31 +38,41 @@ export default function SearchEducationResults({
   }
 
   return (
-    <section>
-      {isLoading ? (
-        <DigiLoaderSpinner
-          className="edu-loader"
-          afSize={LoaderSpinnerSize.LARGE}
-        ></DigiLoaderSpinner>
-      ) : searchEduData ? (
-        <>
-          <h3>Utbildningar</h3>
-          {showNoResult ? (
-            <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
-          ) : (
-            accordionComponents
-          )}
-        </>
-      ) : (
-        <DigiMediaImage
-          className="search-edu-img"
-          afUnlazy
-          afHeight="300"
-          afWidth="300"
-          afSrc={illustration}
-          afAlt="Illustration person framför datorn och hörlurar i öronen"
-        />
-      )}
-    </section>
+    <>
+      <section>
+        {isLoading ? (
+          <DigiLoaderSpinner
+            className="edu-loader"
+            afSize={LoaderSpinnerSize.LARGE}
+          ></DigiLoaderSpinner>
+        ) : searchEduData ? (
+          <>
+            <h3>Utbildningar</h3>
+            {showNoResult ? (
+              <h3>
+                Inga utbildningar hittades. Var vänlig sök på något annat.
+              </h3>
+            ) : (
+              accordionComponents
+            )}{" "}
+            <section>
+              <DigiNavigationPagination
+                afTotalPages={6}
+                afInitActivePage={1}
+              ></DigiNavigationPagination>
+            </section>
+          </>
+        ) : (
+          <DigiMediaImage
+            className="search-edu-img"
+            afUnlazy
+            afHeight="300"
+            afWidth="300"
+            afSrc={illustration}
+            afAlt="Illustration person framför datorn och hörlurar i öronen"
+          />
+        )}
+      </section>
+    </>
   );
 }
