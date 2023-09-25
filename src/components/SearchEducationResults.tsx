@@ -93,7 +93,7 @@ export default function SearchEducationResults({
             ) : (
               accordionComponents
             )}{" "}
-            <section>
+            <section className="pagination-wrapper">
               <DigiNavigationPagination
                 afTotalPages={totalPages}
                 afInitActivePage={1}
