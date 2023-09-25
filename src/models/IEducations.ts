@@ -34,3 +34,8 @@ interface IEducation {
     id: string
   }
 }
+
+export interface IEducationForms {
+  key: string,
+  value: string
+}

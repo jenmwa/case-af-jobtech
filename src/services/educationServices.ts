@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IEducations } from "../models/IEducations";
+import { IEducationForms, IEducations } from "../models/IEducations";
 import { IEducation } from "../models/IEducation";
 
 const URL = "https://jobed-connect-api.jobtechdev.se/v1/educations";
@@ -29,6 +29,24 @@ export const getEducations = async (params: ISearchEducationParams) => {
 export const getEducation = async (id: string) => {
   try {
     const response = await axios.get<IEducation>(URL + "/" + id);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const getEductionForms = async () => {
+  try {
+    const response = await axios.get<IEducationForms[]>('https://jobed-connect-api.jobtechdev.se/v1/searchparameters/education_forms');
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const getMunicipalities = async () => {
+  try {
+    const response = await axios.get<IEducationForms[]>('https://jobed-connect-api.jobtechdev.se/v1/searchparameters/municipalities');
     return response.data;
   } catch (error) {
     console.error("Error:", error);
