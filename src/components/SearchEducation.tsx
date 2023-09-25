@@ -67,7 +67,8 @@ export default function SearchEducation({
             afVariation={FormTextareaVariation.MEDIUM}
             afValidation={FormTextareaValidation.NEUTRAL}
             afLabelDescription="Lämnas textrutan blank så hämtas alla utbildningar"
-            onAfOnChange={textInput}
+            //onAfOnChange={textInput}
+            onAfOnKeyup={textInput}
             afValue={searchEduText}
           ></DigiFormTextarea>
           <DigiButton
