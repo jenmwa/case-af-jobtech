@@ -1,20 +1,19 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {
   FormTextareaVariation,
   FormTextareaValidation,
   ButtonSize,
   ButtonVariation,
 } from "@digi/arbetsformedlingen";
-import { DigiButton, DigiFormTextarea } from "@digi/arbetsformedlingen-react";
-import { DigiFormTextareaCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
-import { FormEvent, useState } from "react";
-import { getEducations } from "../services/educationServices";
-import { IEducations } from "../models/IEducations";
+import { DigiButton, DigiFormSelect, DigiFormTextarea } from "@digi/arbetsformedlingen-react";
+import { DigiFormSelectCustomEvent, DigiFormTextareaCustomEvent} from "@digi/arbetsformedlingen/dist/types/components";
+import { FormEvent, useEffect, useState } from "react";
+import { getEducations, getEductionForms, getMunicipalities } from "../services/educationServices";
+import { IEducationForms, IEducations } from "../models/IEducations";
 
 interface ISubmitSearchEduProps {
-  //setEduResult: (result: IEducations) => void;
   showNoResult: boolean;
   setShowNoResult: (value: boolean) => void;
-  //setSearched: (value: boolean) => void;
   setSerachEduData: (value: IEducations | null) => void;
   setIsLoading: (value: boolean) => void;
 }
@@ -22,37 +21,56 @@ interface ISubmitSearchEduProps {
 export default function SearchEducation({
   showNoResult,
   setShowNoResult,
-  //setSearched,
   setSerachEduData,
   setIsLoading,
 }: ISubmitSearchEduProps) {
-  const [searchEduText, setSearchEduText] = useState<string>("");
+  const [searchEduText, setSearchEduText] = useState<string | undefined>(undefined);
+  const [educationForms, setEducationForms] = useState<IEducationForms[]>([]);
+  const [municipalities, setMunicipalities] = useState<IEducationForms[]>([]);
+  const [remote, setRemote] = useState<boolean>(false);
+  const [educationForm, setEducationForm] = useState<string | undefined>(undefined);
+  const [location, setLocation] = useState<string |undefined>(undefined);
+
+  useEffect(() => {
+    if(educationForms.length > 0){
+      return
+    } else {
+      const getEducationFormsFunc = async() => {
+        const educationFormsData = await getEductionForms();
+        if(educationFormsData){
+         setEducationForms(educationFormsData);
+        }
+      }
+      getEducationFormsFunc();
+    }
+    if(municipalities.length > 0){
+      return
+    } else {
+      const getMunicipalitiesFunc = async() => {
+        const municipalitiesData = await getMunicipalities();
+        if(municipalitiesData){
+         setMunicipalities(municipalitiesData);
+        }
+      }
+      getMunicipalitiesFunc();
+    }
+  });
 
   const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
+    if (e.target.value === "") {
+      setSearchEduText(undefined);
+    } else {
     setSearchEduText(e.target.value);
+    }
   };
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
-    //setSearched(true);
-    setIsLoading(true);
-    if (searchEduText === "") {
-      const result = await getEducations({});
-      if (result) {
-        //setEduResult(result);
-        setIsLoading(false);
-
-        setShowNoResult(false);
-        setSerachEduData(result);
-        setSerachEduData(result);
-      }
-    } else {
+    console.log(remote)
       setIsLoading(true);
-
-      const result = await getEducations({ query: searchEduText });
+      const result = await getEducations({ query: searchEduText, distance: remote, education_form: educationForm, municipality_code: location});
       if (result) {
         if (result.hits > 0) {
-          //setEduResult(result);
           setShowNoResult(false);
           setSerachEduData(result);
           setIsLoading(false);
@@ -63,16 +81,40 @@ export default function SearchEducation({
           }
         }
       }
-    }
   };
 
   const handleReset = () => {
     setSerachEduData(null);
   };
 
+  const handleRemote = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
+    console.log(e.target.value)
+    if(e.target.value === "yes"){
+      setRemote(true);
+    } else if(e.target.value === "no"){
+      setRemote(false);
+    }
+  }
+
+  const handleEduForm = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
+    if(e.target.value === "all"){
+      setEducationForm(undefined)
+    } else {
+      setEducationForm(e.target.value)
+    }
+  }
+
+  const handleLocation= (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
+    if(e.target.value === "anywhere"){
+      setLocation(undefined);
+    } else {
+      setLocation(e.target.value);
+    }
+  }
+
   return (
     <>
-      <section>
+      <section className='searchEducationForm'>
         <h2>Sök utbildning</h2>
         <form
           onSubmit={(e: FormEvent) => {
@@ -87,6 +129,41 @@ export default function SearchEducation({
             onAfOnKeyup={textInput}
             afValue={searchEduText}
           ></DigiFormTextarea>
+          <DigiFormSelect
+	          afLabel="Vill du läsa på distans?"
+	          afValue="no"
+            onAfOnChange={handleRemote}
+	        >
+            <option value="yes">Ja</option>
+            <option value="no">Nej</option>
+          </DigiFormSelect>
+          <DigiFormSelect
+	          afLabel="Vilken typ av utbildning vill du läsa?"
+	          afPlaceholder="Välj typ av utbildning"
+            onAfOnChange={handleEduForm} 
+            afValue="all"
+	        >
+            <option value="all">Alla</option>
+            {educationForms.map((form) => (
+              <option key={form.key} value={form.key}>
+                {form.value}
+              </option>
+            )
+            )}
+          </DigiFormSelect>
+          <DigiFormSelect
+	          afLabel="Vart vill du studera?"
+	          afPlaceholder="Välj stad"
+            onAfOnChange={handleLocation} 
+	        >
+            <option value="anywhere">Hela Sverige</option>
+            {municipalities.map((location) => (
+              <option key={location.key} value={location.key}>
+                {location.value}
+              </option>
+            )
+            )}
+          </DigiFormSelect>
           <DigiButton
             afSize={ButtonSize.MEDIUM}
             afVariation={ButtonVariation.PRIMARY}
