@@ -18,6 +18,7 @@ interface IEducationProps {
   showNoResult: boolean;
   searchEduData: IEducations | null;
   isLoading: boolean;
+  setIsLoading: (value: boolean) => void;
   setSerachEduData: (value: IEducations | null) => void;
   eduSearchHistory: ISearchEducationParams;
 }
@@ -26,6 +27,7 @@ export default function SearchEducationResults({
   showNoResult,
   searchEduData,
   isLoading,
+  setIsLoading,
   setSerachEduData,
   eduSearchHistory,
 }: IEducationProps) {
@@ -47,6 +49,8 @@ export default function SearchEducationResults({
   const eduPagination = async (
     e: DigiNavigationPaginationCustomEvent<number>
   ) => {
+    // setIsLoading(true);
+
     const newSearch = {
       query: eduSearchHistory.query,
       distance: eduSearchHistory.distance,
@@ -58,9 +62,10 @@ export default function SearchEducationResults({
     const newResult = await getEducations(newSearch);
     if (newResult && searchEduData !== newResult) {
       setSerachEduData(newResult);
+      // setIsLoading(false);
     }
-    console.log("newresult", newResult);
-    console.log("searchEduData", searchEduData);
+    // console.log("newresult", newResult);
+    // console.log("searchEduData", searchEduData);
   };
   return (
     <>
