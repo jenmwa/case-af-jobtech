@@ -87,7 +87,7 @@ export default function SearchEducation({
     setSerachEduData(null);
   };
 
-  const handleRemote = (e: DigiFormRadiobuttonCustomEvent<HTMLDigiFormRadiobuttonElement>) => {
+  const handleRemote = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
     console.log(e.target.value)
     if(e.target.value === "yes"){
       setRemote(true);
@@ -130,7 +130,7 @@ export default function SearchEducation({
             afValue={searchEduText}
           ></DigiFormTextarea>
           <label>Vill du läsa på distans?</label>
-          <DigiFormRadiobutton
+          {/* <DigiFormRadiobutton
             afLabel="ja"
             afName="remote"
             afValue="yes"
@@ -144,7 +144,15 @@ export default function SearchEducation({
             onAfOnChange={handleRemote}
             afChecked = {true}
           >
-          </DigiFormRadiobutton>
+          </DigiFormRadiobutton> */}
+          <DigiFormSelect
+	          afLabel="Vill du läsa på distans?"
+	          afValue="no"
+            onAfOnChange={handleRemote}
+	        >
+            <option value="yes">Ja</option>
+            <option value="no">Nej</option>
+          </DigiFormSelect>
           <DigiFormSelect
 	          afLabel="Vilken typ av utbildning vill du läsa?"
 	          afPlaceholder="Välj typ av utbildning"
