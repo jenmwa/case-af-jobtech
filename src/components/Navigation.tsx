@@ -1,19 +1,21 @@
 // import { DigiUtilDetectClickOutside } from "@digi/arbetsformedlingen-react";
-import { Link } from "react-router-dom";
+import {
+  NavigationSidebarPosition,
+  NavigationSidebarVariation,
+} from "@digi/arbetsformedlingen";
+import {
+  DigiNavigationSidebar,
+  DigiNavigationVerticalMenu,
+} from "@digi/arbetsformedlingen-react";
 
-// interface INavigationProps {
-//   toggleMenu: () => void;
-// }
+interface INavigationProps {
+  closeMenu: () => void;
+}
 
-export const Navigation = () => {
-  // const click = () => {
-  //   toggleMenu();
-  // };
-
+export const Navigation = ({ closeMenu }: INavigationProps) => {
   return (
     <>
-      {/* <DigiUtilDetectClickOutside onAfOnClickOutside={click}> */}
-      <div className="menu-div">
+      {/* <div className="menu-div">
         <ul className="navigation-items">
           <li>
             <Link to="/">Hem</Link>
@@ -28,8 +30,22 @@ export const Navigation = () => {
             <Link to="/om">Om</Link>
           </li>
         </ul>
-      </div>
-      {/* </DigiUtilDetectClickOutside> */}
+      </div> */}
+      <DigiNavigationSidebar
+        afActive={true}
+        afStickyHeader={true}
+        afBackdrop={true}
+        afPosition={NavigationSidebarPosition.START}
+        afVariation={NavigationSidebarVariation.OVER}
+        afCloseButtonText="Stäng"
+        onAfOnClose={closeMenu}
+        onAfOnBackdropClick={closeMenu}
+      >
+        <DigiNavigationVerticalMenu>
+          <li>1</li>
+          <li>2</li>
+        </DigiNavigationVerticalMenu>
+      </DigiNavigationSidebar>
     </>
   );
 };
