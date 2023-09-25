@@ -17,7 +17,7 @@ export interface IOccupation {
   legacy_ams_taxonomy_id: string;
   metadata?: {
     enriched_candidates_term_frequency: {
-      competencies: [];
+      competencies: IOccupationCompetencies[];
     };
   };
   occupation_group: {
@@ -25,4 +25,9 @@ export interface IOccupation {
     concept_taxonomy_id: string;
     ssyk: string;
   };
+}
+
+export interface IOccupationCompetencies {
+  term: string;
+  percennt_for_occupation: number;
 }
