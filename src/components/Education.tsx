@@ -34,7 +34,6 @@ export default function Education() {
           showNoResult={showNoResult}
           searchEduData={searchEduData}
           isLoading={isLoading}
-          setIsLoading={setIsLoading}
           setSerachEduData={setSearchEduData}
           eduSearchHistory={eduSearchHistory}
         ></SearchEducationResults>
