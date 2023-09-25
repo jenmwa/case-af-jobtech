@@ -42,7 +42,6 @@ export const getSCBStatisticsSalary = async (ssyk: string) => {
       `${PROXY_URL}${URL}`,
       REQUESTBODY
     );
-    // console.log(response.data);
     return response.data.data;
   } catch (error) {
     console.error("Error", error);
