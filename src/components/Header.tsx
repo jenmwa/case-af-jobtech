@@ -3,25 +3,28 @@ import {
   DigiNavigationSidebarButton,
 } from "@digi/arbetsformedlingen-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "/logo-02.svg";
 import { Navigation } from "./Navigation";
 
 export default function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuIsOpen(!menuIsOpen);
-    console.log("toggle menu isOpen", menuIsOpen);
   };
 
   const closeMenu = () => {
     setMenuIsOpen(false);
   };
+
   return (
     <header className="nav">
       <div className="headerFlex">
         <DigiMediaImage
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
           afUnlazy
           afHeight="100"
           afWidth="100"

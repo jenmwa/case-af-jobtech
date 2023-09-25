@@ -2,8 +2,7 @@ import { DigiNavigationSidebar } from "@digi/arbetsformedlingen-react";
 import styled from "styled-components";
 
 export const StyledDigiNavigationSidebar = styled(DigiNavigationSidebar).attrs({
-  className: "testing",
+  className: "group9styling",
 })`
-  /* --digi--navigation-sidebar--wrapper--width--small: 50vw !important; */
-  --digi--navigation-sidebar--wrapper--width--small: 50vw;
+  --digi--navigation-sidebar--wrapper--width--small: 60vw;
 `;
