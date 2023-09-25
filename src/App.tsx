@@ -53,7 +53,7 @@ export function App() {
 
   return (
     <>
-      <StyledDigiTypography afVariation={TypographyVariation.SMALL}>
+      <StyledDigiTypography afVariation={TypographyVariation.LARGE}>
         <EnrichedOccupationContext.Provider
           value={{
             stateEnrichedOccupation: enrichedOccupation,
