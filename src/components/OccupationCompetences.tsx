@@ -13,7 +13,6 @@ export const OccupationCompetences = (
 ) => {
   const enrichedOccupationData = useContext(EnrichedOccupationContext);
 
-  // Find the metadata object where the id matches occupationFound.occupationFound.id
   const matchingMetadata = enrichedOccupationData.stateEnrichedOccupation.find(
     (item) => item.id === occupationFound.occupationFound.id
   );
