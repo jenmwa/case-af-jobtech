@@ -8,8 +8,8 @@ import { useOutletData } from "../context/useOutletData";
 import { SSYKdataContext } from "../context/SSYKdataContext";
 import { useSSYKDetails } from "../hooks/useSSYKDetails";
 import { ForecastContext } from "../context/ForecastContext";
-import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
-import { enrichedOccupation } from "../services/enrichedOccupationsServices";
+// import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
+// import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 
 export interface IDeficiencyValue {
   bristvarde: number;
@@ -19,9 +19,9 @@ export const Occupation = () => {
   const ssykdata = useContext(SSYKdataContext);
   const { searchData } = useOutletData();
   const forecastData = useContext(ForecastContext);
-  const enrichedOccupationData = useContext(EnrichedOccupationContext);
-  console.log(enrichedOccupationData);
-  console.log(enrichedOccupation);
+  // const enrichedOccupationData = useContext(EnrichedOccupationContext);
+  // console.log(enrichedOccupationData);
+  // console.log(enrichedOccupation);
 
   const conceptTaxonomyId = useParams<{ id: string }>();
   const navigate = useNavigate();

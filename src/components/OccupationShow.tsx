@@ -43,7 +43,11 @@ export const OccupationShow = ({
       )}
       <br></br>
       <OccupationAbout findIndexText={findIndexText}></OccupationAbout>
-      <OccupationCompetences></OccupationCompetences>
+      {occupationFound && (
+        <OccupationCompetences
+          occupationFound={occupationFound}
+        ></OccupationCompetences>
+      )}
       <OccupationForecast
         deficiencyValueData2023={deficiencyValueData2023}
         deficiencyValueData2026={deficiencyValueData2026}
