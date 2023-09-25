@@ -3,6 +3,7 @@ import { IOccupation } from "../models/IOccupation";
 import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
 import { DigiTag } from "@digi/arbetsformedlingen-react";
 import { TagSize } from "@digi/arbetsformedlingen";
+import "../style/_occupationCompetences.scss";
 
 interface IOccupationShowProps {
   occupationFound: IOccupation;
@@ -26,19 +27,21 @@ export const OccupationCompetences = (
   return (
     <>
       <h4>Vanligaste kompetenserna</h4>
-      {topCompetencies.length > 0 ? (
-        topCompetencies.map((competency, index) => (
-          <DigiTag
-            className="competence-tag"
-            key={index}
-            afText={competency.term}
-            afSize={TagSize.SMALL}
-            afNoIcon={true}
-          ></DigiTag>
-        ))
-      ) : (
-        <p>No matching competencies found</p>
-      )}
+      <section className="competence-wrapper">
+        {topCompetencies.length > 0 ? (
+          topCompetencies.map((competency, index) => (
+            <DigiTag
+              className="competence-tag"
+              key={index}
+              afText={competency.term}
+              afSize={TagSize.SMALL}
+              afNoIcon={true}
+            ></DigiTag>
+          ))
+        ) : (
+          <p>No matching competencies found</p>
+        )}
+      </section>
     </>
   );
 };
