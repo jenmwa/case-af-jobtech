@@ -1,24 +1,32 @@
 import { LayoutBlockVariation, LinkVariation } from "@digi/arbetsformedlingen";
 import {
   DigiIconExternalLinkAlt,
-  DigiLayoutBlock,
   DigiLink,
   DigiMediaImage,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
-import { MainFlex } from "../style/Wrappers";
+import { MainFlex50percent } from "../style/Wrappers";
+import { StyledDigiLayoutBlock } from "./styled/Layout";
 
 export const About = () => {
   return (
     <>
-      <MainFlex>
-        <DigiLayoutBlock afVariation={LayoutBlockVariation.PRIMARY}>
+      <MainFlex50percent>
+        <StyledDigiLayoutBlock afVariation={LayoutBlockVariation.SECONDARY}>
           <DigiTypography>
             <h2>Om denna app</h2>
             <p>
               Som en del av kursen Javascript-Fördjupning MedieInstitutet 2023
               fick vi i uppgift att Bygga applikationer på Arbetsförmedlingens
-              öppna data [ https://jobtechdev.se ]för studenter.
+              öppna data{" "}
+              <DigiLink
+                afHref="https://jobtechdev.se/sv"
+                afTarget="_blank"
+                afVariation={LinkVariation.SMALL}
+              >
+                https://jobtechdev.se
+              </DigiLink>{" "}
+              för studenter.
             </p>
             <p>
               Detta genom ramverket React där uppgiften var att matcha fram
@@ -63,6 +71,7 @@ export const About = () => {
               <li>
                 <DigiLink
                   afHref="https://github.com/evelinanorlin"
+                  afTarget="_blank"
                   afVariation={LinkVariation.SMALL}
                 >
                   <DigiIconExternalLinkAlt slot="icon"></DigiIconExternalLinkAlt>
@@ -72,6 +81,7 @@ export const About = () => {
               <li>
                 <DigiLink
                   afHref="https://github.com/jenmwa"
+                  afTarget="_blank"
                   afVariation={LinkVariation.SMALL}
                 >
                   <DigiIconExternalLinkAlt slot="icon"></DigiIconExternalLinkAlt>
@@ -80,17 +90,18 @@ export const About = () => {
               </li>
             </ul>
 
-            <span> © all right reserved, Yrkestipsarna 2023 </span>
+            <span>© Yrkestipsarna 2023</span>
           </DigiTypography>
-        </DigiLayoutBlock>
-        <DigiMediaImage
-          afUnlazy
-          afHeight="300"
-          afWidth="300"
-          afSrc="/blooming.svg"
-          afAlt="Illustration där en person sitter på amrken med 3 blommor"
-        ></DigiMediaImage>
-      </MainFlex>
+        </StyledDigiLayoutBlock>
+        <StyledDigiLayoutBlock afVariation={LayoutBlockVariation.SECONDARY}>
+          <DigiMediaImage
+            afUnlazy
+            af-fullwidth
+            afSrc="/blooming.svg"
+            afAlt="Illustration där en person sitter på marken med 3 blommor"
+          ></DigiMediaImage>
+        </StyledDigiLayoutBlock>
+      </MainFlex50percent>
     </>
   );
 };
