@@ -15,7 +15,9 @@ export default function Education() {
   //const [searched, setSearched] = useState<boolean>(false);
   const { searchEduData, setSearchEduData } = useOutletData();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [eduSearchHistory, setEduSeachHistory] = useState({});
 
+  console.log("eduSearchHistory", eduSearchHistory);
   return (
     <DigiLayoutContainer>
       <MainFlex>
@@ -26,11 +28,14 @@ export default function Education() {
           //setSearched={setSearched}
           setSerachEduData={setSearchEduData}
           setIsLoading={setIsLoading}
+          setEduSeachHistory={setEduSeachHistory}
         ></SearchEducation>
         <SearchEducationResults
           showNoResult={showNoResult}
           searchEduData={searchEduData}
           isLoading={isLoading}
+          setSerachEduData={setSearchEduData}
+          eduSearchHistory={eduSearchHistory}
         ></SearchEducationResults>
       </MainFlex>
     </DigiLayoutContainer>

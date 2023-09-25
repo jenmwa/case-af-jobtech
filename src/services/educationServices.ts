@@ -1,21 +1,23 @@
 import axios from "axios";
 import { IEducationForms, IEducations } from "../models/IEducations";
 import { IEducation } from "../models/IEducation";
+import { ISearchEducationParams } from "../models/ISearchEducationParams";
 
 const URL = "https://jobed-connect-api.jobtechdev.se/v1/educations";
 
 //https://jobed-connect-api.jobtechdev.se/v1/educations/
 
-interface ISearchEducationParams {
-  query?: string;
-  education_type?: string;
-  education_form?: string;
-  municipality_code?: string;
-  pace_of_study_percentage?: string;
-  education_code?: string;
-  distance?: boolean;
-  limit?: number;
-}
+// interface ISearchEducationParams {
+//   query?: string;
+//   education_type?: string;
+//   education_form?: string;
+//   municipality_code?: string;
+//   pace_of_study_percentage?: string;
+//   education_code?: string;
+//   distance?: boolean;
+//   limit?: number;
+//   offset?: number;
+// }
 
 export const getEducations = async (params: ISearchEducationParams) => {
   try {
@@ -37,7 +39,9 @@ export const getEducation = async (id: string) => {
 
 export const getEductionForms = async () => {
   try {
-    const response = await axios.get<IEducationForms[]>('https://jobed-connect-api.jobtechdev.se/v1/searchparameters/education_forms');
+    const response = await axios.get<IEducationForms[]>(
+      "https://jobed-connect-api.jobtechdev.se/v1/searchparameters/education_forms"
+    );
     return response.data;
   } catch (error) {
     console.error("Error:", error);
@@ -46,7 +50,9 @@ export const getEductionForms = async () => {
 
 export const getMunicipalities = async () => {
   try {
-    const response = await axios.get<IEducationForms[]>('https://jobed-connect-api.jobtechdev.se/v1/searchparameters/municipalities');
+    const response = await axios.get<IEducationForms[]>(
+      "https://jobed-connect-api.jobtechdev.se/v1/searchparameters/municipalities"
+    );
     return response.data;
   } catch (error) {
     console.error("Error:", error);

@@ -10,17 +10,25 @@ import EducationResultSummary from "./EducationResultSummary";
 import illustration from "/coding.svg";
 import "../style/_searchEducationResults.scss";
 import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
+import { ChangeEvent } from "react";
+import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
+import { ISearchEducationParams } from "../models/ISearchEducationParams";
+import { getEducations } from "../services/educationServices";
 
 interface IEducationProps {
   showNoResult: boolean;
   searchEduData: IEducations | null;
   isLoading: boolean;
+  setSerachEduData: (value: object) => void;
+  eduSearchHistory: ISearchEducationParams;
 }
 
 export default function SearchEducationResults({
   showNoResult,
   searchEduData,
   isLoading,
+  setSerachEduData,
+  eduSearchHistory,
 }: IEducationProps) {
   let accordionComponents: JSX.Element[] = [];
 
@@ -37,6 +45,24 @@ export default function SearchEducationResults({
     ));
   }
 
+  const eduPagination = async (
+    e: DigiNavigationPaginationCustomEvent<number>
+  ) => {
+    const newSearch = {
+      query: eduSearchHistory.query,
+      distance: eduSearchHistory.distance,
+      education_form: eduSearchHistory.education_form,
+      municipality_code: eduSearchHistory.municipality_code,
+      offset: e.detail !== 1 ? e.detail * 10 - 10 : undefined,
+    };
+
+    const newResult = await getEducations(newSearch);
+    if (newResult && searchEduData !== newResult) {
+      setSerachEduData(newResult);
+    }
+    console.log("newresult", newResult);
+    console.log("searchEduData", searchEduData);
+  };
   return (
     <>
       <section>
@@ -59,6 +85,7 @@ export default function SearchEducationResults({
               <DigiNavigationPagination
                 afTotalPages={6}
                 afInitActivePage={1}
+                onAfOnPageChange={eduPagination}
               ></DigiNavigationPagination>
             </section>
           </>
