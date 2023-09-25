@@ -9,31 +9,43 @@ import illustration from "/coding.svg";
 import "../style/_searchEducationResults.scss";
 
 interface IEducationProps {
-  eduResult: IEducations;
   showNoResult: boolean;
-  searched: boolean;
+  searchEduData: IEducations | null;
 }
 
 export default function SearchEducationResults({
-  eduResult,
   showNoResult,
-  searched,
+  searchEduData,
 }: IEducationProps) {
-  //console.log('I sökresultat',eduResult.result[0].education.identifier);
-  const titles = eduResult.result.map((edu) => edu.education.title[0].content);
-  const accordionComponents = titles.map((title, index) => (
-    <DigiExpandableAccordion key={index} afHeading={title}>
-      <EducationResultSummary
-        id={eduResult.result[index].education.identifier}
-      />
-    </DigiExpandableAccordion>
-  ));
 
-  return (
-    <>
+  let accordionComponents: JSX.Element[] = [];
+
+  if(searchEduData){
+    const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
+    accordionComponents = titles.map((title, index) => (
+      <DigiExpandableAccordion key={index} afHeading={title}>
+        <EducationResultSummary id={searchEduData.result[index].education.identifier} />
+      </DigiExpandableAccordion>
+    ));
+  }
+
+  if(searchEduData){
+    return (
       <section>
-        {!searched ? (
-          <DigiMediaImage
+        <h3>Utbildningar</h3>
+         {showNoResult ? (
+            <h3>
+              Inga utbildningar hittades. Var vänlig sök på något annat.
+            </h3>
+          ) : (
+            accordionComponents
+          )}
+      </section>
+    )
+  } else {
+    return (
+      <section>
+           <DigiMediaImage
             className="search-edu-img"
             afUnlazy
             afHeight="300"
@@ -41,20 +53,7 @@ export default function SearchEducationResults({
             afSrc={illustration}
             afAlt="Illustration person framför datorn och hörlurar i öronen"
           ></DigiMediaImage>
-        ) : (
-          <>
-            {" "}
-            <h3>Utbildningar</h3>
-            {showNoResult ? (
-              <h3>
-                Inga utbildningar hittades. Var vänlig sök på något annat.
-              </h3>
-            ) : (
-              accordionComponents
-            )}
-          </>
-        )}
       </section>
-    </>
-  );
+    )
+  }
 }
