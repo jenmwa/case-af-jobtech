@@ -1,7 +1,12 @@
-import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
+import {
+  DigiExpandableAccordion,
+  DigiMediaImage,
+} from "@digi/arbetsformedlingen-react";
 import { IEducations } from "../models/IEducations";
 import EducationResultSummary from "./EducationResultSummary";
-import SearchResultsPlaceholder from "./SearchResultsPlaceholder";
+// import SearchResultsPlaceholder from "./SearchResultsPlaceholder";
+import illustration from "/coding.svg";
+import "../style/_searchEducationResults.scss";
 
 interface IEducationProps {
   eduResult: IEducations;
@@ -18,7 +23,9 @@ export default function SearchEducationResults({
   const titles = eduResult.result.map((edu) => edu.education.title[0].content);
   const accordionComponents = titles.map((title, index) => (
     <DigiExpandableAccordion key={index} afHeading={title}>
-      <EducationResultSummary id={eduResult.result[index].education.identifier} />
+      <EducationResultSummary
+        id={eduResult.result[index].education.identifier}
+      />
     </DigiExpandableAccordion>
   ));
 
@@ -26,7 +33,14 @@ export default function SearchEducationResults({
     <>
       <section>
         {!searched ? (
-          <SearchResultsPlaceholder />
+          <DigiMediaImage
+            className="search-edu-img"
+            afUnlazy
+            afHeight="300"
+            afWidth="300"
+            afSrc={illustration}
+            afAlt="Illustration person framför datorn och hörlurar i öronen"
+          ></DigiMediaImage>
         ) : (
           <>
             {" "}

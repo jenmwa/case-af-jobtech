@@ -38,12 +38,14 @@ export default function SearchForm(props: ISearchFormProps) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (!descriptionFromLocalStorage) {
-      return;
-    } else {
+    if (!descriptionFromLocalStorage) return;
+    const getFromLocalStorage = () => {
       handleReset();
       setFreeSearch(descriptionFromLocalStorage);
       setInputLength(wordCount(descriptionFromLocalStorage));
+    };
+    if (descriptionFromLocalStorage) {
+      getFromLocalStorage();
     }
   });
 

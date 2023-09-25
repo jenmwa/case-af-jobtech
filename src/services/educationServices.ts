@@ -20,7 +20,6 @@ interface ISearchEducationParams {
 export const getEducations = async (params: ISearchEducationParams) => {
   try {
     const response = await axios.get<IEducations>(URL + "?", { params });
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error:", error);

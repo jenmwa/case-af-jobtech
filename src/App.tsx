@@ -1,4 +1,3 @@
-import { DigiTypography } from "@digi/arbetsformedlingen-react";
 import { router } from "./components/router";
 import { RouterProvider } from "react-router-dom";
 import { useEffect, useReducer } from "react";
@@ -11,6 +10,8 @@ import { getCurrentOccupationalForecast } from "./services/getCurrentOccupationa
 import { ForecastContext } from "./context/ForecastContext";
 import { EnrichedOccupationReducer } from "./reducers/EnrichedOccupationReducer";
 import { EnrichedOccupationContext } from "./context/EnrichedOccupationContext";
+import { StyledDigiTypography } from "./components/styled/Fonts";
+import { TypographyVariation } from "@digi/arbetsformedlingen";
 
 export function App() {
   const [SSYKdata, dispatch] = useReducer(SSYKoccupationdescriptionReducer, {
@@ -52,7 +53,7 @@ export function App() {
 
   return (
     <>
-      <DigiTypography>
+      <StyledDigiTypography afVariation={TypographyVariation.LARGE}>
         <EnrichedOccupationContext.Provider
           value={{
             stateEnrichedOccupation: enrichedOccupation,
@@ -65,7 +66,7 @@ export function App() {
             </ForecastContext.Provider>
           </SSYKdataContext.Provider>
         </EnrichedOccupationContext.Provider>
-      </DigiTypography>
+      </StyledDigiTypography>
     </>
   );
 }
