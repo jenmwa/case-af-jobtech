@@ -10,7 +10,6 @@ import EducationResultSummary from "./EducationResultSummary";
 import illustration from "/coding.svg";
 import "../style/_searchEducationResults.scss";
 import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
-import { ChangeEvent } from "react";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import { ISearchEducationParams } from "../models/ISearchEducationParams";
 import { getEducations } from "../services/educationServices";
@@ -19,7 +18,7 @@ interface IEducationProps {
   showNoResult: boolean;
   searchEduData: IEducations | null;
   isLoading: boolean;
-  setSerachEduData: (value: object) => void;
+  setSerachEduData: (value: IEducations | null) => void;
   eduSearchHistory: ISearchEducationParams;
 }
 
