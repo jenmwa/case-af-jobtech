@@ -1,7 +1,6 @@
 import {
   DigiMediaImage,
   DigiNavigationSidebarButton,
-  // DigiUtilDetectClickOutside,
 } from "@digi/arbetsformedlingen-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -20,7 +19,6 @@ export default function Header() {
     setMenuIsOpen(false);
   };
   return (
-    // <DigiUtilDetectClickOutside onAfOnClickOutside={closeMenu}>
     <header className="nav">
       <div className="headerFlex">
         <DigiMediaImage
@@ -44,6 +42,5 @@ export default function Header() {
         {menuIsOpen ? <Navigation closeMenu={closeMenu}></Navigation> : ""}
       </div>
     </header>
-    // </DigiUtilDetectClickOutside>
   );
 }
