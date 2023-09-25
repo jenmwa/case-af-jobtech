@@ -22,7 +22,6 @@ export const OccupationCompetences = (
     matchingMetadata?.metadata?.enriched_candidates_term_frequency
       .competencies || [];
   const topCompetencies = competencies.slice(0, 15);
-  console.log(topCompetencies);
 
   return (
     <>
