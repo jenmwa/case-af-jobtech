@@ -5,8 +5,8 @@ import {
   ButtonSize,
   ButtonVariation,
 } from "@digi/arbetsformedlingen";
-import { DigiButton, DigiFormRadiobutton, DigiFormSelect, DigiFormTextarea } from "@digi/arbetsformedlingen-react";
-import { DigiFormRadiobuttonCustomEvent, DigiFormSelectCustomEvent, DigiFormTextareaCustomEvent} from "@digi/arbetsformedlingen/dist/types/components";
+import { DigiButton, DigiFormSelect, DigiFormTextarea } from "@digi/arbetsformedlingen-react";
+import { DigiFormSelectCustomEvent, DigiFormTextareaCustomEvent} from "@digi/arbetsformedlingen/dist/types/components";
 import { FormEvent, useEffect, useState } from "react";
 import { getEducations, getEductionForms, getMunicipalities } from "../services/educationServices";
 import { IEducationForms, IEducations } from "../models/IEducations";
