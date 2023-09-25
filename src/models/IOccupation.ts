@@ -29,4 +29,5 @@ export interface IOccupation {
 
 export interface IOccupationCompetencies {
   term: string;
+  percennt_for_occupation: number;
 }
