@@ -4,8 +4,8 @@ import {
 } from "@digi/arbetsformedlingen-react";
 import { IEducations } from "../models/IEducations";
 import EducationResultSummary from "./EducationResultSummary";
-import SearchResultsPlaceholder from "./SearchResultsPlaceholder";
-import illustration from "/illustration-person-computer-phone.svg";
+// import SearchResultsPlaceholder from "./SearchResultsPlaceholder";
+import illustration from "/coding.svg";
 import "../style/_searchEducationResults.scss";
 
 interface IEducationProps {
@@ -39,7 +39,7 @@ export default function SearchEducationResults({
             afHeight="300"
             afWidth="300"
             afSrc={illustration}
-            afAlt="Illustration person framför datorn med mobilen i handen och hörlurar i öronen"
+            afAlt="Illustration person framför datorn och hörlurar i öronen"
           ></DigiMediaImage>
         ) : (
           <>

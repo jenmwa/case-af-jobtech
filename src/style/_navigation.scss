@@ -1,5 +1,6 @@
+@import "../style/variables";
 .nav {
-  background: grey;
+  background: $complementary2-lightest-2;
   height: 70px;
   margin-bottom: 30px;
   .headerFlex {

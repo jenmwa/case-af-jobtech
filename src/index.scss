@@ -107,7 +107,7 @@ $font-path: "/node_modules/@digi/arbetsformedlingen/dist/digi-arbetsformedlingen
 body {
   padding: 0;
   margin: 0;
-  background-color: #f8f8f8;
+  background-color: $greyscale-lightest-5;
 }
 
 main {
