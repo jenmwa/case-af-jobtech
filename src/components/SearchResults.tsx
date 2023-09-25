@@ -10,7 +10,9 @@ import { useOutletData } from "../context/useOutletData";
 import { matchByText } from "../services/matchByTextServices";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import "../style/_pagination.scss";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { getEnrichedOccupations } from "../services/enrichedOccupationsServices";
+import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
 
 interface ISearchresultsProps {
   isLoading: boolean;
@@ -21,6 +23,8 @@ export default function SearchResults(props: ISearchresultsProps) {
   const [showPagination, setShowPagination] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
 
+  const { dispatchEnrichedOccupation } = useContext(EnrichedOccupationContext);
+
   const handlePaginationChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
   ) => {
@@ -30,10 +34,18 @@ export default function SearchResults(props: ISearchresultsProps) {
           searchData.identified_keywords_for_input.competencies.join(" "),
         offset: e.detail !== 1 ? e.detail * 10 - 1 : undefined,
       };
-
       const newResults = await matchByText(newSearch);
 
       setSearchData(newResults);
+
+      const newResultEnriched = await getEnrichedOccupations(newResults);
+
+      if (newResultEnriched) {
+        dispatchEnrichedOccupation({
+          type: "GOT_ENRICHED_DATA",
+          payload: newResultEnriched,
+        });
+      }
     }
   };
 
@@ -61,6 +73,19 @@ export default function SearchResults(props: ISearchresultsProps) {
       setShowPagination(false);
     }
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getEnrichedOccupations(searchData);
+      if (result) {
+        dispatchEnrichedOccupation({
+          type: "GOT_ENRICHED_DATA",
+          payload: result,
+        });
+      }
+    };
+
+    fetchData();
+  }, [dispatchEnrichedOccupation, searchData]);
 
   if (props.isLoading) {
     return (

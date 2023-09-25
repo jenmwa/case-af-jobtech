@@ -103,7 +103,7 @@ export default function SearchForm(props: ISearchFormProps) {
 
   return (
     <>
-      <section className='searchWorkForm'>
+      <section className="searchWorkForm">
         <h2>Sök yrken</h2>
         <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
           <DigiFormTextarea
@@ -134,7 +134,11 @@ export default function SearchForm(props: ISearchFormProps) {
           <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
             Sök
           </DigiButton>
-          <DigiButton afType="button" afVariation={ButtonVariation.SECONDARY} onAfOnClick={handleReset}>
+          <DigiButton
+            afType="button"
+            afVariation={ButtonVariation.SECONDARY}
+            onAfOnClick={handleReset}
+          >
             Rensa sökresultat
           </DigiButton>
         </form>

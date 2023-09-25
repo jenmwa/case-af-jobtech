@@ -16,7 +16,7 @@ export const SalaryStatistics = ({
   const chartLineXValuesToIndexArray: number[] = chartLineXValues.map(
     (_, index) => index + 1
   );
-  console.log(chartLineXValuesToIndexArray);
+  // console.log(chartLineXValuesToIndexArray);
 
   const afChartData: ChartLineData = {
     data: {
