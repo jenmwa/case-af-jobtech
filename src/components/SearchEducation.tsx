@@ -88,9 +88,10 @@ export default function SearchEducation({
   };
 
   const handleRemote = (e: DigiFormRadiobuttonCustomEvent<HTMLDigiFormRadiobuttonElement>) => {
-    if(e.target.value === "yes"){
+    console.log(e.target.value)
+    if(e.target.value === "true"){
       setRemote(true);
-    } else if(e.target.value === "no"){
+    } else if(e.target.value === "false"){
       setRemote(false);
     }
   }
@@ -132,14 +133,14 @@ export default function SearchEducation({
           <DigiFormRadiobutton
             afLabel="ja"
             afName="remote"
-            afValue="yes"
+            afValue="true"
             onAfOnChange={handleRemote}
           >
           </DigiFormRadiobutton>
           <DigiFormRadiobutton
             afLabel="nej"
             afName="remote"
-            afValue="no"
+            afValue="false"
             onAfOnChange={handleRemote}
           >
           </DigiFormRadiobutton>
