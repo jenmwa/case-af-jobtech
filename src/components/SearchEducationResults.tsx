@@ -39,7 +39,10 @@ export default function SearchEducationResults({
   return (
     <section>
       {isLoading ? (
-        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
+        <DigiLoaderSpinner
+          className="edu-loader"
+          afSize={LoaderSpinnerSize.LARGE}
+        ></DigiLoaderSpinner>
       ) : searchEduData ? (
         <>
           <h3>Utbildningar</h3>
