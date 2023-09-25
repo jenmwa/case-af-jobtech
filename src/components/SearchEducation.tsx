@@ -129,22 +129,6 @@ export default function SearchEducation({
             onAfOnKeyup={textInput}
             afValue={searchEduText}
           ></DigiFormTextarea>
-          <label>Vill du läsa på distans?</label>
-          {/* <DigiFormRadiobutton
-            afLabel="ja"
-            afName="remote"
-            afValue="yes"
-            onAfOnChange={handleRemote}
-          >
-          </DigiFormRadiobutton>
-          <DigiFormRadiobutton
-            afLabel="nej"
-            afName="remote"
-            afValue="no"
-            onAfOnChange={handleRemote}
-            afChecked = {true}
-          >
-          </DigiFormRadiobutton> */}
           <DigiFormSelect
 	          afLabel="Vill du läsa på distans?"
 	          afValue="no"
