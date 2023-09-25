@@ -16,6 +16,7 @@ interface ISubmitSearchEduProps {
   setShowNoResult: (value: boolean) => void;
   //setSearched: (value: boolean) => void;
   setSerachEduData: (value: IEducations | null) => void;
+  setIsLoading: (value: boolean) => void;
 }
 
 export default function SearchEducation({
@@ -23,6 +24,7 @@ export default function SearchEducation({
   setShowNoResult,
   //setSearched,
   setSerachEduData,
+  setIsLoading,
 }: ISubmitSearchEduProps) {
   const [searchEduText, setSearchEduText] = useState<string>("");
 
@@ -33,24 +35,31 @@ export default function SearchEducation({
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
     //setSearched(true);
+    setIsLoading(true);
     if (searchEduText === "") {
       const result = await getEducations({});
       if (result) {
         //setEduResult(result);
+        setIsLoading(false);
+
         setShowNoResult(false);
         setSerachEduData(result);
-        setSerachEduData(result)
+        setSerachEduData(result);
       }
     } else {
+      setIsLoading(true);
+
       const result = await getEducations({ query: searchEduText });
       if (result) {
         if (result.hits > 0) {
           //setEduResult(result);
           setShowNoResult(false);
-          setSerachEduData(result)
+          setSerachEduData(result);
+          setIsLoading(false);
         } else {
           if (!showNoResult) {
             setShowNoResult(true);
+            setIsLoading(false);
           }
         }
       }
@@ -59,7 +68,7 @@ export default function SearchEducation({
 
   const handleReset = () => {
     setSerachEduData(null);
-  }
+  };
 
   return (
     <>
