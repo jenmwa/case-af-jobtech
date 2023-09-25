@@ -17,7 +17,6 @@ export default function Education() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [eduSearchHistory, setEduSeachHistory] = useState({});
 
-  console.log("eduSearchHistory", eduSearchHistory);
   return (
     <DigiLayoutContainer>
       <MainFlex>

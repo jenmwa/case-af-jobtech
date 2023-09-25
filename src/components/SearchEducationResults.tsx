@@ -13,6 +13,7 @@ import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import { ISearchEducationParams } from "../models/ISearchEducationParams";
 import { getEducations } from "../services/educationServices";
+import { useState } from "react";
 
 interface IEducationProps {
   showNoResult: boolean;
@@ -29,6 +30,7 @@ export default function SearchEducationResults({
   setSerachEduData,
   eduSearchHistory,
 }: IEducationProps) {
+  const [totalPages, setTotalPages] = useState<number>(0);
   let accordionComponents: JSX.Element[] = [];
 
   if (searchEduData) {
@@ -56,10 +58,23 @@ export default function SearchEducationResults({
     };
 
     const newResult = await getEducations(newSearch);
+
     if (newResult && searchEduData !== newResult) {
       setSerachEduData(newResult);
     }
   };
+
+  if (searchEduData) {
+    if (searchEduData.hits >= 100) {
+      if (totalPages !== 10) setTotalPages(10);
+    } else {
+      const totalPagesCalc = Math.floor(searchEduData.hits / 10);
+      if (totalPages !== totalPagesCalc) {
+        setTotalPages(totalPagesCalc);
+      }
+    }
+  }
+
   return (
     <>
       <section>
@@ -80,7 +95,7 @@ export default function SearchEducationResults({
             )}{" "}
             <section>
               <DigiNavigationPagination
-                afTotalPages={6}
+                afTotalPages={totalPages}
                 afInitActivePage={1}
                 onAfOnPageChange={eduPagination}
               ></DigiNavigationPagination>
