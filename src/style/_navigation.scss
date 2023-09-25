@@ -1,4 +1,5 @@
 @import "../style/variables";
+
 .nav {
   background: $complementary2-lightest-2;
   height: 8rem;
@@ -13,19 +14,6 @@
     h2 {
       margin-bottom: 0;
     }
-    .navigation {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      //   // a{
-      //   //   text-decoration: none;
-      //   //   color: #000000;
-
-      //   //   &:hover{
-      //   //     text-decoration: underline;
-      //   //   }
-      //   // }
-    }
   }
 }
 
@@ -33,18 +21,19 @@
   width: 100%;
   text-align: right;
   margin: 0;
-  padding: 1rem;
+  padding: 0 2rem 2rem 0;
   position: absolute;
   right: 0;
-  top: 8rem;
-  background: rgba(255, 255, 255, 0.5);
-
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  top: 6rem;
+  background-color: $complementary2-lightest-2;
+  // background: rgba(255, 255, 255, 0.5);
+  // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  // backdrop-filter: blur(5px);
+  // -webkit-backdrop-filter: blur(5px);
+  // border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 
   .navigation-items {
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -52,5 +41,38 @@
     li {
       text-align: right;
     }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .burger-menu {
+    display: none;
+  }
+  .menu-div {
+    display: none;
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    a {
+      text-decoration: none;
+      color: #000000;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .burger-menu {
+    display: block;
+  }
+
+  .navigation {
+    display: none;
   }
 }

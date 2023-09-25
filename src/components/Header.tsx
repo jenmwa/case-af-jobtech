@@ -9,15 +9,18 @@ import logo from "/logo-02.svg";
 import { Navigation } from "./Navigation";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
-    console.log("toggle menu isOpen", isOpen);
+    setMenuIsOpen(!menuIsOpen);
+    console.log("toggle menu isOpen", menuIsOpen);
   };
 
+  const closeMenu = () => {
+    setMenuIsOpen(false);
+  };
   return (
-    <DigiUtilDetectClickOutside onAfOnClickOutside={toggleMenu}>
+    <DigiUtilDetectClickOutside onAfOnClickOutside={closeMenu}>
       <header className="nav">
         <div className="headerFlex">
           <DigiMediaImage
@@ -25,7 +28,7 @@ export default function Header() {
             afHeight="100"
             afWidth="100"
             afSrc={logo}
-            afAlt="Illustratino föreställande en man och en kvinna framför en dator"
+            afAlt="Yrkesvägledarens logo"
           ></DigiMediaImage>
           <div className="navigation">
             <Link to="/">Hem</Link>
@@ -36,8 +39,9 @@ export default function Header() {
           <DigiNavigationSidebarButton
             onAfOnToggle={toggleMenu}
             afText="Meny"
+            className="burger-menu"
           ></DigiNavigationSidebarButton>
-          {isOpen ? <Navigation></Navigation> : ""}
+          {menuIsOpen ? <Navigation></Navigation> : ""}
         </div>
       </header>
     </DigiUtilDetectClickOutside>
