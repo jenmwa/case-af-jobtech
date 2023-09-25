@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { IOccupation } from "../models/IOccupation";
+import { useContext, useState } from "react";
+import { IOccupation, IOccupationCompetencies } from "../models/IOccupation";
 import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
 import { DigiTag } from "@digi/arbetsformedlingen-react";
 import { TagSize } from "@digi/arbetsformedlingen";
@@ -13,15 +13,29 @@ export const OccupationCompetences = (
   occupationFound: IOccupationShowProps
 ) => {
   const enrichedOccupationData = useContext(EnrichedOccupationContext);
+  const [topCompetencies, setTopCompetencies] = useState<
+    IOccupationCompetencies[]
+  >([]);
 
   const matchingMetadata = enrichedOccupationData.stateEnrichedOccupation.find(
     (item) => item.id === occupationFound.occupationFound.id
   );
 
-  const competencies =
-    matchingMetadata?.metadata?.enriched_candidates_term_frequency
-      .competencies || [];
-  const topCompetencies = competencies.slice(0, 15);
+  if (matchingMetadata) {
+    const competencies =
+      matchingMetadata.metadata?.enriched_candidates_term_frequency
+        .competencies;
+
+    if (competencies) {
+      const getTopCompetencies = competencies.slice(0, 15);
+
+      if (
+        JSON.stringify(topCompetencies) !== JSON.stringify(getTopCompetencies)
+      ) {
+        setTopCompetencies(getTopCompetencies);
+      }
+    }
+  }
 
   return (
     <>
@@ -38,7 +52,7 @@ export const OccupationCompetences = (
             ></DigiTag>
           ))
         ) : (
-          <p>No matching competencies found</p>
+          <p>Hittar inga matchande kompetenser.</p>
         )}
       </section>
     </>
