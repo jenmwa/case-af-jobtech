@@ -15,6 +15,7 @@ interface ISubmitSearchEduProps {
   showNoResult: boolean;
   setShowNoResult: (value: boolean) => void;
   setSearched: (value: boolean) => void;
+  setSerachEduData: (value: IEducations | null) => void;
 }
 
 export default function SearchEducation({
@@ -22,6 +23,7 @@ export default function SearchEducation({
   showNoResult,
   setShowNoResult,
   setSearched,
+  setSerachEduData,
 }: ISubmitSearchEduProps) {
   const [searchEduText, setSearchEduText] = useState<string>("");
 
@@ -37,6 +39,8 @@ export default function SearchEducation({
       if (result) {
         setEduResult(result);
         setShowNoResult(false);
+        setSerachEduData(result);
+        setSerachEduData(result)
       }
     } else {
       const result = await getEducations({ query: searchEduText });
@@ -44,6 +48,7 @@ export default function SearchEducation({
         if (result.hits > 0) {
           setEduResult(result);
           setShowNoResult(false);
+          setSerachEduData(result)
         } else {
           if (!showNoResult) {
             setShowNoResult(true);

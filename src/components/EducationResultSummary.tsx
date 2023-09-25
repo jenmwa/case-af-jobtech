@@ -11,8 +11,6 @@ interface IEducationResultSummaryProps {
 
 export default function EducationResultSummary(props: IEducationResultSummaryProps) {
   const [data, setData] = useState<IEducation>();
-  console.log('i sammanfattning', props.id)
-
   useEffect(() => {
       const getData = async () => {
       const data = await getEducation(props.id);
