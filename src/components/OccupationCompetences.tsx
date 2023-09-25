@@ -21,10 +21,9 @@ export const OccupationCompetences = (
     (item) => item.id === occupationFound.occupationFound.id
   );
 
-  if (matchingMetadata) {
+  if (matchingMetadata && matchingMetadata.metadata) {
     const competencies =
-      matchingMetadata.metadata?.enriched_candidates_term_frequency
-        .competencies;
+      matchingMetadata.metadata.enriched_candidates_term_frequency.competencies;
 
     if (competencies) {
       const getTopCompetencies = competencies.slice(0, 15);
