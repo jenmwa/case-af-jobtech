@@ -1,9 +1,11 @@
 import {
   DigiButton,
   DigiLayoutContainer,
+  DigiMediaFigure,
+  DigiMediaImage,
 } from "@digi/arbetsformedlingen-react";
 import { Link } from "react-router-dom";
-import illustration from "/person.png";
+import illustration from "/winners.svg";
 
 export default function Home() {
   return (
@@ -22,10 +24,16 @@ export default function Home() {
             <Link to="sok-yrke">Utforska yrkestitlar</Link>
           </DigiButton>
         </div>
-        <img
-          src={illustration}
-          alt="illustration of woman in front of computer"
-        />
+        <DigiMediaFigure className="img-container">
+          <DigiMediaImage
+            className="img"
+            afUnlazy
+            afHeight="375"
+            afWidth="375"
+            afSrc={illustration}
+            afAlt="Illustration av två personer som är glada och håller händerna i luften"
+          ></DigiMediaImage>
+        </DigiMediaFigure>
       </section>
     </DigiLayoutContainer>
   );

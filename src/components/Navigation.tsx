@@ -6,19 +6,31 @@ import {
   NavigationVerticalMenuVariation,
 } from "@digi/arbetsformedlingen";
 import {
-  DigiNavigationSidebar,
   DigiNavigationVerticalMenu,
   DigiNavigationVerticalMenuItem,
 } from "@digi/arbetsformedlingen-react";
+import { StyledDigiNavigationSidebar } from "./styled/Navigation";
+import { useNavigate } from "react-router-dom";
 
 interface INavigationProps {
   closeMenu: () => void;
 }
 
 export const Navigation = ({ closeMenu }: INavigationProps) => {
+  const navigate = useNavigate();
+
+  const clickOccupation = () => {
+    navigate("/sok-yrke");
+    closeMenu();
+  };
+
+  const clickEducation = () => {
+    navigate("/sok-utbildning");
+    closeMenu();
+  };
   return (
     <>
-      <DigiNavigationSidebar
+      <StyledDigiNavigationSidebar
         className="menu-div"
         afActive={true}
         afStickyHeader={true}
@@ -40,29 +52,36 @@ export const Navigation = ({ closeMenu }: INavigationProps) => {
           <ul>
             <li>
               <DigiNavigationVerticalMenuItem
-                af-text="About"
+                af-text="Sök Yrke eller Utbildning"
                 af-active-subnav="false"
               ></DigiNavigationVerticalMenuItem>
               <ul>
                 <li>
                   <DigiNavigationVerticalMenuItem
-                    afText="Undermenyval första nivå 1"
-                    afActiveSubnav={false}
+                    afText="Sök Yrke"
+                    onAfOnClick={clickOccupation}
                   ></DigiNavigationVerticalMenuItem>
-                  <ul>
-                    <li>
-                      <DigiNavigationVerticalMenuItem
-                        afHref="/"
-                        afText="Undermenyval andra nivå 1"
-                      ></DigiNavigationVerticalMenuItem>
-                    </li>
-                  </ul>
+                </li>
+                <li>
+                  <DigiNavigationVerticalMenuItem
+                    afText="Sök Utbildning"
+                    onAfOnClick={clickEducation}
+                  ></DigiNavigationVerticalMenuItem>
                 </li>
               </ul>
             </li>
+            <li>
+              <DigiNavigationVerticalMenuItem
+                afText="Om denna App"
+                onAfOnClick={() => {
+                  navigate("/om");
+                  closeMenu();
+                }}
+              ></DigiNavigationVerticalMenuItem>
+            </li>
           </ul>
         </DigiNavigationVerticalMenu>
-      </DigiNavigationSidebar>
+      </StyledDigiNavigationSidebar>
     </>
   );
 };
