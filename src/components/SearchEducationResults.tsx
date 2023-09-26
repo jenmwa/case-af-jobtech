@@ -31,24 +31,19 @@ export default function SearchEducationResults({
   eduSearchHistory,
 }: IEducationProps) {
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [showPagination, setShowPagination] = useState<boolean>(false);
   let accordionComponents: JSX.Element[] = [];
 
   if (searchEduData) {
-    const titles = searchEduData.result.map(
-      (edu) => edu.education.title[0].content
-    );
+    const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
     accordionComponents = titles.map((title, index) => (
       <DigiExpandableAccordion key={index} afHeading={title}>
-        <EducationResultSummary
-          id={searchEduData.result[index].education.identifier}
-        />
+        <EducationResultSummary id={searchEduData.result[index].education.identifier} />
       </DigiExpandableAccordion>
     ));
   }
 
-  const eduPagination = async (
-    e: DigiNavigationPaginationCustomEvent<number>
-  ) => {
+  const eduPagination = async (e: DigiNavigationPaginationCustomEvent<number>) => {
     const newSearch = {
       query: eduSearchHistory.query,
       distance: eduSearchHistory.distance,
@@ -65,10 +60,20 @@ export default function SearchEducationResults({
   };
 
   if (searchEduData) {
-    if (searchEduData.hits >= 100) {
-      if (totalPages !== 100) setTotalPages(100);
-    } else {
+    if (searchEduData.hits < 10) {
+      if (showPagination) {
+        setShowPagination(false);
+      }
+    } else if (searchEduData.hits > 1000 && totalPages !== 100) {
+      if (!showPagination) {
+        setShowPagination(true);
+      }
+      setTotalPages(100);
+    } else if (searchEduData.hits < 100 && searchEduData.hits > 10) {
       const totalPagesCalc = Math.floor(searchEduData.hits / 10);
+      if (!showPagination) {
+        setShowPagination(true);
+      }
       if (totalPages !== totalPagesCalc) {
         setTotalPages(totalPagesCalc);
       }
@@ -87,19 +92,19 @@ export default function SearchEducationResults({
           <>
             <h3>Utbildningar</h3>
             {showNoResult ? (
-              <h3>
-                Inga utbildningar hittades. Var vänlig sök på något annat.
-              </h3>
+              <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
             ) : (
               accordionComponents
             )}{" "}
-            <section className="pagination-wrapper">
-              <DigiNavigationPagination
-                afTotalPages={totalPages}
-                afInitActivePage={1}
-                onAfOnPageChange={eduPagination}
-              ></DigiNavigationPagination>
-            </section>
+            {showPagination && (
+              <section className="pagination-wrapper">
+                <DigiNavigationPagination
+                  afTotalPages={totalPages}
+                  afInitActivePage={1}
+                  onAfOnPageChange={eduPagination}
+                ></DigiNavigationPagination>
+              </section>
+            )}
           </>
         ) : (
           <DigiMediaImage
