@@ -1,4 +1,7 @@
-import { DigiLayoutColumns } from "@digi/arbetsformedlingen-react";
+import {
+  DigiLayoutColumns,
+  DigiLayoutContainer,
+} from "@digi/arbetsformedlingen-react";
 import { SVGCircle } from "./SVGCircle";
 import {
   LayoutColumnsElement,
@@ -19,26 +22,28 @@ export const OccupationForecast = ({
 }: IOccupationForecast) => {
   return (
     <>
-      <h4>Framtidsprognos</h4>
-      <p>
-        Arbetsförmedlingen bedömning gällande bristvärdet för{" "}
-        {occupationFound?.occupation_label}.
-      </p>
-      <DigiLayoutColumns
-        afElement={LayoutColumnsElement.DIV}
-        afVariation={LayoutColumnsVariation.TWO}
-      >
-        <SVGCircle
-          title="2023"
-          value={deficiencyValueData2023.value}
-          text={deficiencyValueData2023.text}
-        ></SVGCircle>
-        <SVGCircle
-          title="2026"
-          value={deficiencyValueData2026.value}
-          text={deficiencyValueData2026.text}
-        ></SVGCircle>
-      </DigiLayoutColumns>
+      <DigiLayoutContainer af-no-gutter af-vertical-padding>
+        <h4>Framtidsprognos</h4>
+        <p>
+          Arbetsförmedlingen bedömning gällande bristvärdet för{" "}
+          {occupationFound?.occupation_label}.
+        </p>
+        <DigiLayoutColumns
+          afElement={LayoutColumnsElement.DIV}
+          afVariation={LayoutColumnsVariation.TWO}
+        >
+          <SVGCircle
+            title="2023"
+            value={deficiencyValueData2023.value}
+            text={deficiencyValueData2023.text}
+          ></SVGCircle>
+          <SVGCircle
+            title="2026"
+            value={deficiencyValueData2026.value}
+            text={deficiencyValueData2026.text}
+          ></SVGCircle>
+        </DigiLayoutColumns>
+      </DigiLayoutContainer>
     </>
   );
 };

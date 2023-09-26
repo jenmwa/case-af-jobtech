@@ -15,3 +15,11 @@ export const MainFlex50percent = styled.div`
     gap: 50px;
   }
 `;
+
+export const MainFlex50percent1024 = styled.div`
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+`;
