@@ -34,15 +34,17 @@ export default function SearchEducationResults({
   let accordionComponents: JSX.Element[] = [];
 
   if (searchEduData) {
-    const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
-    accordionComponents = titles.map((title, index) => (
-      <DigiExpandableAccordion
-        key={index}
-        afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}
-      >
-        <EducationResultSummary id={searchEduData.result[index].education.identifier} />
-      </DigiExpandableAccordion>
-    ));
+    if (searchEduData.result) {
+      const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
+      accordionComponents = titles.map((title, index) => (
+        <DigiExpandableAccordion
+          key={index}
+          afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}
+        >
+          <EducationResultSummary id={searchEduData.result[index].education.identifier} />
+        </DigiExpandableAccordion>
+      ));
+    }
   }
 
   const eduPagination = async (e: DigiNavigationPaginationCustomEvent<number>) => {
@@ -77,9 +79,11 @@ export default function SearchEducationResults({
       setTotalPages(100);
     } else if (searchEduData.hits < 100 && searchEduData.hits > 10) {
       const totalPagesCalc = Math.ceil(searchEduData.hits / 10);
+
       if (totalPagesCalc > 1 && !showPagination) {
         setShowPagination(true);
       }
+
       if (totalPages !== totalPagesCalc) {
         setTotalPages(totalPagesCalc);
       }

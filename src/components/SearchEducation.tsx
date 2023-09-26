@@ -38,9 +38,7 @@ export default function SearchEducation({
   setIsLoading,
   setEduSeachHistory,
 }: ISubmitSearchEduProps) {
-  const [searchEduText, setSearchEduText] = useState<string | undefined>(
-    undefined
-  );
+  const [searchEduText, setSearchEduText] = useState<string | undefined>(undefined);
   const [municipalities, setMunicipalities] = useState<IEducationForms[]>([]);
   const [eduTypes, setEduTypes] = useState<IEducationForms[]>([]);
   const [remote, setRemote] = useState<boolean>(true);
@@ -57,13 +55,11 @@ export default function SearchEducation({
     if (eduTypeData) {
       setEduTypes(eduTypeData);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([
-        getData()
-      ]);
+      await Promise.all([getData()]);
       setIsFormLoading(false);
     };
 
@@ -80,23 +76,18 @@ export default function SearchEducation({
       education_type: type,
     };
     setEduSeachHistory(search);
-    console.log(search);
     const result = await getEducations(search);
-    console.log(result)
 
     if (result) {
-      console.log(result.hits)
       if (result.hits > 0) {
         setShowNoResult(false);
         setSerachEduData(result);
-        //setIsLoading(false);
       } else {
+        setSerachEduData(result);
+
         if (!showNoResult) {
-          //setIsLoading(false);
           setShowNoResult(true);
         }
-        //setIsLoading(false);
-  
       }
       setIsLoading(false);
     }
@@ -113,10 +104,8 @@ export default function SearchEducation({
       setSearchEduText(e.target.value);
     }
   };
-  
-  const handleRemote = (
-    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
-  ) => {
+
+  const handleRemote = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
     if (e.target.value === "yes") {
       setRemote(true);
     } else if (e.target.value === "no") {
@@ -124,9 +113,7 @@ export default function SearchEducation({
     }
   };
 
-  const handleLocation = (
-    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
-  ) => {
+  const handleLocation = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
     if (e.target.value === "anywhere") {
       setLocation(undefined);
     } else {
@@ -134,9 +121,7 @@ export default function SearchEducation({
     }
   };
 
-  const handleType = (
-    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
-  ) => {
+  const handleType = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
     if (e.target.value === "all") {
       setType(undefined);
     } else {
@@ -144,75 +129,75 @@ export default function SearchEducation({
     }
   };
 
-if(isFormLoading){
-  return (<DigiLoaderSpinner></DigiLoaderSpinner>)
-} else{
-  return (
-    <>
-      <section className="searchEducationForm">
-        <h2>Sök utbildning</h2>
-        <form
-          onSubmit={(e: FormEvent) => {
-            submitSearchEdu(e);
-          }}
-        >
-          <DigiFormTextarea
-            afLabel="Vilket yrke vill du att utbildningen ska leda till?"
-            afVariation={FormTextareaVariation.MEDIUM}
-            afValidation={FormTextareaValidation.NEUTRAL}
-            onAfOnKeyup={textInput}
-            afValue={searchEduText}
-          ></DigiFormTextarea>
-          <DigiFormSelect
-            afLabel="Vill du läsa på distans?"
-            afDescription = "Om du väljer 'ja' visas utbildningar som är helt eller delvis på distans"
-            onAfOnChange={handleRemote}
+  if (isFormLoading) {
+    return <DigiLoaderSpinner></DigiLoaderSpinner>;
+  } else {
+    return (
+      <>
+        <section className="searchEducationForm">
+          <h2>Sök utbildning</h2>
+          <form
+            onSubmit={(e: FormEvent) => {
+              submitSearchEdu(e);
+            }}
           >
-            <option value="yes">Ja</option>
-            <option value="no">Nej</option>
-          </DigiFormSelect>
-          <DigiFormSelect
-            afLabel="Vill du läsa kurs eller program?"
-            afPlaceholder="Kurs eller program"
-            onAfOnChange={handleType}
-          >
-            <option value="all">Alla</option>
-            {eduTypes.map((type) => (
-              <option key={type.key} value={type.key}>
-                {type.value}
-              </option>
-            ))}
-          </DigiFormSelect>
-          <DigiFormSelect
-            afLabel="Vart vill du studera?"
-            afPlaceholder="Välj stad"
-            onAfOnChange={handleLocation}
-          >
-            <option value="anywhere">Hela Sverige</option>
-            {municipalities.map((location) => (
-              <option key={location.key} value={location.key}>
-                {location.value}
-              </option>
-            ))}
-          </DigiFormSelect>
-          <DigiButton
-            afSize={ButtonSize.MEDIUM}
-            afVariation={ButtonVariation.PRIMARY}
-            afFullWidth={false}
-            afType="submit"
-          >
-            Sök utbildning
-          </DigiButton>
-          <DigiButton
-            afType="button"
-            afVariation={ButtonVariation.SECONDARY}
-            onAfOnClick={handleReset}
-          >
-            Rensa sökresultat
-          </DigiButton>
-        </form>
-      </section>
-    </>
-  );
-}
+            <DigiFormTextarea
+              afLabel="Vilket yrke vill du att utbildningen ska leda till?"
+              afVariation={FormTextareaVariation.MEDIUM}
+              afValidation={FormTextareaValidation.NEUTRAL}
+              onAfOnKeyup={textInput}
+              afValue={searchEduText}
+            ></DigiFormTextarea>
+            <DigiFormSelect
+              afLabel="Vill du läsa på distans?"
+              afDescription="Om du väljer 'ja' visas utbildningar som är helt eller delvis på distans"
+              onAfOnChange={handleRemote}
+            >
+              <option value="yes">Ja</option>
+              <option value="no">Nej</option>
+            </DigiFormSelect>
+            <DigiFormSelect
+              afLabel="Vill du läsa kurs eller program?"
+              afPlaceholder="Kurs eller program"
+              onAfOnChange={handleType}
+            >
+              <option value="all">Alla</option>
+              {eduTypes.map((type) => (
+                <option key={type.key} value={type.key}>
+                  {type.value}
+                </option>
+              ))}
+            </DigiFormSelect>
+            <DigiFormSelect
+              afLabel="Vart vill du studera?"
+              afPlaceholder="Välj stad"
+              onAfOnChange={handleLocation}
+            >
+              <option value="anywhere">Hela Sverige</option>
+              {municipalities.map((location) => (
+                <option key={location.key} value={location.key}>
+                  {location.value}
+                </option>
+              ))}
+            </DigiFormSelect>
+            <DigiButton
+              afSize={ButtonSize.MEDIUM}
+              afVariation={ButtonVariation.PRIMARY}
+              afFullWidth={false}
+              afType="submit"
+            >
+              Sök utbildning
+            </DigiButton>
+            <DigiButton
+              afType="button"
+              afVariation={ButtonVariation.SECONDARY}
+              onAfOnClick={handleReset}
+            >
+              Rensa sökresultat
+            </DigiButton>
+          </form>
+        </section>
+      </>
+    );
+  }
 }
