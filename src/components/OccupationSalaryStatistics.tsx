@@ -2,7 +2,10 @@ import {
   ChartLineData,
   QuoteMultiContainerHeadingLevel,
 } from "@digi/arbetsformedlingen";
-import { DigiChartLine } from "@digi/arbetsformedlingen-react";
+import {
+  DigiChartLine,
+  DigiLayoutContainer,
+} from "@digi/arbetsformedlingen-react";
 
 interface ISalaryStatisticsProps {
   chartLineXValues: string[];
@@ -38,21 +41,23 @@ export const SalaryStatistics = ({
 
   return (
     <>
-      <div
-        style={{
-          //ordentlig klass istället för styletag
-          width: "90%",
-          height: "400px",
-          background: "lightgrey",
-          padding: "1rem",
-          position: "relative",
-        }}
-      >
-        <DigiChartLine
-          afChartData={JSON.stringify(afChartData)}
-          afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
-        ></DigiChartLine>
-      </div>
+      <DigiLayoutContainer>
+        <div
+          style={{
+            //ordentlig klass istället för styletag
+            width: "90%",
+            height: "400px",
+            background: "lightgrey",
+            padding: "1rem",
+            position: "relative",
+          }}
+        >
+          <DigiChartLine
+            afChartData={JSON.stringify(afChartData)}
+            afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
+          ></DigiChartLine>
+        </div>
+      </DigiLayoutContainer>
     </>
   );
 };

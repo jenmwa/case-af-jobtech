@@ -95,7 +95,7 @@ export const Occupation = () => {
 
   return (
     <>
-      <div style={{ padding: "2rem" }}>
+      <div>
         <OccupationShow
           findIndexText={findIndexText}
           occupationFound={occupationFound}
