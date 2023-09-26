@@ -81,7 +81,6 @@ export default function SearchEducation({
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(remote);
     setIsLoading(true);
     const search = {
       query: searchEduText,
@@ -122,7 +121,6 @@ export default function SearchEducation({
   const handleRemote = (
     e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
   ) => {
-    console.log(e.target.value);
     if (e.target.value === "yes") {
       setRemote(true);
     } else if (e.target.value === "no") {
@@ -158,7 +156,6 @@ export default function SearchEducation({
     } else {
       setType(e.target.value);
     }
-    console.log(e.target.value)
   };
 
 if(isFormLoading){
@@ -174,16 +171,15 @@ if(isFormLoading){
           }}
         >
           <DigiFormTextarea
-            afLabel="Beskriv vad du tycker om att göra"
+            afLabel="Vilket yrke vill du att utbildningen ska leda till?"
             afVariation={FormTextareaVariation.MEDIUM}
             afValidation={FormTextareaValidation.NEUTRAL}
-            afLabelDescription="Lämnas textrutan blank så hämtas alla utbildningar"
             onAfOnKeyup={textInput}
             afValue={searchEduText}
           ></DigiFormTextarea>
           <DigiFormSelect
             afLabel="Vill du läsa på distans?"
-            //afValue="no"
+            afDescription = "Om du väljer 'ja' visas utbildningar som är helt eller delvis på distans"
             onAfOnChange={handleRemote}
           >
             <option value="yes">Ja</option>
