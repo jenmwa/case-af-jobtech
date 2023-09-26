@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../../public/logo-03.png";
+import "/logo-03.png";
 import { LinkVariation } from "@digi/arbetsformedlingen";
 import { DigiLink } from "@digi/arbetsformedlingen-react";
 
