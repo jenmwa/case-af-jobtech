@@ -19,7 +19,6 @@ import { FormEvent, useEffect, useState } from "react";
 import {
   getEducationTypes,
   getEducations,
-  getEductionForms,
   getMunicipalities,
 } from "../services/educationServices";
 import { IEducationForms, IEducations } from "../models/IEducations";
@@ -42,13 +41,9 @@ export default function SearchEducation({
   const [searchEduText, setSearchEduText] = useState<string | undefined>(
     undefined
   );
-  const [educationForms, setEducationForms] = useState<IEducationForms[]>([]);
   const [municipalities, setMunicipalities] = useState<IEducationForms[]>([]);
   const [eduTypes, setEduTypes] = useState<IEducationForms[]>([]);
-  const [remote, setRemote] = useState<boolean>(false);
-  const [educationForm, setEducationForm] = useState<string | undefined>(
-    undefined
-  );
+  const [remote, setRemote] = useState<boolean>(true);
   const [location, setLocation] = useState<string | undefined>(undefined);
   const [type, setType] = useState<string | undefined>(undefined);
   const [isFormLoading, setIsFormLoading] = useState<boolean>(true);
@@ -61,10 +56,6 @@ export default function SearchEducation({
     const eduTypeData = await getEducationTypes();
     if (eduTypeData) {
       setEduTypes(eduTypeData);
-    }
-    const educationFormsData = await getEductionForms();
-    if (educationFormsData) {
-      setEducationForms(educationFormsData);
     }
   }
 
@@ -85,7 +76,6 @@ export default function SearchEducation({
     const search = {
       query: searchEduText,
       distance: remote,
-      education_form: educationForm,
       municipality_code: location,
       education_type: type,
     };
@@ -125,16 +115,6 @@ export default function SearchEducation({
       setRemote(true);
     } else if (e.target.value === "no") {
       setRemote(false);
-    }
-  };
-
-  const handleEduForm = (
-    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
-  ) => {
-    if (e.target.value === "all") {
-      setEducationForm(undefined);
-    } else {
-      setEducationForm(e.target.value);
     }
   };
 
@@ -184,19 +164,6 @@ if(isFormLoading){
           >
             <option value="yes">Ja</option>
             <option value="no">Nej</option>
-          </DigiFormSelect>
-          <DigiFormSelect
-            afLabel="Vilken typ av utbildning vill du läsa?"
-            afPlaceholder="Välj typ av utbildning"
-            onAfOnChange={handleEduForm}
-            afValue="all"
-          >
-            <option value="all">Alla</option>
-            {educationForms.map((form) => (
-              <option key={form.key} value={form.key}>
-                {form.value}
-              </option>
-            ))}
           </DigiFormSelect>
           <DigiFormSelect
             afLabel="Vill du läsa kurs eller program?"
