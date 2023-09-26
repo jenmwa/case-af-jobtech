@@ -1,3 +1,5 @@
+@import "/src/style/variables";
+
 .home{
   padding-top: 30px;
   img{
@@ -20,6 +22,10 @@
       }
     }
   }
+}
+
+.sc-digi-button-h .digi-button--variation-primary.sc-digi-button:hover{
+  --COLOR--BACKGROUND--HOVER: #082a61;
 }
 
 @media (min-width: 1000px) {

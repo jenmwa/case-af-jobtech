@@ -1,3 +1,5 @@
+@import "src/style/variables";
+
 .competence-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -5,10 +7,13 @@
     gap: 5px;
 
     .sc-digi-button-h .digi-button--variation-secondary.sc-digi-button{
-        border-color: #822998;
-        color: #822998;
+        border-color: $complementary2-darker;
+        color: $complementary2-darker;
+        --COLOR--BACKGROUND--DEFAULT: none;
+        cursor: default;
+
         &:hover{
-            --COLOR--BACKGROUND--HOVER: #82299871;
+            --COLOR--BACKGROUND--HOVER: none;
         }
     }
 }
