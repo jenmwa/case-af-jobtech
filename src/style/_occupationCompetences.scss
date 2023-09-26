@@ -7,8 +7,11 @@
     .sc-digi-button-h .digi-button--variation-secondary.sc-digi-button{
         border-color: #822998;
         color: #822998;
+        --COLOR--BACKGROUND--DEFAULT: none;
+        cursor: default;
+
         &:hover{
-            --COLOR--BACKGROUND--HOVER: #82299871;
+            --COLOR--BACKGROUND--HOVER: none;
         }
     }
 }
