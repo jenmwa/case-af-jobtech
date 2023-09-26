@@ -130,46 +130,5 @@ export default function SearchEducationResults({
         />
       </section>
     );
-    {
-      /* return (
-    <>
-      <section className="eduSearchResults">
-        {isLoading ? (
-          <DigiLoaderSpinner
-            className="edu-loader"
-            afSize={LoaderSpinnerSize.LARGE}
-          ></DigiLoaderSpinner>
-        ) : searchEduData ? (
-          <>
-            <h3>Utbildningar</h3>
-            {showNoResult ? (
-              <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
-            ) : (
-              accordionComponents
-            )}{" "}
-            {showPagination && (
-              <section className="pagination-wrapper">
-                <DigiNavigationPagination
-                  afTotalPages={totalPages}
-                  afInitActivePage={1}
-                  onAfOnPageChange={eduPagination}
-                ></DigiNavigationPagination>
-              </section>
-            )}
-          </>
-        ) : (
-          <DigiMediaImage
-            className="search-edu-img"
-            afUnlazy
-            afHeight="300"
-            afWidth="300"
-            afSrc={illustration}
-            afAlt="Illustration person framför datorn och hörlurar i öronen"
-          />
-        )}
-      </section>
-      </>
-    ) */
-    }
   }
 }
