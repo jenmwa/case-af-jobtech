@@ -80,19 +80,25 @@ export default function SearchEducation({
       education_type: type,
     };
     setEduSeachHistory(search);
+    console.log(search);
     const result = await getEducations(search);
+    console.log(result)
 
     if (result) {
+      console.log(result.hits)
       if (result.hits > 0) {
         setShowNoResult(false);
         setSerachEduData(result);
-        setIsLoading(false);
+        //setIsLoading(false);
       } else {
         if (!showNoResult) {
+          //setIsLoading(false);
           setShowNoResult(true);
-          setIsLoading(false);
         }
+        //setIsLoading(false);
+  
       }
+      setIsLoading(false);
     }
   };
 
