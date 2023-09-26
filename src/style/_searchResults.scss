@@ -1,19 +1,23 @@
+@import "src/style/variables";
+
+
 .search-tags .sc-digi-button-h .digi-button--variation-secondary.sc-digi-button{
   --COLOR--BACKGROUND--DEFAULT: none;
   --COLOR--BACKGROUND--HOVER: : none;
   cursor: default;
-  border-color: #822998;
-  color: #822998;
+  border-color: $complementary2-darker;
+  color: $complementary2-darker;
   
   &:hover{
-    border-color: #822998;
-    color: #822998;
+    border-color: $complementary2-darker;
+    color: $complementary2-darker;
   }
 }
 
 .searchResults{
   .keyWordsHeader{
     margin-top: 30px;
+
   }
   
   .keyWords{
@@ -30,4 +34,8 @@
   justify-content: center;
   align-items: center;
 }
+
+
+
+
 
