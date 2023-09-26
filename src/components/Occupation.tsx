@@ -39,7 +39,6 @@ export const Occupation = () => {
         const chartLineData = await getSCBStatisticsSalary(ssyk);
         if (chartLineData) {
           getValuesArray(chartLineData);
-          console.log(chartLineData);
           setIsLoading(false);
         }
       };
@@ -55,7 +54,6 @@ export const Occupation = () => {
       const chartLineYValues = chartLineData.map((item) => item.values).flat();
       const chartLineYValuesToNumbers = chartLineYValues.map(
         (chartLineStringValue) => {
-          console.log(chartLineStringValue);
           return parseInt(chartLineStringValue);
         }
       );
