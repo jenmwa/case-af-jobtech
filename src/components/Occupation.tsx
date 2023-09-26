@@ -34,7 +34,7 @@ export const Occupation = () => {
   useEffect(() => {
     if (occupationFound) {
       const ssyk = occupationFound.occupation_group.ssyk;
-      const loaderDelay = 200000;
+      const loaderDelay = 2000;
 
       const getDataSCB = async () => {
         const chartLineData = await getSCBStatisticsSalary(ssyk);

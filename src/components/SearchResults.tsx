@@ -1,6 +1,5 @@
 import {
   DigiExpandableAccordion,
-  DigiLoaderSpinner,
   DigiNavigationPagination,
   DigiTag,
 } from "@digi/arbetsformedlingen-react";
@@ -13,6 +12,7 @@ import "../style/_pagination.scss";
 import { useEffect, useState, useContext } from "react";
 import { getEnrichedOccupations } from "../services/enrichedOccupationsServices";
 import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
+import { StyledDigiLoaderSpinner } from "./styled/Loader";
 
 interface ISearchresultsProps {
   isLoading: boolean;
@@ -25,10 +25,13 @@ export default function SearchResults(props: ISearchresultsProps) {
 
   const { dispatchEnrichedOccupation } = useContext(EnrichedOccupationContext);
 
-  const handlePaginationChange = async (e: DigiNavigationPaginationCustomEvent<number>) => {
+  const handlePaginationChange = async (
+    e: DigiNavigationPaginationCustomEvent<number>
+  ) => {
     if (searchData) {
       const newSearch = {
-        input_text: searchData.identified_keywords_for_input.competencies.join(" "),
+        input_text:
+          searchData.identified_keywords_for_input.competencies.join(" "),
         offset: e.detail !== 1 ? e.detail * 10 - 1 : undefined,
       };
       const newResults = await matchByText(newSearch);
@@ -46,20 +49,21 @@ export default function SearchResults(props: ISearchresultsProps) {
     }
   };
 
-  const competencies = searchData?.identified_keywords_for_input.competencies.map(
-    (competency, i) => {
-      return (
-        <div key={i}>
-          <DigiTag
-            className="search-tags"
-            afText={competency}
-            afSize={TagSize.SMALL}
-            afNoIcon={true}
-          ></DigiTag>
-        </div>
-      );
-    }
-  );
+  const competencies =
+    searchData?.identified_keywords_for_input.competencies.map(
+      (competency, i) => {
+        return (
+          <div key={i}>
+            <DigiTag
+              className="search-tags"
+              afText={competency}
+              afSize={TagSize.SMALL}
+              afNoIcon={true}
+            ></DigiTag>
+          </div>
+        );
+      }
+    );
 
   if (searchData) {
     if (searchData.related_occupations.length > 9 && !showPagination) {
@@ -85,12 +89,17 @@ export default function SearchResults(props: ISearchresultsProps) {
   }, [dispatchEnrichedOccupation, searchData]);
 
   if (props.isLoading) {
-    return <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>;
+    return (
+      <StyledDigiLoaderSpinner
+        afSize={LoaderSpinnerSize.LARGE}
+      ></StyledDigiLoaderSpinner>
+    );
   } else {
     if (searchData?.related_occupations.length === 0) {
       return (
         <p>
-          Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa andra sökord
+          Tyvärr hittade vi inga yrkestitlar baserade på din sökning, testa
+          andra sökord
         </p>
       );
     } else {

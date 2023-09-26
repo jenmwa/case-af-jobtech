@@ -1,6 +1,5 @@
 import {
   DigiExpandableAccordion,
-  DigiLoaderSpinner,
   DigiMediaImage,
   DigiNavigationPagination,
 } from "@digi/arbetsformedlingen-react";
@@ -13,6 +12,7 @@ import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/di
 import { ISearchEducationParams } from "../models/ISearchEducationParams";
 import { getEducations } from "../services/educationServices";
 import { useState } from "react";
+import { StyledDigiLoaderSpinner } from "./styled/Loader";
 
 interface IEducationProps {
   showNoResult: boolean;
@@ -33,10 +33,14 @@ export default function SearchEducationResults({
   let accordionComponents: JSX.Element[] = [];
 
   if (searchEduData) {
-    const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
+    const titles = searchEduData.result.map(
+      (edu) => edu.education.title[0].content
+    );
     accordionComponents = titles.map((title, index) => (
-
-      <DigiExpandableAccordion key={index} afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}>
+      <DigiExpandableAccordion
+        key={index}
+        afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}
+      >
         <EducationResultSummary
           id={searchEduData.result[index].education.identifier}
         />
@@ -44,7 +48,9 @@ export default function SearchEducationResults({
     ));
   }
 
-  const eduPagination = async (e: DigiNavigationPaginationCustomEvent<number>) => {
+  const eduPagination = async (
+    e: DigiNavigationPaginationCustomEvent<number>
+  ) => {
     const newSearch = {
       query: eduSearchHistory.query,
       distance: eduSearchHistory.distance,
@@ -71,18 +77,16 @@ export default function SearchEducationResults({
     }
   }
 
-  if(isLoading){
+  if (isLoading) {
     return (
-      <DigiLoaderSpinner
-      className="edu-loader"
-      afSize={LoaderSpinnerSize.LARGE}
-    ></DigiLoaderSpinner>
-    )
-  } else if(showNoResult){
-    return (
-      <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
-    ) 
-  } else if(searchEduData && searchEduData.hits > 0){
+      <StyledDigiLoaderSpinner
+        className="edu-loader"
+        afSize={LoaderSpinnerSize.LARGE}
+      ></StyledDigiLoaderSpinner>
+    );
+  } else if (showNoResult) {
+    return <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>;
+  } else if (searchEduData && searchEduData.hits > 0) {
     return (
       <section className="eduSearchResults">
         <h3>Utbildningar</h3>
@@ -95,10 +99,11 @@ export default function SearchEducationResults({
             onAfOnPageChange={eduPagination}
           ></DigiNavigationPagination>
         </section>
-      </section>)
-  }else if (searchEduData === null){
+      </section>
+    );
+  } else if (searchEduData === null) {
     return (
-      <section className='eduSearchResults'>
+      <section className="eduSearchResults">
         <DigiMediaImage
           className="search-edu-img"
           afUnlazy
@@ -108,6 +113,6 @@ export default function SearchEducationResults({
           afAlt="Illustration person framför datorn och hörlurar i öronen"
         />
       </section>
-    )
+    );
   }
 }
