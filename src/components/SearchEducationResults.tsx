@@ -33,10 +33,9 @@ export default function SearchEducationResults({
   let accordionComponents: JSX.Element[] = [];
 
   if (searchEduData) {
-    const titles = searchEduData.result.map(
-      (edu) => edu.education.title[0].content
-    );
+    const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
     accordionComponents = titles.map((title, index) => (
+
       <DigiExpandableAccordion key={index} afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}>
         <EducationResultSummary
           id={searchEduData.result[index].education.identifier}
@@ -45,9 +44,7 @@ export default function SearchEducationResults({
     ));
   }
 
-  const eduPagination = async (
-    e: DigiNavigationPaginationCustomEvent<number>
-  ) => {
+  const eduPagination = async (e: DigiNavigationPaginationCustomEvent<number>) => {
     const newSearch = {
       query: eduSearchHistory.query,
       distance: eduSearchHistory.distance,
@@ -74,43 +71,43 @@ export default function SearchEducationResults({
     }
   }
 
-  return (
-    <>
+  if(isLoading){
+    return (
+      <DigiLoaderSpinner
+      className="edu-loader"
+      afSize={LoaderSpinnerSize.LARGE}
+    ></DigiLoaderSpinner>
+    )
+  } else if(showNoResult){
+    return (
+      <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
+    ) 
+  } else if(searchEduData && searchEduData.hits > 0){
+    return (
       <section className="eduSearchResults">
-        {isLoading ? (
-          <DigiLoaderSpinner
-            className="edu-loader"
-            afSize={LoaderSpinnerSize.LARGE}
-          ></DigiLoaderSpinner>
-        ) : searchEduData ? (
-          <>
-            <h3>Utbildningar</h3>
-            {showNoResult ? (
-              <h3>
-                Inga utbildningar hittades. Var vänlig sök på något annat.
-              </h3>
-            ) : (
-              accordionComponents
-            )}{" "}
-            <section className="pagination-wrapper">
-              <DigiNavigationPagination
-                afTotalPages={totalPages}
-                afInitActivePage={1}
-                onAfOnPageChange={eduPagination}
-              ></DigiNavigationPagination>
-            </section>
-          </>
-        ) : (
-          <DigiMediaImage
-            className="search-edu-img"
-            afUnlazy
-            afHeight="300"
-            afWidth="300"
-            afSrc={illustration}
-            afAlt="Illustration person framför datorn och hörlurar i öronen"
-          />
-        )}
+        <h3>Utbildningar</h3>
+        {accordionComponents}
+        <section className="pagination-wrapper">
+          <DigiNavigationPagination
+            className="edu-pagination"
+            afTotalPages={totalPages}
+            afInitActivePage={1}
+            onAfOnPageChange={eduPagination}
+          ></DigiNavigationPagination>
+        </section>
+      </section>)
+  }else if (searchEduData === null){
+    return (
+      <section className='eduSearchResults'>
+        <DigiMediaImage
+          className="search-edu-img"
+          afUnlazy
+          afHeight="300"
+          afWidth="300"
+          afSrc={illustration}
+          afAlt="Illustration person framför datorn och hörlurar i öronen"
+        />
       </section>
-    </>
-  );
+    )
+  }
 }

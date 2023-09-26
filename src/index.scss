@@ -11,13 +11,15 @@ $font-path: "/node_modules/@digi/arbetsformedlingen/dist/digi-arbetsformedlingen
 @import "style/searchEducationSummary";
 @import "style/searchWorkForm";
 @import "style/searchEducationForm";
+@import "style/searchEducationResults";
+
 
 @import "src/style/variables";
 
 // $primaryBase: #345345;
 
 :root {
-  --digi--global--color--profile--blue--base: #3b69b4;
+  --digi--global--color--profile--blue--base: #114dae;
   --digi--global--color--profile--blue--dark: #254f93;
   --digi--global--color--profile--blue--light: #7eadfa;
   --digi--global--color--profile--blue--lighter: #d4e1f6;
