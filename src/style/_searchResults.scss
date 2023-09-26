@@ -35,7 +35,19 @@
   align-items: center;
 }
 
+.pagination-wrapper {
+  margin-top: 15px;
+  width: 572px;
+  color:$complementary2-darker;
 
+  .pagination .sc-digi-button-h .digi-button--variation-secondary.sc-digi-button {
+      color:$complementary2-darkest;
+      border: 1px solid $complementary2-darker;
+  }
+  svg {
+      color:$complementary2-darker;
+  }
+}
 
 
 
