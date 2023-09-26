@@ -61,29 +61,27 @@ export default function SearchEducationResults({
     }
   };
 
+  if (showNoResult && showPagination) {
+    setShowPagination(false);
+  }
+
   if (searchEduData) {
-    console.log(searchEduData.hits);
     if (searchEduData.hits < 10) {
       if (showPagination) {
         setShowPagination(false);
-        console.log("HEJ0", searchEduData.hits);
       }
     } else if (searchEduData.hits > 1000 && totalPages !== 100) {
       if (!showPagination) {
         setShowPagination(true);
-        console.log("HEJ1", searchEduData.hits);
       }
       setTotalPages(100);
     } else if (searchEduData.hits < 100 && searchEduData.hits > 10) {
       const totalPagesCalc = Math.ceil(searchEduData.hits / 10);
-      if (!showPagination) {
+      if (totalPagesCalc > 1 && !showPagination) {
         setShowPagination(true);
-        console.log("HEJ2", searchEduData.hits);
       }
       if (totalPages !== totalPagesCalc) {
         setTotalPages(totalPagesCalc);
-        console.log("totalPagesCalc", totalPagesCalc);
-        console.log("HEJ3", searchEduData.hits);
       }
     }
   }
