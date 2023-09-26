@@ -38,6 +38,7 @@ export const Occupation = () => {
         const chartLineData = await getSCBStatisticsSalary(ssyk);
         if (chartLineData) {
           getValuesArray(chartLineData);
+          console.log(chartLineData);
         }
       };
       if (chartLineXValues.length === 0) {
@@ -46,26 +47,13 @@ export const Occupation = () => {
     }
   });
 
-  // useEffect(() => {
-  //   if (!forecastData) return;
-  //   const getForecast = () => {
-  //     if (forecastData) {
-  //       findDeficiencyValues(forecastData, ssykToMatch);
-  //     } else {
-  //       console.log("oops, something went wrong. Please try again.");
-  //     }
-  //   };
-  //   if (forecastData) {
-  //     getForecast();
-  //   }
-  // });
-
   const getValuesArray = (chartLineData: ISCBData[]) => {
     if (chartLineData) {
       const chartLineXValues = chartLineData.map((item) => item.key[1]).flat();
       const chartLineYValues = chartLineData.map((item) => item.values).flat();
       const chartLineYValuesToNumbers = chartLineYValues.map(
         (chartLineStringValue) => {
+          console.log(chartLineStringValue);
           return parseInt(chartLineStringValue);
         }
       );
@@ -87,7 +75,6 @@ export const Occupation = () => {
   const deficiencyValueData2026 = checkDeficiencyValues(
     Number(findDeficiencyValuesResult.deficiencyValue2026?.bristvarde)
   );
-  console.log(deficiencyValueData2023, deficiencyValueData2026);
 
   const handleReturnButton = () => {
     navigate("/sok-yrke");

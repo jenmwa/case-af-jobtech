@@ -2,10 +2,8 @@ import {
   ChartLineData,
   QuoteMultiContainerHeadingLevel,
 } from "@digi/arbetsformedlingen";
-import {
-  DigiChartLine,
-  DigiLayoutContainer,
-} from "@digi/arbetsformedlingen-react";
+// import { DigiChartLine } from "@digi/arbetsformedlingen-react";
+import { ChartLineParent, StyledChartLine } from "./styled/CharLine";
 
 interface ISalaryStatisticsProps {
   chartLineXValues: string[];
@@ -35,38 +33,18 @@ export const SalaryStatistics = ({
     x: "År",
     y: "y-axis",
     title: "Löneutveckling 2017-2022",
-    subTitle: "test",
+    subTitle: "Källa: SCB",
     infoText: "",
   };
 
   return (
     <>
-      <DigiLayoutContainer
-        style={{
-          //ordentlig klass istället för styletag
-          width: "90%",
-          height: "400px",
-          background: "lightgrey",
-          padding: "1rem",
-          position: "relative",
-        }}
-      >
-        <div
-        // style={{
-        //   //ordentlig klass istället för styletag
-        //   width: "90%",
-        //   height: "400px",
-        //   background: "lightgrey",
-        //   padding: "1rem",
-        //   position: "relative",
-        // }}
-        >
-          <DigiChartLine
-            afChartData={JSON.stringify(afChartData)}
-            afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
-          ></DigiChartLine>
-        </div>
-      </DigiLayoutContainer>
+      <ChartLineParent>
+        <StyledChartLine
+          afChartData={JSON.stringify(afChartData)}
+          afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
+        ></StyledChartLine>
+      </ChartLineParent>
     </>
   );
 };

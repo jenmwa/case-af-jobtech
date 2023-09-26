@@ -31,13 +31,14 @@ export const OccupationShow = ({
   deficiencyValueData2023,
   deficiencyValueData2026,
 }: IOccupationShowProps) => {
+  console.log(chartLineXValues, chartLineYValues);
   return (
     <>
       <DigiLayoutContainer>
         <MainFlex50percent>
           <DigiLayoutContainer>
             {occupationFound ? (
-              <div>
+              <DigiLayoutContainer af-no-gutter af-vertical-padding>
                 <h2>{occupationFound.occupation_label}</h2>
                 <p>
                   <span style={{ fontWeight: "bold" }}>
@@ -45,11 +46,10 @@ export const OccupationShow = ({
                   </span>{" "}
                   (SSYK: {occupationFound.occupation_group.ssyk})
                 </p>
-              </div>
+              </DigiLayoutContainer>
             ) : (
               <p>Inget yrke hittades</p>
             )}
-            <br></br>
             <OccupationAbout findIndexText={findIndexText}></OccupationAbout>
             {occupationFound && (
               <OccupationCompetences
