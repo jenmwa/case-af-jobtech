@@ -33,6 +33,9 @@ interface IEducation {
     },
     id: string
   }
+  providerSummary:{
+    providers: string[];
+  }
 }
 
 export interface IEducationForms {

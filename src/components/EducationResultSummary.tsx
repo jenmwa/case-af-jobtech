@@ -36,10 +36,8 @@ export default function EducationResultSummary(
     <>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <div className="searchEducationSummary">
-          <h3>
-            {data?.education_providers[0].name[0].content},{" "}
-            {data?.education.form.code}
-          </h3>
+          <h4>Utbildningsform:</h4>
+          <p>{data?.education.form.code}</p>
           <h4>Utbildningsbeskrivning:</h4>
           <p>{data?.education.description[0].content}</p>
           <h4>Vill du veta mer?</h4>

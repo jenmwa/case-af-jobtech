@@ -6,7 +6,6 @@ import {
 } from "@digi/arbetsformedlingen-react";
 import { IEducations } from "../models/IEducations";
 import EducationResultSummary from "./EducationResultSummary";
-// import SearchResultsPlaceholder from "./SearchResultsPlaceholder";
 import illustration from "/coding.svg";
 import "../style/_searchEducationResults.scss";
 import { LoaderSpinnerSize } from "@digi/arbetsformedlingen";
@@ -38,7 +37,7 @@ export default function SearchEducationResults({
       (edu) => edu.education.title[0].content
     );
     accordionComponents = titles.map((title, index) => (
-      <DigiExpandableAccordion key={index} afHeading={title}>
+      <DigiExpandableAccordion key={index} afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}>
         <EducationResultSummary
           id={searchEduData.result[index].education.identifier}
         />
