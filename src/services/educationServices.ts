@@ -58,3 +58,14 @@ export const getMunicipalities = async () => {
     console.error("Error:", error);
   }
 };
+
+export const getEducationTypes = async () => {
+  try {
+    const response = await axios.get<IEducationForms[]>(
+      'https://jobed-connect-api.jobtechdev.se/v1/searchparameters/education_types' 
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
