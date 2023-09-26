@@ -21,7 +21,6 @@ interface IOccupationShowProps {
   deficiencyValueData2023: { value: string; text: string };
   deficiencyValueData2026: { value: string; text: string };
   isLoading: boolean;
-  isSCBDataNotFound: boolean;
 }
 
 export const OccupationShow = ({
@@ -33,7 +32,6 @@ export const OccupationShow = ({
   deficiencyValueData2023,
   deficiencyValueData2026,
   isLoading,
-  isSCBDataNotFound,
 }: IOccupationShowProps) => {
   return (
     <DigiLayoutContainer>
@@ -66,7 +64,6 @@ export const OccupationShow = ({
               chartLineXValues={chartLineXValues}
               chartLineYValues={chartLineYValues}
               isLoading={isLoading}
-              isSCBDataNotFound={isSCBDataNotFound}
             ></SalaryStatistics>
             <OccupationQuote></OccupationQuote>
           </div>

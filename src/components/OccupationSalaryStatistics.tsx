@@ -11,14 +11,12 @@ interface ISalaryStatisticsProps {
   chartLineXValues: string[];
   chartLineYValues: number[];
   isLoading: boolean;
-  isSCBDataNotFound: boolean;
 }
 
 export const SalaryStatistics = ({
   chartLineXValues,
   chartLineYValues,
   isLoading,
-  isSCBDataNotFound,
 }: ISalaryStatisticsProps) => {
   // const chartLineXValuesToIndexArray: number[] = chartLineXValues.map(
   //   (_, index) => index + 1
@@ -50,8 +48,6 @@ export const SalaryStatistics = ({
           <DigiLoaderSpinner
             afSize={LoaderSpinnerSize.LARGE}
           ></DigiLoaderSpinner>
-        ) : isSCBDataNotFound ? (
-          <p>Ingen data gällande löneutveckling</p>
         ) : (
           <StyledChartLine
             afChartData={JSON.stringify(afChartData)}
