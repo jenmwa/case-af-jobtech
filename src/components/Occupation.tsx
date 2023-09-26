@@ -22,6 +22,7 @@ export const Occupation = () => {
 
   const [chartLineXValues, setChartLineXValues] = useState<string[]>([]);
   const [chartLineYValues, setChartLineYValues] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const occupationFound = searchData?.related_occupations.find(
     (occupation) => occupation.concept_taxonomy_id === conceptTaxonomyId.id
@@ -39,6 +40,7 @@ export const Occupation = () => {
         if (chartLineData) {
           getValuesArray(chartLineData);
           console.log(chartLineData);
+          setIsLoading(false);
         }
       };
       if (chartLineXValues.length === 0) {
@@ -91,6 +93,7 @@ export const Occupation = () => {
           handleReturnButton={handleReturnButton}
           deficiencyValueData2023={deficiencyValueData2023}
           deficiencyValueData2026={deficiencyValueData2026}
+          isLoading={isLoading}
         ></OccupationShow>
       </div>
     </>

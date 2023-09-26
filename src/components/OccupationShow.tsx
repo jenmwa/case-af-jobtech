@@ -10,7 +10,6 @@ import { OccupationAbout } from "./OccupationAbout";
 import { OccupationCompetences } from "./OccupationCompetences";
 import { OccupationForecast } from "./OccupationForecast";
 import { MainFlex50percent } from "../style/Wrappers";
-// import { IDeficiencyValue } from "./Occupation";
 
 interface IOccupationShowProps {
   occupationFound?: IOccupation;
@@ -20,6 +19,7 @@ interface IOccupationShowProps {
   handleReturnButton: () => void;
   deficiencyValueData2023: { value: string; text: string };
   deficiencyValueData2026: { value: string; text: string };
+  isLoading: boolean;
 }
 
 export const OccupationShow = ({
@@ -30,6 +30,7 @@ export const OccupationShow = ({
   handleReturnButton,
   deficiencyValueData2023,
   deficiencyValueData2026,
+  isLoading,
 }: IOccupationShowProps) => {
   console.log(chartLineXValues, chartLineYValues);
   return (
@@ -66,6 +67,7 @@ export const OccupationShow = ({
           <SalaryStatistics
             chartLineXValues={chartLineXValues}
             chartLineYValues={chartLineYValues}
+            isLoading={isLoading}
           ></SalaryStatistics>
 
           <DigiButton
