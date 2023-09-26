@@ -11,12 +11,14 @@ interface ISalaryStatisticsProps {
   chartLineXValues: string[];
   chartLineYValues: number[];
   isLoading: boolean;
+  isSCBDataNotFound: boolean;
 }
 
 export const SalaryStatistics = ({
   chartLineXValues,
   chartLineYValues,
   isLoading,
+  isSCBDataNotFound,
 }: ISalaryStatisticsProps) => {
   // const chartLineXValuesToIndexArray: number[] = chartLineXValues.map(
   //   (_, index) => index + 1
@@ -43,16 +45,26 @@ export const SalaryStatistics = ({
 
   return (
     <>
-      {isLoading ? (
-        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
-      ) : (
-        <ChartLineParent>
+      <ChartLineParent>
+        {isLoading ? (
+          <DigiLoaderSpinner
+            afSize={LoaderSpinnerSize.LARGE}
+          ></DigiLoaderSpinner>
+        ) : isSCBDataNotFound ? (
+          <p>Ingen data gällande löneutveckling</p>
+        ) : (
           <StyledChartLine
             afChartData={JSON.stringify(afChartData)}
             afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
           ></StyledChartLine>
-        </ChartLineParent>
-      )}
+        )}
+      </ChartLineParent>
+
+      {/* <DigiBarChart
+        afChartData={JSON.stringify(afChartData)}
+        afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
+        afVariation={BarChartVariation.Vertical}
+      ></DigiBarChart> */}
     </>
   );
 };

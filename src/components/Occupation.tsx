@@ -23,6 +23,7 @@ export const Occupation = () => {
   const [chartLineXValues, setChartLineXValues] = useState<string[]>([]);
   const [chartLineYValues, setChartLineYValues] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSCBDataNotFound, setIsSCBDataNotFound] = useState(true);
 
   const occupationFound = searchData?.related_occupations.find(
     (occupation) => occupation.concept_taxonomy_id === conceptTaxonomyId.id
@@ -34,12 +35,19 @@ export const Occupation = () => {
   useEffect(() => {
     if (occupationFound) {
       const ssyk = occupationFound.occupation_group.ssyk;
+      const loaderDelay = 2000;
 
       const getDataSCB = async () => {
         const chartLineData = await getSCBStatisticsSalary(ssyk);
         if (chartLineData) {
           getValuesArray(chartLineData);
+
+          setTimeout(() => {
+            setIsLoading(false);
+          }, loaderDelay);
+        } else {
           setIsLoading(false);
+          setIsSCBDataNotFound(true);
         }
       };
       if (chartLineXValues.length === 0) {
@@ -92,6 +100,7 @@ export const Occupation = () => {
           deficiencyValueData2023={deficiencyValueData2023}
           deficiencyValueData2026={deficiencyValueData2026}
           isLoading={isLoading}
+          isSCBDataNotFound={isSCBDataNotFound}
         ></OccupationShow>
       </div>
     </>
