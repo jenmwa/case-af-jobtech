@@ -41,16 +41,25 @@ export const SalaryStatistics = ({
 
   return (
     <>
-      <DigiLayoutContainer>
+      <DigiLayoutContainer
+        style={{
+          //ordentlig klass istället för styletag
+          width: "90%",
+          height: "400px",
+          background: "lightgrey",
+          padding: "1rem",
+          position: "relative",
+        }}
+      >
         <div
-          style={{
-            //ordentlig klass istället för styletag
-            width: "90%",
-            height: "400px",
-            background: "lightgrey",
-            padding: "1rem",
-            position: "relative",
-          }}
+        // style={{
+        //   //ordentlig klass istället för styletag
+        //   width: "90%",
+        //   height: "400px",
+        //   background: "lightgrey",
+        //   padding: "1rem",
+        //   position: "relative",
+        // }}
         >
           <DigiChartLine
             afChartData={JSON.stringify(afChartData)}
