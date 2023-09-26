@@ -9,6 +9,7 @@ import {
   DigiButton,
   DigiFormSelect,
   DigiFormTextarea,
+  DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
 import {
   DigiFormSelectCustomEvent,
@@ -16,6 +17,7 @@ import {
 } from "@digi/arbetsformedlingen/dist/types/components";
 import { FormEvent, useEffect, useState } from "react";
 import {
+  getEducationTypes,
   getEducations,
   getEductionForms,
   getMunicipalities,
@@ -42,44 +44,40 @@ export default function SearchEducation({
   );
   const [educationForms, setEducationForms] = useState<IEducationForms[]>([]);
   const [municipalities, setMunicipalities] = useState<IEducationForms[]>([]);
+  const [eduTypes, setEduTypes] = useState<IEducationForms[]>([]);
   const [remote, setRemote] = useState<boolean>(false);
   const [educationForm, setEducationForm] = useState<string | undefined>(
     undefined
   );
   const [location, setLocation] = useState<string | undefined>(undefined);
+  const [type, setType] = useState<string | undefined>(undefined);
+  const [isFormLoading, setIsFormLoading] = useState<boolean>(true);
+
+  const getData = async () => {
+    const municipalitiesData = await getMunicipalities();
+    if (municipalitiesData) {
+      setMunicipalities(municipalitiesData);
+    }
+    const eduTypeData = await getEducationTypes();
+    if (eduTypeData) {
+      setEduTypes(eduTypeData);
+    }
+    const educationFormsData = await getEductionForms();
+    if (educationFormsData) {
+      setEducationForms(educationFormsData);
+    }
+  }
 
   useEffect(() => {
-    if (educationForms.length > 0) {
-      return;
-    } else {
-      const getEducationFormsFunc = async () => {
-        const educationFormsData = await getEductionForms();
-        if (educationFormsData) {
-          setEducationForms(educationFormsData);
-        }
-      };
-      getEducationFormsFunc();
-    }
-    if (municipalities.length > 0) {
-      return;
-    } else {
-      const getMunicipalitiesFunc = async () => {
-        const municipalitiesData = await getMunicipalities();
-        if (municipalitiesData) {
-          setMunicipalities(municipalitiesData);
-        }
-      };
-      getMunicipalitiesFunc();
-    }
-  });
+    const fetchData = async () => {
+      await Promise.all([
+        getData()
+      ]);
+      setIsFormLoading(false);
+    };
 
-  const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
-    if (e.target.value === "") {
-      setSearchEduText(undefined);
-    } else {
-      setSearchEduText(e.target.value);
-    }
-  };
+    fetchData();
+  }, []);
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
@@ -90,6 +88,7 @@ export default function SearchEducation({
       distance: remote,
       education_form: educationForm,
       municipality_code: location,
+      education_type: type,
     };
     setEduSeachHistory(search);
     const result = await getEducations(search);
@@ -112,6 +111,14 @@ export default function SearchEducation({
     setSerachEduData(null);
   };
 
+  const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
+    if (e.target.value === "") {
+      setSearchEduText(undefined);
+    } else {
+      setSearchEduText(e.target.value);
+    }
+  };
+  
   const handleRemote = (
     e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
   ) => {
@@ -143,6 +150,20 @@ export default function SearchEducation({
     }
   };
 
+  const handleType = (
+    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
+  ) => {
+    if (e.target.value === "all") {
+      setType(undefined);
+    } else {
+      setType(e.target.value);
+    }
+    console.log(e.target.value)
+  };
+
+if(isFormLoading){
+  return (<DigiLoaderSpinner></DigiLoaderSpinner>)
+} else{
   return (
     <>
       <section className="searchEducationForm">
@@ -162,7 +183,7 @@ export default function SearchEducation({
           ></DigiFormTextarea>
           <DigiFormSelect
             afLabel="Vill du läsa på distans?"
-            afValue="no"
+            //afValue="no"
             onAfOnChange={handleRemote}
           >
             <option value="yes">Ja</option>
@@ -178,6 +199,18 @@ export default function SearchEducation({
             {educationForms.map((form) => (
               <option key={form.key} value={form.key}>
                 {form.value}
+              </option>
+            ))}
+          </DigiFormSelect>
+          <DigiFormSelect
+            afLabel="Vill du läsa kurs eller program?"
+            afPlaceholder="Kurs eller program"
+            onAfOnChange={handleType}
+          >
+            <option value="all">Alla</option>
+            {eduTypes.map((type) => (
+              <option key={type.key} value={type.key}>
+                {type.value}
               </option>
             ))}
           </DigiFormSelect>
@@ -212,4 +245,5 @@ export default function SearchEducation({
       </section>
     </>
   );
+}
 }
