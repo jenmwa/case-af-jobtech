@@ -3,9 +3,8 @@ import {
   LoaderSpinnerSize,
   QuoteMultiContainerHeadingLevel,
 } from "@digi/arbetsformedlingen";
-// import { DigiChartLine } from "@digi/arbetsformedlingen-react";
 import { ChartLineParent, StyledChartLine } from "./styled/CharLine";
-import { DigiLoaderSpinner } from "@digi/arbetsformedlingen-react";
+import { StyledDigiLoaderSpinner } from "./styled/Loader";
 
 interface ISalaryStatisticsProps {
   chartLineXValues: string[];
@@ -44,9 +43,9 @@ export const SalaryStatistics = ({
     <>
       <ChartLineParent>
         {isLoading ? (
-          <DigiLoaderSpinner
+          <StyledDigiLoaderSpinner
             afSize={LoaderSpinnerSize.LARGE}
-          ></DigiLoaderSpinner>
+          ></StyledDigiLoaderSpinner>
         ) : (
           <StyledChartLine
             afChartData={JSON.stringify(afChartData)}
@@ -54,12 +53,6 @@ export const SalaryStatistics = ({
           ></StyledChartLine>
         )}
       </ChartLineParent>
-
-      {/* <DigiBarChart
-        afChartData={JSON.stringify(afChartData)}
-        afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
-        afVariation={BarChartVariation.Vertical}
-      ></DigiBarChart> */}
     </>
   );
 };
