@@ -53,49 +53,31 @@ export default function SearchEducation({
   const [type, setType] = useState<string | undefined>(undefined);
   const [isFormLoading, setIsFormLoading] = useState<boolean>(true);
 
-  const getEducationFormsFunc = async () => {
-    const educationFormsData = await getEductionForms();
-    if (educationFormsData) {
-      setEducationForms(educationFormsData);
-    }
-  };
-
-  const getMunicipalitiesFunc = async () => {
+  const getData = async () => {
     const municipalitiesData = await getMunicipalities();
     if (municipalitiesData) {
       setMunicipalities(municipalitiesData);
     }
-  };
-
-  const getEduTypesFunc = async () => {
     const eduTypeData = await getEducationTypes();
     if (eduTypeData) {
       setEduTypes(eduTypeData);
     }
-  };
+    const educationFormsData = await getEductionForms();
+    if (educationFormsData) {
+      setEducationForms(educationFormsData);
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       await Promise.all([
-        getEducationFormsFunc(),
-        getMunicipalitiesFunc(),
-        getEduTypesFunc(),
+        getData()
       ]);
       setIsFormLoading(false);
     };
 
     fetchData();
   }, []);
-
-
-
-  const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
-    if (e.target.value === "") {
-      setSearchEduText(undefined);
-    } else {
-      setSearchEduText(e.target.value);
-    }
-  };
 
   const submitSearchEdu = async (e: FormEvent) => {
     e.preventDefault();
@@ -129,6 +111,14 @@ export default function SearchEducation({
     setSerachEduData(null);
   };
 
+  const textInput = (e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>) => {
+    if (e.target.value === "") {
+      setSearchEduText(undefined);
+    } else {
+      setSearchEduText(e.target.value);
+    }
+  };
+  
   const handleRemote = (
     e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
   ) => {
