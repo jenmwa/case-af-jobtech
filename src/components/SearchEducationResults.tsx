@@ -30,22 +30,25 @@ export default function SearchEducationResults({
   eduSearchHistory,
 }: IEducationProps) {
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [showPagination, setShowPagination] = useState<boolean>(false);
   let accordionComponents: JSX.Element[] = [];
 
   if (searchEduData) {
-    const titles = searchEduData.result.map(
-      (edu) => edu.education.title[0].content
-    );
-    accordionComponents = titles.map((title, index) => (
-      <DigiExpandableAccordion
-        key={index}
-        afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}
-      >
-        <EducationResultSummary
-          id={searchEduData.result[index].education.identifier}
-        />
-      </DigiExpandableAccordion>
-    ));
+    if (searchEduData.result) {
+      const titles = searchEduData.result.map(
+        (edu) => edu.education.title[0].content
+      );
+      accordionComponents = titles.map((title, index) => (
+        <DigiExpandableAccordion
+          key={index}
+          afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}
+        >
+          <EducationResultSummary
+            id={searchEduData.result[index].education.identifier}
+          />
+        </DigiExpandableAccordion>
+      ));
+    }
   }
 
   const eduPagination = async (
@@ -66,11 +69,27 @@ export default function SearchEducationResults({
     }
   };
 
+  if (showNoResult && showPagination) {
+    setShowPagination(false);
+  }
+
   if (searchEduData) {
-    if (searchEduData.hits >= 100) {
-      if (totalPages !== 100) setTotalPages(100);
-    } else {
-      const totalPagesCalc = Math.floor(searchEduData.hits / 10);
+    if (searchEduData.hits < 10) {
+      if (showPagination) {
+        setShowPagination(false);
+      }
+    } else if (searchEduData.hits > 1000 && totalPages !== 100) {
+      if (!showPagination) {
+        setShowPagination(true);
+      }
+      setTotalPages(100);
+    } else if (searchEduData.hits < 100 && searchEduData.hits > 10) {
+      const totalPagesCalc = Math.ceil(searchEduData.hits / 10);
+
+      if (totalPagesCalc > 1 && !showPagination) {
+        setShowPagination(true);
+      }
+
       if (totalPages !== totalPagesCalc) {
         setTotalPages(totalPagesCalc);
       }
@@ -79,10 +98,12 @@ export default function SearchEducationResults({
 
   if (isLoading) {
     return (
-      <StyledDigiLoaderSpinner
-        className="edu-loader"
-        afSize={LoaderSpinnerSize.LARGE}
-      ></StyledDigiLoaderSpinner>
+      <section className="eduSearchResults">
+        <StyledDigiLoaderSpinner
+          className="edu-loader"
+          afSize={LoaderSpinnerSize.LARGE}
+        ></StyledDigiLoaderSpinner>
+      </section>
     );
   } else if (showNoResult) {
     return <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>;
@@ -91,14 +112,15 @@ export default function SearchEducationResults({
       <section className="eduSearchResults">
         <h3>Utbildningar</h3>
         {accordionComponents}
-        <section className="pagination-wrapper">
-          <DigiNavigationPagination
-            className="edu-pagination"
-            afTotalPages={totalPages}
-            afInitActivePage={1}
-            onAfOnPageChange={eduPagination}
-          ></DigiNavigationPagination>
-        </section>
+        {showPagination && (
+          <section className="pagination-wrapper">
+            <DigiNavigationPagination
+              afTotalPages={totalPages}
+              afInitActivePage={1}
+              onAfOnPageChange={eduPagination}
+            ></DigiNavigationPagination>
+          </section>
+        )}
       </section>
     );
   } else if (searchEduData === null) {
