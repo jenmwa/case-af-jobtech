@@ -34,21 +34,15 @@ export default function SearchEducationResults({
   let accordionComponents: JSX.Element[] = [];
 
   if (searchEduData) {
-    const titles = searchEduData.result.map(
-      (edu) => edu.education.title[0].content
-    );
+    const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
     accordionComponents = titles.map((title, index) => (
       <DigiExpandableAccordion key={index} afHeading={title}>
-        <EducationResultSummary
-          id={searchEduData.result[index].education.identifier}
-        />
+        <EducationResultSummary id={searchEduData.result[index].education.identifier} />
       </DigiExpandableAccordion>
     ));
   }
 
-  const eduPagination = async (
-    e: DigiNavigationPaginationCustomEvent<number>
-  ) => {
+  const eduPagination = async (e: DigiNavigationPaginationCustomEvent<number>) => {
     const newSearch = {
       query: eduSearchHistory.query,
       distance: eduSearchHistory.distance,
@@ -87,14 +81,13 @@ export default function SearchEducationResults({
           <>
             <h3>Utbildningar</h3>
             {showNoResult ? (
-              <h3>
-                Inga utbildningar hittades. Var vänlig sök på något annat.
-              </h3>
+              <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>
             ) : (
               accordionComponents
             )}{" "}
             <section className="pagination-wrapper">
               <DigiNavigationPagination
+                className="edu-pagination"
                 afTotalPages={totalPages}
                 afInitActivePage={1}
                 onAfOnPageChange={eduPagination}
