@@ -3,12 +3,30 @@
     top: 50%;
 }
 
-.search-edu-img{
-    display: flex;
-    justify-content: center;
+.eduSearchResults{
+    .search-edu-img{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .pagination-wrapper {
+        margin-top: 15px;
+        width: 572px;
+    }
 }
 
-.pagination-wrapper {
-    margin-top: 15px;
-    width: 572px;
+@media screen and (min-width: 700px) {
+    .eduSearchResults{
+        .sc-digi-media-image{
+            width: 400px!important;
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .eduSearchResults{
+        .sc-digi-media-image{
+            width: 600px!important;
+        }
+    }
 }
