@@ -18,3 +18,19 @@
   align-items: center;
 }
 
+@media screen and (min-width: 700px) {
+  .eduSearchResults{
+      .sc-digi-media-image{
+          width: 500px!important;
+      }
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .eduSearchResults{
+      .sc-digi-media-image{
+          width: 700px!important;
+      }
+  }
+}
+
