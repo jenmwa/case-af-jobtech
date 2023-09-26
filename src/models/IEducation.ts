@@ -37,4 +37,7 @@ export interface IEducation{
       ]
     }
   ],
+  providerSummary:{
+    providers: string[];
+  }
 }
