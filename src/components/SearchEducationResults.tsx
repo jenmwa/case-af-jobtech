@@ -71,7 +71,7 @@ export default function SearchEducationResults({
 
   return (
     <>
-      <section>
+      <section className="eduSearchResults">
         {isLoading ? (
           <DigiLoaderSpinner
             className="edu-loader"

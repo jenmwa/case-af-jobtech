@@ -7,6 +7,7 @@
     margin: 0 auto;
     max-width: 100%;
     margin-top: 60px;
+    width: 1000px!important;
   }
   button{
     margin-right: 20px;
@@ -31,5 +32,11 @@
   .home{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    .sc-digi-media-image{
+      display: block;
+      margin-top: 0;
+      width: 450px!important;
+    }
   }
 }
