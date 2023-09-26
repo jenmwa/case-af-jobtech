@@ -92,10 +92,12 @@ export default function SearchEducationResults({
 
   if (isLoading) {
     return (
-      <DigiLoaderSpinner
-        className="edu-loader"
-        afSize={LoaderSpinnerSize.LARGE}
-      ></DigiLoaderSpinner>
+      <section className="eduSearchResults">
+        <DigiLoaderSpinner
+          className="edu-loader"
+          afSize={LoaderSpinnerSize.LARGE}
+        ></DigiLoaderSpinner>
+      </section>
     );
   } else if (showNoResult) {
     return <h3>Inga utbildningar hittades. Var vänlig sök på något annat.</h3>;
