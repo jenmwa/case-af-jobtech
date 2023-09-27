@@ -4,10 +4,11 @@ import {
   DigiMediaFigure,
   DigiMediaImage,
 } from "@digi/arbetsformedlingen-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import illustration from "/winners.svg";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <DigiLayoutContainer>
       <section className="home">
@@ -17,11 +18,11 @@ export default function Home() {
             Här kan du utforska olika utbildningar och se vilka yrkestitlar du
             kan axla efter din utbildning.
           </p>
-          <DigiButton>
-            <Link to="sok-utbildning">Sök utbildning</Link>
+          <DigiButton onAfOnClick={() => {navigate('/sok-utbildning')}}>
+            Sök utbildning
           </DigiButton>
-          <DigiButton>
-            <Link to="sok-yrke">Utforska yrkestitlar</Link>
+          <DigiButton onAfOnClick={() => {navigate('/sok-yrke')}}>
+            Utforska yrkestitlar
           </DigiButton>
         </div>
         <DigiMediaFigure className="img-container">
