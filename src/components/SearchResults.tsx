@@ -88,7 +88,7 @@ export default function SearchResults(props: ISearchresultsProps) {
     fetchData();
   }, [dispatchEnrichedOccupation, searchData]);
 
-  if (!props.isLoading) {
+  if (props.isLoading) {
     return (
       <StyledDigiLoaderSpinner
         afSize={LoaderSpinnerSize.LARGE}

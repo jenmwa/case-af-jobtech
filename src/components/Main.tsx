@@ -13,12 +13,12 @@ export default function Main() {
   const { searchData, setSearchData } = useOutletData();
 
   const getWorkData = async (search: ISearchByText) => {
-    const loaderDelay = 1000;
+    // const loaderDelay = 1000;
 
     const data = await matchByText(search);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, loaderDelay);
+    // setTimeout(() => {
+    setIsLoading(false);
+    // }, loaderDelay);
     setSearchData(data);
   };
 
