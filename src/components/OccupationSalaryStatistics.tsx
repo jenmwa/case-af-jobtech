@@ -3,9 +3,8 @@ import {
   LoaderSpinnerSize,
   QuoteMultiContainerHeadingLevel,
 } from "@digi/arbetsformedlingen";
-// import { DigiChartLine } from "@digi/arbetsformedlingen-react";
 import { ChartLineParent, StyledChartLine } from "./styled/CharLine";
-import { DigiLoaderSpinner } from "@digi/arbetsformedlingen-react";
+import { StyledDigiLoaderSpinner } from "./styled/Loader";
 
 interface ISalaryStatisticsProps {
   chartLineXValues: string[];
@@ -18,14 +17,13 @@ export const SalaryStatistics = ({
   chartLineYValues,
   isLoading,
 }: ISalaryStatisticsProps) => {
-  // const chartLineXValuesToIndexArray: number[] = chartLineXValues.map(
-  //   (_, index) => index + 1
-  // );
+  const chartLineXValuesToIndexArray: number[] = chartLineXValues.map(
+    (_, index) => index + 1
+  );
 
   const afChartData: ChartLineData = {
     data: {
-      xValues: [1, 2, 3, 4, 5, 6],
-      // xValues: chartLineXValuesToIndexArray,
+      xValues: chartLineXValuesToIndexArray,
       series: [
         {
           yValues: chartLineYValues,
@@ -43,16 +41,18 @@ export const SalaryStatistics = ({
 
   return (
     <>
-      {isLoading ? (
-        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
-      ) : (
-        <ChartLineParent>
+      <ChartLineParent>
+        {isLoading ? (
+          <StyledDigiLoaderSpinner
+            afSize={LoaderSpinnerSize.LARGE}
+          ></StyledDigiLoaderSpinner>
+        ) : (
           <StyledChartLine
             afChartData={JSON.stringify(afChartData)}
             afHeadingLevel={QuoteMultiContainerHeadingLevel.H2}
           ></StyledChartLine>
-        </ChartLineParent>
-      )}
+        )}
+      </ChartLineParent>
     </>
   );
 };

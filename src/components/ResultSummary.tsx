@@ -1,4 +1,4 @@
-import { IOccupation } from "../models/IOccupation";
+import { IOccupation, IOccupationCompetencies } from "../models/IOccupation";
 
 import {
   //LinkButtonSize,
@@ -23,7 +23,7 @@ interface ResultSummaryProps {
 
 interface ICompetency {
   term: string;
-  percent_for_occupation: number;
+  // percent_for_occupation?: number;
 }
 
 export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
@@ -39,12 +39,10 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
       );
 
       if (results?.metadata) {
-        const competencies =
+        const competencies: IOccupationCompetencies[] =
           results.metadata.enriched_candidates_term_frequency.competencies;
 
-        const topFive = competencies
-          .slice(0, 5)
-          .map((comp: ICompetency) => comp.term);
+        const topFive = competencies.slice(0, 5).map((comp: ICompetency) => comp.term);
         setTopFive(topFive);
       }
     };
@@ -78,8 +76,7 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <h6>{matchingText && <p>Översikt: {matchingText}</p>}</h6>
         <p>
-          Tillhör yrkesgrupp:{" "}
-          {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
+          Tillhör yrkesgrupp: {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
           {occupation.occupation_group.ssyk})
         </p>
 

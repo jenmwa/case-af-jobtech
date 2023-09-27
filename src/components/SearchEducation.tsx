@@ -9,7 +9,6 @@ import {
   DigiButton,
   DigiFormSelect,
   DigiFormTextarea,
-  DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
 import {
   DigiFormSelectCustomEvent,
@@ -22,6 +21,7 @@ import {
   getMunicipalities,
 } from "../services/educationServices";
 import { IEducationForms, IEducations } from "../models/IEducations";
+import { StyledDigiLoaderSpinner } from "./styled/Loader";
 
 interface ISubmitSearchEduProps {
   showNoResult: boolean;
@@ -38,7 +38,9 @@ export default function SearchEducation({
   setIsLoading,
   setEduSeachHistory,
 }: ISubmitSearchEduProps) {
-  const [searchEduText, setSearchEduText] = useState<string | undefined>(undefined);
+  const [searchEduText, setSearchEduText] = useState<string | undefined>(
+    undefined
+  );
   const [municipalities, setMunicipalities] = useState<IEducationForms[]>([]);
   const [eduTypes, setEduTypes] = useState<IEducationForms[]>([]);
   const [remote, setRemote] = useState<boolean>(true);
@@ -105,7 +107,9 @@ export default function SearchEducation({
     }
   };
 
-  const handleRemote = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
+  const handleRemote = (
+    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
+  ) => {
     if (e.target.value === "yes") {
       setRemote(true);
     } else if (e.target.value === "no") {
@@ -113,7 +117,9 @@ export default function SearchEducation({
     }
   };
 
-  const handleLocation = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
+  const handleLocation = (
+    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
+  ) => {
     if (e.target.value === "anywhere") {
       setLocation(undefined);
     } else {
@@ -121,7 +127,9 @@ export default function SearchEducation({
     }
   };
 
-  const handleType = (e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>) => {
+  const handleType = (
+    e: DigiFormSelectCustomEvent<HTMLDigiFormSelectElement>
+  ) => {
     if (e.target.value === "all") {
       setType(undefined);
     } else {
@@ -130,7 +138,7 @@ export default function SearchEducation({
   };
 
   if (isFormLoading) {
-    return <DigiLoaderSpinner></DigiLoaderSpinner>;
+    return <StyledDigiLoaderSpinner></StyledDigiLoaderSpinner>;
   } else {
     return (
       <>

@@ -1,6 +1,5 @@
 import {
   DigiExpandableAccordion,
-  DigiLoaderSpinner,
   DigiMediaImage,
   DigiNavigationPagination,
 } from "@digi/arbetsformedlingen-react";
@@ -13,6 +12,7 @@ import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/di
 import { ISearchEducationParams } from "../models/ISearchEducationParams";
 import { getEducations } from "../services/educationServices";
 import { useState } from "react";
+import { StyledDigiLoaderSpinner } from "./styled/Loader";
 
 interface IEducationProps {
   showNoResult: boolean;
@@ -35,19 +35,25 @@ export default function SearchEducationResults({
 
   if (searchEduData) {
     if (searchEduData.result) {
-      const titles = searchEduData.result.map((edu) => edu.education.title[0].content);
+      const titles = searchEduData.result.map(
+        (edu) => edu.education.title[0].content
+      );
       accordionComponents = titles.map((title, index) => (
         <DigiExpandableAccordion
           key={index}
           afHeading={`${title}, ${searchEduData.result[index].providerSummary.providers[0]}`}
         >
-          <EducationResultSummary id={searchEduData.result[index].education.identifier} />
+          <EducationResultSummary
+            id={searchEduData.result[index].education.identifier}
+          />
         </DigiExpandableAccordion>
       ));
     }
   }
 
-  const eduPagination = async (e: DigiNavigationPaginationCustomEvent<number>) => {
+  const eduPagination = async (
+    e: DigiNavigationPaginationCustomEvent<number>
+  ) => {
     const newSearch = {
       query: eduSearchHistory.query,
       distance: eduSearchHistory.distance,
@@ -93,10 +99,10 @@ export default function SearchEducationResults({
   if (isLoading) {
     return (
       <section className="eduSearchResults">
-        <DigiLoaderSpinner
+        <StyledDigiLoaderSpinner
           className="edu-loader"
           afSize={LoaderSpinnerSize.LARGE}
-        ></DigiLoaderSpinner>
+        ></StyledDigiLoaderSpinner>
       </section>
     );
   } else if (showNoResult) {

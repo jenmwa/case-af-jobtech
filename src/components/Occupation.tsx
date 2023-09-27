@@ -34,12 +34,16 @@ export const Occupation = () => {
   useEffect(() => {
     if (occupationFound) {
       const ssyk = occupationFound.occupation_group.ssyk;
+      const loaderDelay = 2000;
 
       const getDataSCB = async () => {
         const chartLineData = await getSCBStatisticsSalary(ssyk);
         if (chartLineData) {
           getValuesArray(chartLineData);
-          setIsLoading(false);
+
+          setTimeout(() => {
+            setIsLoading(false);
+          }, loaderDelay);
         }
       };
       if (chartLineXValues.length === 0) {
