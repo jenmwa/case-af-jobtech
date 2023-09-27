@@ -6,4 +6,5 @@ export const StyledDigiQuoteSingle = styled(DigiQuoteSingle).attrs({
   className: "group9styling",
 })`
   --digi--quote-single--background--primary: ${primaryLighter};
+  height: 0;
 `;
