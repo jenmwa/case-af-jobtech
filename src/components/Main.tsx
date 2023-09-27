@@ -9,21 +9,24 @@ import SearchResultsPlaceholder from "./SearchResultsPlaceholder";
 import { useOutletData } from "../context/useOutletData";
 
 export default function Main() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { searchData, setSearchData } = useOutletData();
 
   const getWorkData = async (search: ISearchByText) => {
-    setIsLoading(true);
+    const loaderDelay = 1000;
+
     const data = await matchByText(search);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, loaderDelay);
     setSearchData(data);
-    setIsLoading(false);
   };
 
   return (
     <main>
       <DigiLayoutContainer>
         <MainFlex>
-          <SearchForm getWorkData={getWorkData} setSearchData={setSearchData}/>
+          <SearchForm getWorkData={getWorkData} setSearchData={setSearchData} />
           {searchData === null ? (
             <SearchResultsPlaceholder />
           ) : (
