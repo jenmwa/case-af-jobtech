@@ -30,7 +30,7 @@ export default function Main() {
           {searchData === null ? (
             <SearchResultsPlaceholder />
           ) : (
-            <SearchResults isLoading={isLoading} />
+            <SearchResults isLoading={isLoading} setIsLoaing={setIsLoading}/>
           )}
         </MainFlex>
       </DigiLayoutContainer>
