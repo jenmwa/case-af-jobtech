@@ -3,7 +3,7 @@
 
 # Swedish: Case 1 för AF med hjälp av JobTech
 
-Detta är en applikation som låter användaren söka efter utbildningar och utforska olika karriärsmöjligheter. Applikationen är på svenska.
+Detta är en applikation som låter användaren söka efter utbildningar och utforska olika karriärsmöjligheter. Applikationen är på svenska..
 
 ## Funktioner
 
