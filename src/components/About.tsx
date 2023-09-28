@@ -7,6 +7,7 @@ import {
 } from "@digi/arbetsformedlingen-react";
 import { MainFlex50percent } from "../style/Wrappers";
 import { StyledDigiLayoutBlock } from "./styled/Layout";
+import illustration from "/blooming.svg";
 
 export const About = () => {
   return (
@@ -39,7 +40,7 @@ export const About = () => {
               hjälp av antingen fetch eller axios, och även skapa tjänster
               (services) som vi använder oss av för att hämta data. Vi skulle
               även använda oss av de React-koncept vi lärt oss under kursens
-              gång (context, state, routing mm) och även använda oss av
+              gång (context, state, routing mm) och använda oss av
               Arbetsförmedlingens Designsystem.
             </p>
             <p>
@@ -47,11 +48,11 @@ export const About = () => {
               Vårt grupparbete utmynnade i denna app, Yrkesvägledaren, där du
               som användare dels kan söka passande yrken av det du är
               intresserad av, genom att skriva nyckelord såsom ämnen,
-              alternativt kursbeskrivningar.Du kan också söka utbildningar
+              alternativt kursbeskrivningar. Du kan också söka utbildningar
               gällande det du gillar, och därifrån gå vidare för att få mer info
-              gällande yrken.Du får både kort beskrivning, lite framtidsprognos
-              samt löneutveckling de senaste 5åren. Vi har utöver jobtechs öppna
-              data, även använt statistik från SCB’s öppna data.
+              gällande yrken. Du får både en kort beskrivning, lite
+              framtidsprognos samt löneutveckling de senaste 5åren. Vi har
+              utöver JobTechs öppna data också använt statistik från SCB.
             </p>
             <p>
               Vi som gjort denna app går i klassen FED22d och ni hittar oss på
@@ -97,7 +98,7 @@ export const About = () => {
           <DigiMediaImage
             afUnlazy
             af-fullwidth
-            afSrc="/blooming.svg"
+            afSrc={illustration}
             afAlt="Illustration där en person sitter på marken med 3 blommor"
           ></DigiMediaImage>
         </StyledDigiLayoutBlock>
