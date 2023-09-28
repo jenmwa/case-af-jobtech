@@ -1,6 +1,5 @@
 import {
   DigiExpandableAccordion,
-  DigiLoaderSpinner,
   DigiNavigationPagination,
   DigiTag,
 } from "@digi/arbetsformedlingen-react";
@@ -10,30 +9,46 @@ import { useOutletData } from "../context/useOutletData";
 import { matchByText } from "../services/matchByTextServices";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import "../style/_pagination.scss";
-import { useState } from "react";
+import { useEffect, useState, useContext, SetStateAction } from "react";
+import { getEnrichedOccupations } from "../services/enrichedOccupationsServices";
+import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
+import { StyledDigiLoaderSpinner } from "./styled/Loader";
 
 interface ISearchresultsProps {
   isLoading: boolean;
+  setIsLoaing: (data: SetStateAction<boolean>) => void;
 }
 
 export default function SearchResults(props: ISearchresultsProps) {
+
   const { searchData, setSearchData } = useOutletData();
   const [showPagination, setShowPagination] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
+
+  const { dispatchEnrichedOccupation } = useContext(EnrichedOccupationContext);
 
   const handlePaginationChange = async (
     e: DigiNavigationPaginationCustomEvent<number>
   ) => {
     if (searchData) {
+
       const newSearch = {
         input_text:
           searchData.identified_keywords_for_input.competencies.join(" "),
         offset: e.detail !== 1 ? e.detail * 10 - 1 : undefined,
       };
-
       const newResults = await matchByText(newSearch);
 
       setSearchData(newResults);
+
+      const newResultEnriched = await getEnrichedOccupations(newResults);
+
+      if (newResultEnriched) {
+        dispatchEnrichedOccupation({
+          type: "GOT_ENRICHED_DATA",
+          payload: newResultEnriched,
+        });
+      }
     }
   };
 
@@ -43,6 +58,7 @@ export default function SearchResults(props: ISearchresultsProps) {
         return (
           <div key={i}>
             <DigiTag
+              className="search-tags"
               afText={competency}
               afSize={TagSize.SMALL}
               afNoIcon={true}
@@ -61,10 +77,26 @@ export default function SearchResults(props: ISearchresultsProps) {
       setShowPagination(false);
     }
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getEnrichedOccupations(searchData);
+      props.setIsLoaing(false);
+      if (result) {
+        dispatchEnrichedOccupation({
+          type: "GOT_ENRICHED_DATA",
+          payload: result,
+        });
+      }
+    };
+
+    fetchData();
+  }, [dispatchEnrichedOccupation, searchData]);
 
   if (props.isLoading) {
     return (
-      <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
+      <StyledDigiLoaderSpinner
+        afSize={LoaderSpinnerSize.LARGE}
+      ></StyledDigiLoaderSpinner>
     );
   } else {
     if (searchData?.related_occupations.length === 0) {

@@ -1,4 +1,4 @@
-import { IOccupation } from "../models/IOccupation";
+import { IOccupation, IOccupationCompetencies } from "../models/IOccupation";
 
 import {
   //LinkButtonSize,
@@ -12,12 +12,10 @@ import {
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 import { useState, useEffect, useContext } from "react";
-import { IEnrichedOccupation } from "../models/IEnrichedOccupation";
-import { enrichedOccupation } from "../services/enrichedOccupationsServices";
 import { StyledCompetenciesList } from "./styled/CompetenciesList";
-
 import { Link } from "react-router-dom";
 import { SSYKdataContext } from "../context/SSYKdataContext";
+import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -25,30 +23,28 @@ interface ResultSummaryProps {
 
 interface ICompetency {
   term: string;
-  percent_for_occupation: number;
+  // percent_for_occupation?: number;
 }
 
 export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
   const [topFive, setTopFive] = useState<string[]>([]);
   const [matchingText, setMatchingText] = useState<string | null>(null);
   const ssykdata = useContext(SSYKdataContext);
+  const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
 
   useEffect(() => {
-    const getData = async () => {
-      const enrichedData: IEnrichedOccupation = {
-        occupation_id: occupation.id,
-        include_metadata: true,
-      };
+    const getData = () => {
+      const results = stateEnrichedOccupation.find(
+        (globalOccupation) => globalOccupation.id === occupation.id
+      );
 
-      const results = await enrichedOccupation(enrichedData);
+      if (results?.metadata) {
+        const competencies: IOccupationCompetencies[] =
+          results.metadata.enriched_candidates_term_frequency.competencies;
 
-      const competencies =
-        results.metadata.enriched_candidates_term_frequency.competencies;
-
-      const topFive = competencies
-        .slice(0, 5)
-        .map((comp: ICompetency) => comp.term);
-      setTopFive(topFive);
+        const topFive = competencies.slice(0, 5).map((comp: ICompetency) => comp.term);
+        setTopFive(topFive);
+      }
     };
 
     const getJobSummary = async () => {
@@ -73,15 +69,14 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
 
     getData();
     getJobSummary();
-  }, [occupation, ssykdata]);
+  }, [occupation, ssykdata, stateEnrichedOccupation]);
 
   return (
     <>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <h6>{matchingText && <p>Översikt: {matchingText}</p>}</h6>
         <p>
-          Tillhör yrkesgrupp:{" "}
-          {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
+          Tillhör yrkesgrupp: {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
           {occupation.occupation_group.ssyk})
         </p>
 

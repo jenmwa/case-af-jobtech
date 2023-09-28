@@ -3,7 +3,6 @@ interface IOccupationAboutProps {
 }
 
 export const OccupationAbout = ({ findIndexText }: IOccupationAboutProps) => {
-  console.log(findIndexText);
   return (
     <>
       <h3>Yrkesbeskrivning{}</h3>

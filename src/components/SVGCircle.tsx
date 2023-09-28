@@ -1,3 +1,5 @@
+import { greyscaleBase, secondaryBase } from "./styled/variables";
+
 interface ISVGCircleProps {
   title: string;
   value: string;
@@ -16,7 +18,7 @@ export const SVGCircle = ({ title, value, text }: ISVGCircleProps) => {
               cx="100"
               cy="100"
               fill="transparent"
-              stroke="lightgrey"
+              stroke={greyscaleBase}
               strokeWidth="2rem"
               strokeDasharray="439.8"
               strokeDashoffset="0"
@@ -26,7 +28,7 @@ export const SVGCircle = ({ title, value, text }: ISVGCircleProps) => {
               cx="100"
               cy="100"
               fill="transparent"
-              stroke="#ca2c92"
+              stroke={secondaryBase}
               strokeWidth="2rem"
               strokeDasharray="500"
               strokeDashoffset={value}

@@ -13,22 +13,41 @@ import {
   DigiFormTextarea,
   DigiFormValidationMessage,
 } from "@digi/arbetsformedlingen-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, SetStateAction, useEffect, useState } from "react";
 import { ISearchByText } from "../models/ISearchByText";
 import {
   DigiFormInputCustomEvent,
   DigiFormTextareaCustomEvent,
 } from "@digi/arbetsformedlingen/dist/types/components";
+import { IOccupation1 } from "../models/IOccupation";
 
 interface ISearchFormProps {
   getWorkData: (search: ISearchByText) => void;
+  setSearchData: (data: SetStateAction<IOccupation1 | null>) => void;
 }
 
 export default function SearchForm(props: ISearchFormProps) {
+  const descriptionFromLocalStorage = localStorage.getItem(
+    "educationDescriptionText"
+  );
+
   const [freeSearch, setFreeSearch] = useState<string>("");
   const [headerSearch, setHeaderSearch] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
   const [inputLength, setInputLength] = useState<number>(0);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!descriptionFromLocalStorage) return;
+    const getFromLocalStorage = () => {
+      handleReset();
+      setFreeSearch(descriptionFromLocalStorage);
+      setInputLength(wordCount(descriptionFromLocalStorage));
+    };
+    if (descriptionFromLocalStorage) {
+      getFromLocalStorage();
+    }
+  });
 
   const getWorkTitles = (e: FormEvent) => {
     e.preventDefault();
@@ -54,6 +73,7 @@ export default function SearchForm(props: ISearchFormProps) {
       props.getWorkData(search);
       setFreeSearch("");
       setHeaderSearch("");
+      localStorage.removeItem("educationDescriptionText");
     }
   };
 
@@ -69,8 +89,9 @@ export default function SearchForm(props: ISearchFormProps) {
   function handleFreeSearch(
     e: DigiFormTextareaCustomEvent<HTMLTextAreaElement>
   ) {
-    setFreeSearch(e.target.value);
     setInputLength(wordCount(freeSearch));
+    localStorage.setItem("educationDescriptionText", e.target.value);
+    setFreeSearch(e.target.value);
   }
 
   function handleHeaderSearch(e: DigiFormInputCustomEvent<HTMLInputElement>) {
@@ -78,10 +99,14 @@ export default function SearchForm(props: ISearchFormProps) {
     setHeaderSearch(newValue);
   }
 
+  function handleReset() {
+    props.setSearchData(null);
+  }
+
   return (
     <>
-      <section>
-        <h3>Sök yrken</h3>
+      <section className="searchWorkForm">
+        <h2>Sök yrken</h2>
         <form onSubmit={(e: FormEvent) => getWorkTitles(e)}>
           <DigiFormTextarea
             afLabel="Vad innehåller utbildningen du är intresserad av?"
@@ -110,6 +135,13 @@ export default function SearchForm(props: ISearchFormProps) {
           ></DigiFormInput>
           <DigiButton afType="submit" afVariation={ButtonVariation.PRIMARY}>
             Sök
+          </DigiButton>
+          <DigiButton
+            afType="button"
+            afVariation={ButtonVariation.SECONDARY}
+            onAfOnClick={handleReset}
+          >
+            Rensa sökresultat
           </DigiButton>
         </form>
       </section>
