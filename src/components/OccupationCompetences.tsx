@@ -9,9 +9,13 @@ interface IOccupationShowProps {
   occupationFound: IOccupation;
 }
 
-export const OccupationCompetences = (occupationFound: IOccupationShowProps) => {
+export const OccupationCompetences = (
+  occupationFound: IOccupationShowProps
+) => {
   const enrichedOccupationData = useContext(EnrichedOccupationContext);
-  const [topCompetencies, setTopCompetencies] = useState<IOccupationCompetencies[]>([]);
+  const [topCompetencies, setTopCompetencies] = useState<
+    IOccupationCompetencies[]
+  >([]);
 
   const matchingMetadata = enrichedOccupationData.stateEnrichedOccupation.find(
     (item) => item.id === occupationFound.occupationFound.id
@@ -24,7 +28,9 @@ export const OccupationCompetences = (occupationFound: IOccupationShowProps) => 
     if (competencies) {
       const getTopCompetencies = competencies.slice(0, 15);
 
-      if (JSON.stringify(topCompetencies) !== JSON.stringify(getTopCompetencies)) {
+      if (
+        JSON.stringify(topCompetencies) !== JSON.stringify(getTopCompetencies)
+      ) {
         setTopCompetencies(getTopCompetencies);
       }
     }

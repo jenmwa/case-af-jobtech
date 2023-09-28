@@ -16,6 +16,7 @@ import { StyledCompetenciesList } from "./styled/CompetenciesList";
 import { Link } from "react-router-dom";
 import { SSYKdataContext } from "../context/SSYKdataContext";
 import { EnrichedOccupationContext } from "../context/EnrichedOccupationContext";
+import { useSSYKDetails } from "../hooks/useSSYKDetails";
 
 interface ResultSummaryProps {
   occupation: IOccupation;
@@ -28,9 +29,14 @@ interface ICompetency {
 
 export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
   const [topFive, setTopFive] = useState<string[]>([]);
-  const [matchingText, setMatchingText] = useState<string | null>(null);
+  // const [matchingText, setMatchingText] = useState<string | null>(null);
   const ssykdata = useContext(SSYKdataContext);
   const { stateEnrichedOccupation } = useContext(EnrichedOccupationContext);
+
+  const matchingText = useSSYKDetails(
+    occupation.occupation_group.ssyk,
+    ssykdata
+  );
 
   useEffect(() => {
     const getData = () => {
@@ -42,33 +48,35 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
         const competencies: IOccupationCompetencies[] =
           results.metadata.enriched_candidates_term_frequency.competencies;
 
-        const topFive = competencies.slice(0, 5).map((comp: ICompetency) => comp.term);
+        const topFive = competencies
+          .slice(0, 5)
+          .map((comp: ICompetency) => comp.term);
         setTopFive(topFive);
       }
     };
 
-    const getJobSummary = async () => {
-      try {
-        const ssykToMatch = occupation.occupation_group.ssyk;
+    // const getJobSummary = async () => {
+    //   try {
+    //     const ssykToMatch = occupation.occupation_group.ssyk;
 
-        const indexOfMatch = ssykdata.variables[0].values.findIndex(
-          (value) => value === ssykToMatch
-        );
-        if (indexOfMatch !== -1) {
-          const matchingText = ssykdata.variables[0].valueTexts[indexOfMatch];
-          setMatchingText(matchingText);
-        } else {
-          console.log(`Matching SSYK Value: ${ssykToMatch} not found.`);
-          setMatchingText(null);
-        }
-      } catch (error) {
-        console.error("Error fetching SSYK data:", error);
-        setMatchingText(null);
-      }
-    };
+    //     const indexOfMatch = ssykdata.variables[0].values.findIndex(
+    //       (value) => value === ssykToMatch
+    //     );
+    //     if (indexOfMatch !== -1) {
+    //       const matchingText = ssykdata.variables[0].valueTexts[indexOfMatch];
+    //       setMatchingText(matchingText);
+    //     } else {
+    //       console.log(`Matching SSYK Value: ${ssykToMatch} not found.`);
+    //       setMatchingText(null);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching SSYK data:", error);
+    //     setMatchingText(null);
+    //   }
+    // };
 
     getData();
-    getJobSummary();
+    // getJobSummary();
   }, [occupation, ssykdata, stateEnrichedOccupation]);
 
   return (
@@ -76,7 +84,8 @@ export const ResultSummary = ({ occupation }: ResultSummaryProps) => {
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <h6>{matchingText && <p>Översikt: {matchingText}</p>}</h6>
         <p>
-          Tillhör yrkesgrupp: {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
+          Tillhör yrkesgrupp:{" "}
+          {occupation.occupation_group.occupation_group_label}(SSYK:{" "}
           {occupation.occupation_group.ssyk})
         </p>
 
