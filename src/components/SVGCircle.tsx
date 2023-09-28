@@ -9,14 +9,14 @@ interface ISVGCircleProps {
 export const SVGCircle = ({ title, value, text }: ISVGCircleProps) => {
   return (
     <>
-      <div style={{ width: "180px" }}>
+      <div style={{ width: "180px", margin: 0, padding: 0 }}>
         <h4>{title}</h4>
-        <svg width="185" height="185">
+        <svg width="180" height="180">
           <g transform="rotate(-190 100 100)">
             <circle
               r="65"
-              cx="108"
-              cy="108"
+              cx="109"
+              cy="109"
               fill="transparent"
               stroke={greyscaleBase}
               strokeWidth="2rem"
@@ -25,8 +25,8 @@ export const SVGCircle = ({ title, value, text }: ISVGCircleProps) => {
             ></circle>
             <circle
               r="65"
-              cx="108"
-              cy="108"
+              cx="109"
+              cy="109"
               fill="transparent"
               stroke={secondaryBase}
               strokeWidth="2rem"
