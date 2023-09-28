@@ -11,8 +11,7 @@ export const EnrichedOccupationContext = createContext<{
   dispatchEnrichedOccupation: React.Dispatch<IAction>;
 }>({
   stateEnrichedOccupation: [],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  dispatchEnrichedOccupation: function (value: IAction): void {
+  dispatchEnrichedOccupation: function (): void {
     throw new Error("Function not implemented.");
   }
 });
