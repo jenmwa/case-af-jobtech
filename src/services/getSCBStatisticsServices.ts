@@ -4,7 +4,7 @@ import {
   IGetSCBStatisticsSalaryResponse,
 } from "../models/IGetSCBStatisticsSalary";
 
-const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+// const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
 const URL =
   "https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0110/AM0110A/LonYrkeRegion4A";
 
@@ -39,7 +39,8 @@ export const getSCBStatisticsSalary = async (ssyk: string) => {
   };
   try {
     const response = await axios.post<IGetSCBStatisticsSalaryResponse>(
-      `${PROXY_URL}${URL}`,
+      // `${PROXY_URL}${URL}`,
+      `$${URL}`,
       REQUESTBODY
     );
     return response.data.data;
