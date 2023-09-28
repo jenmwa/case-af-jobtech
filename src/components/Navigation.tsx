@@ -19,6 +19,11 @@ interface INavigationProps {
 export const Navigation = ({ closeMenu }: INavigationProps) => {
   const navigate = useNavigate();
 
+  const clickHome = () => {
+    navigate("/");
+    closeMenu();
+  };
+
   const clickOccupation = () => {
     navigate("/sok-yrke");
     closeMenu();
@@ -47,10 +52,14 @@ export const Navigation = ({ closeMenu }: INavigationProps) => {
           afActiveIndicatorSize={
             NavigationVerticalMenuActiveIndicatorSize.PRIMARY
           }
-          afAriaLabel="text"
+          afAriaLabel="Menu"
         >
           <ul>
             <li>
+              <DigiNavigationVerticalMenuItem
+                af-text="Hem"
+                onAfOnClick={clickHome}
+              ></DigiNavigationVerticalMenuItem>
               <DigiNavigationVerticalMenuItem
                 af-text="Sök Yrke eller Utbildning"
                 af-active-subnav="false"
