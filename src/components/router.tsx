@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import { Layout } from "./Layout";
 import { Occupation } from "./Occupation";
 import Main from "./Main";
@@ -6,7 +6,7 @@ import { About } from "./About";
 import Education from "./Education";
 import Home from "./Home";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     element: <Layout></Layout>,
@@ -29,9 +29,9 @@ export const router = createBrowserRouter([
         element: <About></About>,
       },
       {
-        path:"/sok-utbildning",
+        path: "/sok-utbildning",
         element: <Education></Education>,
-      }
+      },
     ],
   },
 ]);
