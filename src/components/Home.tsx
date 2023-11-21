@@ -18,11 +18,11 @@ export default function Home() {
             Här kan du utforska olika utbildningar och se vilka yrkestitlar du
             kan axla efter din utbildning.
           </p>
-          <DigiButton onAfOnClick={() => {navigate('/sok-utbildning')}}>
-            Sök utbildning
-          </DigiButton>
           <DigiButton onAfOnClick={() => {navigate('/sok-yrke')}}>
             Utforska yrkestitlar
+          </DigiButton>
+           <DigiButton onAfOnClick={() => {navigate('/sok-utbildning')}}>
+            Sök utbildning
           </DigiButton>
         </div>
         <DigiMediaFigure className="img-container">
